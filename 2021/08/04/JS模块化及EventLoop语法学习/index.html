@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>JS模块化_Promise_EventLoop_宏任务和微任务 - jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS模块化_Promise_EventLoop_宏任务和微任务">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-04 14:20" pubdate>
+        2021年8月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS模块化_Promise_EventLoop_宏任务和微任务</h1>
+            
+            <div class="markdown-body">
+              <h1 id="ES6模块化"><a href="#ES6模块化" class="headerlink" title="ES6模块化"></a>ES6模块化</h1><h2 id="1-node中如何实现模块化"><a href="#1-node中如何实现模块化" class="headerlink" title="1. node中如何实现模块化"></a>1. node中如何实现模块化</h2><p>node.js 遵循了 CommonJS 的模块化规范。其中：</p>
+<ul>
+<li><p>导入其它模块使用 require() 方法</p>
+</li>
+<li><p>模块对外共享成员使用 module.exports 对象</p>
+</li>
+</ul>
+<p>模块化的好处：<br>大家都遵守同样的模块化规范写代码，降低了沟通的成本，极大方便了各个模块之间的相互调用，利人利己 。</p>
+<h2 id="2-模块化规范分类"><a href="#2-模块化规范分类" class="headerlink" title="2. 模块化规范分类"></a>2. 模块化规范分类</h2><p>在 ES6 模块化规范诞生之前，JavaScript 社区已经尝试并提出了 AMD、CMD、CommonJS 等模块化规范。<br>但是，这些由社区提出的模块化标准，还是存在一定的差异性与局限性、并不是浏览器与服务器通用的模块标准，例如：</p>
+<ul>
+<li> AMD 和 CMD 适用于浏览器端的 Javascript 模块化</li>
+<li> CommonJS 适用于服务器端的 Javascript 模块化<br>太多的模块化规范给开发者增加了学习的难度与开发的成本。因此，大一统的 ES6 模块化规范诞生了！</li>
+</ul>
+<h2 id="3-ES6-模块化规范"><a href="#3-ES6-模块化规范" class="headerlink" title="3. ES6 模块化规范"></a>3. ES6 模块化规范</h2><p>ES6 模块化规范是浏览器端与服务器端通用的模块化开发规范。它的出现极大的降低了前端开发者的模块化学习成本，开发者不需再额外学习 AMD、CMD 或 CommonJS 等模块化规范。<br>ES6 模块化规范中定义：</p>
+<ul>
+<li>每个 js 文件都是一个独立的模块</li>
+<li> 导入其它模块成员使用 import 关键字</li>
+<li>向外共享模块成员使用 export 关键字   </li>
+</ul>
+<h2 id="4-node-js中体验ES6-模块化"><a href="#4-node-js中体验ES6-模块化" class="headerlink" title="4. node.js中体验ES6 模块化"></a>4. node.js中体验ES6 模块化</h2><p>node.js 中默认仅支持 CommonJS 模块化规范，若想基于 node.js 体验与学习 ES6 的模块化语法，可以按照如下两个步骤进行配置：<br>① 确保安装了 v14.15.1 或更高版本的 node.js<br>②在终端中输入<code>npm init -y</code>生成package.json，然后在  package.json 的根节点中添加 “type”: “module” 节点 。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;module&quot;</span>,<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;8.es6&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;keywords&quot;</span>: [],<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;ISC&quot;</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="5-ES6-模块化的基本语法"><a href="#5-ES6-模块化的基本语法" class="headerlink" title="5. ES6 模块化的基本语法"></a>5. ES6 模块化的基本语法</h2><p>ES6 的模块化主要包含如下 3 种用法：<br>① 默认导出与默认导入<br>② 按需导出与按需导入<br>③ 直接导入并执行模块中的代码  </p>
+<h3 id="5-1-默认导出"><a href="#5-1-默认导出" class="headerlink" title="5.1 默认导出"></a>5.1 默认导出</h3><p>默认导出语法： <code>export default 需要导出的成员</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> n1=<span class="hljs-number">10</span>;<br><span class="hljs-keyword">let</span> n2=<span class="hljs-number">20</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"></span>)</span>&#123;<br><br>&#125;<br><br><span class="hljs-comment">// 使用export default 默认导出语法 向外共享n1和show 2个成员</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    n1,<br>    show<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-1默认导入"><a href="#5-1默认导入" class="headerlink" title="5.1默认导入"></a>5.1默认导入</h3><p>默认导入的语法： <code>import 接收名称 from &#39;模块标识符&#39;  </code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span>  m1 <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./01.默认导出.js&#x27;</span><br><span class="hljs-comment">// m1是自定义的名字</span><br><span class="hljs-built_in">console</span>.log(m1);<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-1-默认导出的注意事项"><a href="#5-1-默认导出的注意事项" class="headerlink" title="5.1 默认导出的注意事项"></a>5.1 默认导出的注意事项</h3><p>每个模块中，只允许使用唯一的一次 export default，否则会报错！  </p>
+<p>默认导入时的接收名称可以任意名称，只要是合法的成员名称即可 。</p>
+<h3 id="5-2按需导出"><a href="#5-2按需导出" class="headerlink" title="5.2按需导出"></a>5.2按需导出</h3><p>按需导出语法： <code>export 需要导出的成员</code> </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> s1 = <span class="hljs-string">&#x27;aaa&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> s2 = <span class="hljs-string">&#x27;ccc&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">say</span>(<span class="hljs-params"></span>) </span>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-按需导入"><a href="#5-2-按需导入" class="headerlink" title="5.2 按需导入"></a>5.2 按需导入</h3><p>按需导入的语法：<code>import &#123;s1&#125; from &#39;模块标识符&#39;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; s1, s2, say &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./03.按需导出.js&#x27;</span><br><br><span class="hljs-built_in">console</span>.log(s1);<br><span class="hljs-built_in">console</span>.log(s2);<br><span class="hljs-built_in">console</span>.log(say);<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2按需导入和按需导出的注意事项"><a href="#5-2按需导入和按需导出的注意事项" class="headerlink" title="5.2按需导入和按需导出的注意事项"></a>5.2按需导入和按需导出的注意事项</h3><p>① 每个模块中可以使用多次<strong>按需导出</strong><br>② <strong>按需导入</strong>的成员名称必须和<strong>按需导出</strong>的名称<strong>保持一致</strong><br>③ 按需导入时，可以使用<strong>as 关键字</strong>进行重命名<br>④ 按需导入可以和默认导入一起使用  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> info,&#123; s1, s2 <span class="hljs-keyword">as</span> str2, say &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./03.按需导出.js&#x27;</span><br><span class="hljs-comment">// info 为默认导入</span><br><br><span class="hljs-built_in">console</span>.log(s1);<br><span class="hljs-built_in">console</span>.log(str2);<br><span class="hljs-built_in">console</span>.log(say);<br><span class="hljs-built_in">console</span>.log(info);<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-直接导入并执行模块中的代码"><a href="#5-3-直接导入并执行模块中的代码" class="headerlink" title="5.3 直接导入并执行模块中的代码"></a>5.3 直接导入并执行模块中的代码</h3><p>如果只想单纯地执行某个模块中的代码，并不需要得到模块中向外共享的成员。此时，可以<strong>直接导入模块</strong>即会执行模块代码，示例代码如下：  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//05.直接运行模块中的代码</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">3</span>; i++)&#123;<br>    <span class="hljs-built_in">console</span>.log(i);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./05.直接运行模块中的代码.js&#x27;</span><br><span class="hljs-comment">// 导入后便会直接执行</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="Promise补充"><a href="#Promise补充" class="headerlink" title="Promise补充"></a>Promise补充</h1><h2 id="1-基于-then-fs-读取文件内容"><a href="#1-基于-then-fs-读取文件内容" class="headerlink" title="1. 基于 then-fs 读取文件内容"></a>1. 基于 then-fs 读取文件内容</h2><p>由于 node.js 官方提供的 fs 模块仅支持以回调函数的方式读取文件，不支持 Promise 的调用方式。因此，需要先运行如下的命令，安装 <code>then-fs</code> 这个第三方包，从而支持我们基于 Promise 的方式读取文件的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install then-fs<br></code></pre></td></tr></table></figure>
+
+<p>调用 then-fs 提供的 readFile() 方法，可以异步地读取文件的内容，它的返回值是 <strong>Promise 的实例对象</strong>。因此可以调用 .then() 方法为每个 Promise 异步操作指定成功和失败之后的回调函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 默认导入</span><br><span class="hljs-keyword">import</span> thenFs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;then-fs&#x27;</span><br><br>thenFs.readFile(<span class="hljs-string">&#x27;./files/1.txt&#x27;</span>,<span class="hljs-string">&#x27;utf-8&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">data</span>=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(data);<br>&#125;)<br>thenFs.readFile(<span class="hljs-string">&#x27;./files/2.txt&#x27;</span>,<span class="hljs-string">&#x27;utf-8&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">data</span>=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(data);<br>&#125;)<br>thenFs.readFile(<span class="hljs-string">&#x27;./files/3.txt&#x27;</span>,<span class="hljs-string">&#x27;utf-8&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">data</span>=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(data);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>注意：上述的代码无法保证文件的读取顺序，需要做进一步的改进！  </p>
+<p>如果上一个 .then() 方法中返回了一个新的 Promise 实例对象，则可以通过下一个 .then() 继续进行处理。通过 .then() 方法的链式调用，就解决了回调地狱的问题。  </p>
+<p>Promise 支持链式调用，从而来解决回调地狱的问题。示例代码如下  :</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> thenFs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;then-fs&#x27;</span><br><br><br>thenFs.readFile(<span class="hljs-string">&#x27;files/1.txt&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">r1</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(r1);<br>    <span class="hljs-comment">// 返回一个新的promise对象</span><br>    <span class="hljs-keyword">return</span> thenFs.readFile(<span class="hljs-string">&#x27;./files/2.txt&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>);<br>&#125;).then(<span class="hljs-function"><span class="hljs-params">r2</span> =&gt;</span> &#123;<br>    <span class="hljs-comment">// 获取第2次的读取结果</span><br>    <span class="hljs-built_in">console</span>.log(r2);<br>    <span class="hljs-comment">// 再次返回一个promise对象</span><br>    <span class="hljs-keyword">return</span> thenFs.readFile(<span class="hljs-string">&#x27;./files/3.txt&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>);<br>&#125;).then(<span class="hljs-function"><span class="hljs-params">r3</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(r3);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-基于promise封装读取文件的方法"><a href="#2-基于promise封装读取文件的方法" class="headerlink" title="2.基于promise封装读取文件的方法"></a>2.基于promise封装读取文件的方法</h2><p>方法的封装要求：<br>① 方法的名称要定义为 getFile<br>② 方法接收一个形参 fpath，表示要读取的文件的路径<br>③ 方法的返回值为 Promise 实例对象  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFile</span>(<span class="hljs-params">fpath</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve,reject</span>)</span>&#123;<br>        fs.readFile(fpath,<span class="hljs-string">&#x27;utf-8&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">err,data</span>)=&gt;</span>&#123;<br>            <span class="hljs-keyword">if</span>(err) <span class="hljs-keyword">return</span> reject(err);<br>            resolve(data);<br>        &#125;)<br>    &#125;)<br>&#125;<br><br>getFile(<span class="hljs-string">&#x27;./files/1.txt&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">r1</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(r1);<br>&#125;,<span class="hljs-function">(<span class="hljs-params">err</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(err.message);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h1 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h1><h2 id="1-JavaScript-是单线程的语言"><a href="#1-JavaScript-是单线程的语言" class="headerlink" title="1. JavaScript 是单线程的语言"></a>1. JavaScript 是单线程的语言</h2><p>JavaScript 是一门单线程执行的编程语言。也就是说，同一时间只能做一件事情。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041755351.png" srcset="/img/loading.gif" lazyload alt="image-20210804175533250"></p>
+<p>单线程执行任务队列的问题：<br>如果前一个任务非常耗时，则后续的任务就不得不一直等待，从而导致程序假死的问题。</p>
+<h2 id="2-同步任务和异步任务"><a href="#2-同步任务和异步任务" class="headerlink" title="2. 同步任务和异步任务"></a>2. 同步任务和异步任务</h2><p>为了防止某个耗时任务导致程序假死的问题，JavaScript 把待执行的任务分为了两类：<br>① 同步任务（synchronous）</p>
+<ul>
+<li> 又叫做非耗时任务，指的是在主线程上排队执行的那些任务</li>
+<li> 只有前一个任务执行完毕，才能执行后一个任务</li>
+</ul>
+<p> ② 异步任务（asynchronous）</p>
+<ul>
+<li>又叫做耗时任务，<em>异步任务由 JavaScript 委托给<strong>宿主环境</strong>进行执行</em></li>
+<li>当异步任务执行完成后，会通知 JavaScript 主线程执行异步任务的回调函数 。</li>
+</ul>
+<h2 id="3-同步任务和异步任务的执行过程"><a href="#3-同步任务和异步任务的执行过程" class="headerlink" title="3.同步任务和异步任务的执行过程"></a>3.同步任务和异步任务的执行过程</h2><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041813594.png" srcset="/img/loading.gif" lazyload alt="image-20210804181315494" style="zoom:67%;" />
+
+<p>① 同步任务由 JavaScript 主线程次序执行。<br>② 异步任务<strong>委托给</strong>宿主环境执行。<br>③ 已完成的异步任务<strong>对应的回调函数</strong>，会被加入到任务队列中等待执行。<br>④ JavaScript 主线程的<em><strong>执行栈</strong></em>被清空后，会读取任务队列中的回调函数，次序执行。<br>⑤ JavaScript 主线程不断重复上面的第 4 步 。</p>
+<h2 id="4-EventLoop的基本概念"><a href="#4-EventLoop的基本概念" class="headerlink" title="4.EventLoop的基本概念"></a>4.EventLoop的基本概念</h2><p>JavaScript 主线程从“任务队列”中读取异步任务的回调函数，放到执行栈中依次执行。这个过程是循环不断的，所以整个的这种运行机制又称为 EventLoop（事件循环）。  </p>
+<img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041815433.png" srcset="/img/loading.gif" lazyload alt="image-20210804181557376" style="zoom:67%;" />
+
+<p>输出顺序：ADCB</p>
+<ul>
+<li>A 和 D 属于同步任务。会根据代码的先后顺序依次被执行。</li>
+<li>C 和 B 属于异步任务。它们的回调函数会被加入到任务队列中，等待主线程空闲时再执行 。</li>
+</ul>
+<h1 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h1><h2 id="1-什么是宏任务和微任务"><a href="#1-什么是宏任务和微任务" class="headerlink" title="1. 什么是宏任务和微任务"></a>1. 什么是宏任务和微任务</h2><p>JavaScript 把异步任务又做了进一步的划分，异步任务又分为两类，分别是：</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041820682.png" srcset="/img/loading.gif" lazyload alt="image-20210804182047617"></p>
+<p>① 宏任务（macrotask）</p>
+<ul>
+<li>异步 Ajax 请求、</li>
+<li>setTimeout、setInterval、</li>
+<li>文件操作</li>
+<li>其它宏任务</li>
+</ul>
+<p>② 微任务（microtask）</p>
+<ul>
+<li>Promise.then、.catch 和 .finally</li>
+<li>process.nextTick</li>
+<li>其它微任务  </li>
+</ul>
+<h2 id="2-宏任务和微任务的执行顺序"><a href="#2-宏任务和微任务的执行顺序" class="headerlink" title="2.宏任务和微任务的执行顺序"></a>2.宏任务和微任务的执行顺序</h2><p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041822151.png" srcset="/img/loading.gif" lazyload alt="image-20210804182243122"></p>
+<p>每一个宏任务执行完之后，都会检查<strong>是否存在待执行的微任务</strong>。</p>
+<p>如果有，则执行完所有微任务之后，再继续执行下一个宏任务。  </p>
+<p><strong>宏任务和微任务同时存在的情况下，会先执行微任务。</strong></p>
+<h2 id="3-生活举例"><a href="#3-生活举例" class="headerlink" title="3.生活举例"></a>3.生活举例</h2><p>① 小云和小腾去银行办业务。首先，需要取号之后进行排队</p>
+<ul>
+<li>宏任务队列</li>
+</ul>
+<p>② 假设当前银行网点只有一个柜员，小云在办理存款业务时，小腾只能等待</p>
+<ul>
+<li>单线程，宏任务按次序执行</li>
+</ul>
+<p>③ 小云办完存款业务后，柜员询问他是否还想办理其它业务？</p>
+<ul>
+<li>当前宏任务执行完，检查是否有微任务</li>
+</ul>
+<p>④ 小云告诉柜员：想要买理财产品、再办个信用卡、最后再兑换点马年纪念币？</p>
+<ul>
+<li>执行微任务，后续宏任务被推迟</li>
+</ul>
+<p>⑤ 小云离开柜台后，柜员开始为小腾办理业务</p>
+<ul>
+<li>所有微任务执行完毕，开始执行下一个宏任务  </li>
+</ul>
+<h2 id="4-代码举例"><a href="#4-代码举例" class="headerlink" title="4.代码举例"></a>4.代码举例</h2><p>例子1：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 宏任务</span><br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br>&#125;, <span class="hljs-number">0</span>);<br><br><span class="hljs-comment">// Promise本身是同步的，但它的then方法和catch方法是异步的</span><br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>    resolve();<br>&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>);<br></code></pre></td></tr></table></figure>
+
+<p>值得注意：<code>Promise()</code>本身是同步的，尽管它的then方法和catch方法是异步的。</p>
+<p>输出顺序：2431</p>
+<p>分析：</p>
+<p>1.先执行所有的同步任务</p>
+<ul>
+<li>new Promise()和console.log(4)</li>
+</ul>
+<p>2.再执行微任务</p>
+<ul>
+<li>.then()</li>
+</ul>
+<p>3.接着执行宏任务</p>
+<ul>
+<li>setTimeout()</li>
+</ul>
+<p>例子2：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 1.同步 </span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br><br><span class="hljs-comment">// 宏任务</span><br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>);<br>        resolve();<br>    &#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>);<br>    &#125;)<br>&#125;, <span class="hljs-number">0</span>);<br><br><br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>&#123;<br>    <span class="hljs-comment">// 2.Promise()是同步的</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>);<br>    resolve();<br>&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-comment">// 3.then()方法是异步微任务</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">6</span>);<br>&#125;)<br><br><span class="hljs-comment">// 宏任务</span><br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">7</span>);<br>    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">8</span>);<br>        resolve();<br>    &#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">9</span>);<br>    &#125;)<br>&#125;, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/es6/">es6</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">模块化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/EventLoop/">EventLoop</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AE%8F%E4%BB%BB%E5%8A%A1/">宏任务</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BB%BB%E5%8A%A1/">微任务</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/04/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96-webpack/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端工程化--webpack</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/02/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">网络请求学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

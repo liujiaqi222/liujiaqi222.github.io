@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>网络请求学习笔记 - jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="网络请求学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-02 14:01" pubdate>
+        2021年8月2日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">网络请求学习笔记</h1>
+            
+            <div class="markdown-body">
+              <p>笔记基于：<a target="_blank" rel="noopener" href="https://zh.javascript.info/">https://zh.javascript.info/</a></p>
+<h1 id="URL对象"><a href="#URL对象" class="headerlink" title="URL对象"></a>URL对象</h1><h2 id="创建URL对象"><a href="#创建URL对象" class="headerlink" title="创建URL对象"></a>创建URL对象</h2><p>创建一个新的 <code>url</code> 对象的语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">new</span> URL(url,[base])<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>url</code></strong> —— 完整的 URL，或者仅路径（如果设置了 base），</li>
+<li><strong><code>base</code></strong> —— 可选的 base URL：如果设置了此参数，且参数 <code>url</code> 只有路径，则会根据这个 <code>base</code> 生成 URL。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://jiaqicoder.com/tags?id=Vue&amp;num=1&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(url);<br></code></pre></td></tr></table></figure>
+
+<p>输出的结果如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">URL &#123;<br>  <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;https://jiaqicoder.com/tags?id=Vue&amp;num=1&#x27;</span>,<br>  <span class="hljs-attr">origin</span>: <span class="hljs-string">&#x27;https://jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">protocol</span>: <span class="hljs-string">&#x27;https:&#x27;</span>,<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">pathname</span>: <span class="hljs-string">&#x27;/tags&#x27;</span>,<br>  <span class="hljs-attr">search</span>: <span class="hljs-string">&#x27;?id=Vue&amp;num=1&#x27;</span>,<br>  <span class="hljs-attr">searchParams</span>: URLSearchParams &#123; <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-string">&#x27;Vue&#x27;</span>, <span class="hljs-string">&#x27;num&#x27;</span> =&gt; <span class="hljs-string">&#x27;1&#x27;</span> &#125;,<br>  <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>下面的2个URL结果是一样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> url1 = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;/tag&#x27;</span>,<span class="hljs-string">&#x27;https://www.jiaqicoder.com&#x27;</span>);<br><span class="hljs-keyword">let</span> url2 = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://www.jiaqicoder.com/tag&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(url1);<br><span class="hljs-built_in">console</span>.log(url2);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">URL &#123;<br>  <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;https://www.jiaqicoder.com/tag&#x27;</span>,<br>  <span class="hljs-attr">origin</span>: <span class="hljs-string">&#x27;https://www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">protocol</span>: <span class="hljs-string">&#x27;https:&#x27;</span>,<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">pathname</span>: <span class="hljs-string">&#x27;/tag&#x27;</span>,<br>  <span class="hljs-attr">search</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">searchParams</span>: URLSearchParams &#123;&#125;,<br>  <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><code>URL</code> 对象立即允许我们访问其组件，因此这是一个解析 url 的好方法，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://www.jiaqicoder.com/tag&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(url.protocol); <span class="hljs-comment">//https</span><br><span class="hljs-built_in">console</span>.log(url.host); <span class="hljs-comment">//www.jiaqicoder.com</span><br><span class="hljs-built_in">console</span>.log(url.pathname); <span class="hljs-comment">//tag</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="URL-组成"><a href="#URL-组成" class="headerlink" title="URL 组成"></a>URL 组成</h3><p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20210802142354.png" srcset="/img/loading.gif" lazyload alt="image-20210802142354919"></p>
+<ul>
+<li><code>href</code> 是完整的 URL，与 <code>url.toString()</code> 相同</li>
+<li><code>protocol</code> 以冒号字符 <code>:</code> 结尾</li>
+<li><code>search</code> —— 以问号 <code>?</code> 开头的一串参数</li>
+<li><code>hash</code> 以哈希字符 <code>#</code> 开头</li>
+<li>如果存在 HTTP 身份验证，则这里可能还会有 <code>user</code> 和 <code>password</code> 属性：<code>http://login:password@site.com</code>（图片上没有，很少被用到）。</li>
+</ul>
+<h2 id="SearchParams-‘-…’"><a href="#SearchParams-‘-…’" class="headerlink" title="SearchParams ‘?…’"></a>SearchParams ‘?…’</h2><p>假设，我们想要创建一个具有给定搜索参数的 url，例如：<code>https://google.com/search?query=JavaScript</code>。</p>
+<p>尽管，可以在url字符串中提供它们：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://google.com/search?query=JavaScript&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>但是，如果参数中包含空格，非拉丁字母等（具体参见下文），参数就需要被编码。</p>
+<p>因此，有一个 URL 属性用于解决这个问题：<code>url.searchParams</code>，<a target="_blank" rel="noopener" href="https://url.spec.whatwg.org/#urlsearchparams">URLSearchParams</a> 类型的对象。</p>
+<blockquote>
+<p>关于URLSearchParams的用法例子，<a target="_blank" rel="noopener" href="https://jiaqicoder.com/2021/08/01/axios%E5%AD%A6%E4%B9%A0/#POST-%E8%AF%B7%E6%B1%82">点击查看</a>。</p>
+</blockquote>
+<p>它为搜索参数提供了简便的方法：</p>
+<ul>
+<li><strong><code>append(name, value)</code></strong> —— 按照 <code>name</code> 添加参数，</li>
+<li><strong><code>delete(name)</code></strong> —— 按照 <code>name</code> 移除参数，</li>
+<li><strong><code>get(name)</code></strong> —— 按照 <code>name</code> 获取参数，</li>
+<li><strong><code>getAll(name)</code></strong> —— 获取相同 <code>name</code> 的所有参数（这是可行的，例如 <code>?user=John&amp;user=Pete</code>），</li>
+<li><strong><code>has(name)</code></strong> —— 按照 <code>name</code> 检查参数是否存在，</li>
+<li><strong><code>set(name, value)</code></strong> —— set/replace 参数，</li>
+<li><strong><code>sort()</code></strong> —— 按 name 对参数进行排序，很少使用，</li>
+<li>……并且它是可迭代的，类似于 <code>Map</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://www.jiaqicoder.com/search&#x27;</span>);<br><br><span class="hljs-comment">// 1.1添加一个参数</span><br>url.searchParams.set(<span class="hljs-string">&#x27;q&#x27;</span>,<span class="hljs-string">&#x27;test me!&#x27;</span>);<br><br><span class="hljs-comment">// 1.1参数会自动被编码 https://www.jiaqicoder.com/search?q=test+me%21</span><br><span class="hljs-built_in">console</span>.log(url.href);<br><br><span class="hljs-comment">// 1.2再添加一个参数</span><br>url.searchParams.set(<span class="hljs-string">&#x27;tbs&#x27;</span>,<span class="hljs-string">&#x27;qdr:y&#x27;</span>);<br><span class="hljs-comment">// 再添加一个参数 https://www.jiaqicoder.com/search?q=test+me%21&amp;tbs=qdr%3Ay</span><br><span class="hljs-built_in">console</span>.log(url.href);<br><br><span class="hljs-comment">// 1.3 url上的参数</span><br><span class="hljs-comment">// &#123; &#x27;q&#x27; =&gt; &#x27;test me!&#x27;, &#x27;tbs&#x27; =&gt; &#x27;qdr:y&#x27; &#125;</span><br><span class="hljs-built_in">console</span>.log(url.searchParams);<br><br><span class="hljs-comment">// 1.4 遍历参数</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> [name,value] <span class="hljs-keyword">of</span> url.searchParams)&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;name&#125;</span>=<span class="hljs-subst">$&#123;value&#125;</span>`</span>);<br>&#125;<br><span class="hljs-comment">// q=test me!</span><br><span class="hljs-comment">// tbs=qdr:y</span><br></code></pre></td></tr></table></figure>
+
+<p>此时url对象所有属性如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">URL &#123;<br>  <span class="hljs-attr">href</span>: <span class="hljs-string">&#x27;https://www.jiaqicoder.com/search?q=test+me%21&amp;tbs=qdr%3Ay&#x27;</span>,<br>  <span class="hljs-attr">origin</span>: <span class="hljs-string">&#x27;https://www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">protocol</span>: <span class="hljs-string">&#x27;https:&#x27;</span>,<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;www.jiaqicoder.com&#x27;</span>,<br>  <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">pathname</span>: <span class="hljs-string">&#x27;/search&#x27;</span>,<br>  <span class="hljs-attr">search</span>: <span class="hljs-string">&#x27;?q=test+me%21&amp;tbs=qdr%3Ay&#x27;</span>,<br>  <span class="hljs-attr">searchParams</span>: URLSearchParams &#123; <span class="hljs-string">&#x27;q&#x27;</span> =&gt; <span class="hljs-string">&#x27;test me!&#x27;</span>, <span class="hljs-string">&#x27;tbs&#x27;</span> =&gt; <span class="hljs-string">&#x27;qdr:y&#x27;</span> &#125;,<br>  <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc3986">RFC3986</a> 标准定义了 URL 中允许哪些字符，不允许哪些字符。</p>
+<p>那些不被允许的字符必须被编码，例如非拉丁字母和空格 —— 用其 UTF-8 代码代替，前缀为 <code>%</code>，例如 <code>%20</code>（由于历史原因，<strong>空格可以用 <code>+</code> 编码</strong>，但这是一个例外）。</p>
+<p>好消息是 <code>URL</code> 对象会自动处理这些。我们仅需提供未编码的参数，然后将 <code>URL</code> 转换为字符串：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在此示例中使用一些西里尔字符</span><br><br><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&#x27;https://ru.wikipedia.org/wiki/Тест&#x27;</span>);<br><br>url.searchParams.set(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;ъ&#x27;</span>);<br>alert(url); <span class="hljs-comment">//https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82?key=%D1%8A</span><br></code></pre></td></tr></table></figure>
+
+<p>正如你所看到的，url 路径中的 <code>Тест</code> 和 <code>ъ</code> 参数都被编码了。URL 变长了，因为每个西里尔字母用 UTF-8 编码的两个字节表示，因此这里有两个 <code>%..</code> 实体（entities）。</p>
+<h2 id="编码字符串"><a href="#编码字符串" class="headerlink" title="编码字符串"></a>编码字符串</h2><p>在过去，在出现 <code>URL</code> 对象之前，人们使用字符串作为 URL。</p>
+<p>而现在，<code>URL</code> 对象通常更方便，但是仍然可以使用字符串。在很多情况下，使用字符串可以使代码更短。</p>
+<p>如果使用字符串，则需要手动编码/解码特殊字符。</p>
+<p>下面是用于编码/解码 URL 的内建函数：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI</a> —— 编码整个 URL。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI</a> —— 解码为编码前的状态。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent</a> —— 编码 URL 组件，例如搜索参数，或者 hash，或者 pathname。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent</a> —— 解码为编码前的状态。</li>
+</ul>
+<p>一个自然的问题：“<code>encodeURIComponent</code> 和 <code>encodeURI</code> 之间有什么区别？我们什么时候应该使用哪个？”</p>
+<p>如果我们看一个 URL，就容易理解了，它被分解为本文上面图中所示的组件形式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">https:<span class="hljs-comment">//site.com:8080/path/page?p1=v1&amp;p2=v2#hash</span><br></code></pre></td></tr></table></figure>
+
+<p>正如我们所看到的，在 URL 中 <code>:</code>，<code>?</code>，<code>=</code>，<code>&amp;</code>，<code>#</code> 这类字符是被允许的。</p>
+<p>另一方面，对于 URL 的单个组件，例如一个搜索参数，则必须对这些字符进行编码，以免破坏 URL 的格式。</p>
+<ul>
+<li><code>encodeURI</code> 仅编码 URL 中完全禁止的字符。</li>
+<li><code>encodeURIComponent</code> 也编码这类字符，此外，还编码 <code>#</code>，<code>$</code>，<code>&amp;</code>，<code>+</code>，<code>,</code>，<code>/</code>，<code>:</code>，<code>;</code>，<code>=</code>，<code>?</code> 和 <code>@</code> 字符。</li>
+</ul>
+<p>所以，对于一个 URL 整体，我们可以使用 <code>encodeURI</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在 url 路径中使用西里尔字符</span><br><span class="hljs-keyword">let</span> url = <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">&#x27;http://site.com/привет&#x27;</span>);<br><br>alert(url); <span class="hljs-comment">// http://site.com/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82</span><br></code></pre></td></tr></table></figure>
+
+<p>……而对于 URL 参数，我们应该改用 <code>encodeURIComponent</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> music = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">&#x27;Rock&amp;Roll&#x27;</span>);<br><br><span class="hljs-keyword">let</span> url = <span class="hljs-string">`https://google.com/search?q=<span class="hljs-subst">$&#123;music&#125;</span>`</span>;<br>alert(url); <span class="hljs-comment">// https://google.com/search?q=Rock%26Roll</span><br></code></pre></td></tr></table></figure>
+
+<p>将其与 <code>encodeURI</code> 进行比较：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> music = <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">&#x27;Rock&amp;Roll&#x27;</span>);<br><br><span class="hljs-keyword">let</span> url = <span class="hljs-string">`https://google.com/search?q=<span class="hljs-subst">$&#123;music&#125;</span>`</span>;<br>alert(url); <span class="hljs-comment">// https://google.com/search?q=Rock&amp;Roll</span><br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到，<code>encodeURI</code> 没有对 <code>&amp;</code> 进行编码，因为它对于整个 URL 来说是合法的字符。</p>
+<p>但是，我们应该编码在搜索参数中的 <code>&amp;</code> 字符，否则，我们将得到 <code>q=Rock&amp;Roll</code> —— 实际上是 <code>q=Rock</code> 加上某个晦涩的参数 <code>Roll</code>。不符合预期。</p>
+<p>因此，对于每个搜索参数，我们应该使用 <code>encodeURIComponent</code>，以将其正确地插入到 URL 字符串中。最安全的方式是对 name 和 value 都进行编码，除非我们能够绝对确保它只包含允许的字符。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/fetch/">fetch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/url/">url</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/04/JS%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8F%8AEventLoop%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JS模块化_Promise_EventLoop_宏任务和微任务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/02/Vue%E8%B7%AF%E7%94%B1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Vue路由学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
