@@ -18,7 +18,7 @@
   <meta name="author" content="刘嘉琪">
   <meta name="keywords" content="">
   
-  <title>Vue-cli学习 - jiaqi&#39;blog</title>
+  <title>Vue-cli学习_ElementUI_axios 拦截器_proxy代理 - jiaqi&#39;blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue-cli学习">
+            <span class="h2" id="subtitle" title="Vue-cli学习_ElementUI_axios 拦截器_proxy代理">
               
             </span>
 
@@ -233,7 +233,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue-cli学习</h1>
+            <h1 style="display: none">Vue-cli学习_ElementUI_axios 拦截器_proxy代理</h1>
             
             <div class="markdown-body">
               <h1 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h1><h2 id="1-什么是-vue-cli"><a href="#1-什么是-vue-cli" class="headerlink" title="1.什么是 vue-cli"></a>1.什么是 vue-cli</h2><p>vue-cli（俗称：vue 脚手架）是 vue 官方提供的、快速生成 vue 工程化项目的工具。</p>
@@ -371,8 +371,8 @@
 <p>注意：失败的回调函数可以被省略！  </p>
 <h3 id="4-1-请求拦截器-–-Token-认证"><a href="#4-1-请求拦截器-–-Token-认证" class="headerlink" title="4.1 请求拦截器 – Token 认证"></a>4.1 请求拦截器 – Token 认证</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span>;<br><br>axios.defaults.baseURL=<span class="hljs-string">&#x27;https://www.escook.cn&#x27;</span>;<br><br><span class="hljs-comment">//配置请求拦截器</span><br>axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>    <span class="hljs-comment">//为当前请求配置token认证字段</span><br>    config.headers.Authorization=<span class="hljs-string">&#x27;Bearer xxx&#x27;</span>;<br>    <span class="hljs-comment">// 一定要把config return出去</span><br>    <span class="hljs-keyword">return</span> config;<br>&#125;)<br><br>Vue.prototype.$http=axios;<br></code></pre></td></tr></table></figure>
 
-<h3 id="4-2-请求拦截器-–-展示-Loading-效果"><a href="#4-2-请求拦截器-–-展示-Loading-效果" class="headerlink" title="4.2 请求拦截器 – 展示 Loading 效果"></a>4.2 请求拦截器 – 展示 Loading 效果</h3><p>借助于 element ui 提供的 Loading 效果组件（<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/loading%EF%BC%89%E5%8F%AF%E4%BB%A5%E6%96%B9%E4%BE%BF%E7%9A%84%E5%AE%9E%E7%8E%B0">https://element.eleme.cn/#/zh-CN/component/loading）可以方便的实现</a> Loading 效果的展示：  </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//1. 按需导入Loading效果组件</span><br><span class="hljs-keyword">import</span> &#123;Laoding&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><br><span class="hljs-comment">//2. 声明变量，用来存储loading组件的实例对象</span><br><span class="hljs-keyword">let</span> loadingInstance = <span class="hljs-literal">null</span>;<br><br><span class="hljs-comment">// 配置请求的拦截器</span><br>axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-params">config</span>=&gt;</span>&#123;<br>    <span class="hljs-comment">// 3.调用loading组件的servie()方法，创建Loading组件的实例，并全屏展示loading效果</span><br>    		loadingInstance=Loading.sevice(&#123;<span class="hljs-attr">fullsreen</span>:<span class="hljs-literal">true</span>&#125;);<br> <span class="hljs-keyword">return</span> config;<br>&#125;)<br></code></pre></td></tr></table></figure>
+<h3 id="4-2-请求拦截器-–-展示-Loading-效果"><a href="#4-2-请求拦截器-–-展示-Loading-效果" class="headerlink" title="4.2 请求拦截器 – 展示 Loading 效果"></a>4.2 请求拦截器 – 展示 Loading 效果</h3><p>借助于 element ui 提供的 Loading 效果组件 （<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/loading%EF%BC%89">https://element.eleme.cn/#/zh-CN/component/loading）</a> 可以方便的实现 Loading 效果的展示：  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//1. 按需导入Loading效果组件</span><br><span class="hljs-keyword">import</span> &#123;Loading&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><br><span class="hljs-comment">//2. 声明变量，用来存储loading组件的实例对象</span><br><span class="hljs-keyword">let</span> loadingInstance = <span class="hljs-literal">null</span>;<br><br><span class="hljs-comment">// 配置请求的拦截器</span><br>axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-params">config</span>=&gt;</span>&#123;<br>    <span class="hljs-comment">// 3.调用loading组件的servie()方法，创建Loading组件的实例，并全屏展示loading效果</span><br>    		loadingInstance=Loading.service(&#123;<span class="hljs-attr">fullsreen</span>:<span class="hljs-literal">true</span>&#125;);<br> <span class="hljs-keyword">return</span> config;<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <p>不过，当加载完成后，loading的效果并没有被关闭，因此需要使用后面的响应拦截器。</p>
 <h2 id="5-配置响应拦截器"><a href="#5-配置响应拦截器" class="headerlink" title="5. 配置响应拦截器"></a>5. 配置响应拦截器</h2><p>通过 <code>axios.interceptors.response.use(成功的回调, 失败的回调)</code> 可以配置响应拦截器。示例代码如下：</p>

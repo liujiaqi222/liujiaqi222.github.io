@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.8k 字
+      8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      88
+      120
        分钟
     </span>
   
@@ -491,7 +491,7 @@
 <h3 id="2-9-自定义验证规则"><a href="#2-9-自定义验证规则" class="headerlink" title="2.9 自定义验证规则"></a>2.9 自定义验证规则</h3><p>对于年龄大小的验证，element-ui并没有提供相应的验证规则。因此，可以<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/form#zi-ding-yi-xiao-yan-gui-ze">自定义验证规则</a>。在data中声明一个验证年龄的函数，接着通过规则中的validator属性调用它。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-comment">// 声明校验年龄的函数</span><br>  <span class="hljs-keyword">let</span> checkAge=<span class="hljs-function">(<span class="hljs-params">rule,value,callback</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(rule);<br>    <span class="hljs-comment">// 判断年龄是否为整数</span><br>    <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">Number</span>.isInteger(value))&#123;<br>      <span class="hljs-keyword">return</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;年龄必须为整数&#x27;</span>));<br>    &#125;<br>    <span class="hljs-keyword">if</span>(value&gt;<span class="hljs-number">100</span>||value&lt;<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> callback(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;年龄必须在1~100之间!&#x27;</span>));<br>    <span class="hljs-comment">// 直接调用callback函数 代表验证通过</span><br>    callback();<br>  &#125;;<br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-comment">//表单的验证规则对象</span><br>    <span class="hljs-attr">formRules</span>: &#123;<br>      <span class="hljs-attr">age</span>: [<br>        &#123; <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;年龄为必填项&quot;</span>, <span class="hljs-attr">trigger</span>: <span class="hljs-string">&quot;blur&quot;</span> &#125;,<br>        &#123;<span class="hljs-attr">validator</span>: checkAge, <span class="hljs-attr">trigger</span>: <span class="hljs-string">&#x27;blur&#x27;</span> &#125;<br>        ],<br>    &#125;,<br>    <span class="hljs-comment">// 声明校验年龄的函数</span><br>  &#125;;<br>&#125;,<br></code></pre></td></tr></table></figure>
 
-<h3 id="2-10"><a href="#2-10" class="headerlink" title="2.10"></a>2.10</h3><p>在关闭表单后，希望重置表单的内容，并且重置校验的结果。以免第二次打开，还是上一次的结果。</p>
+<h3 id="2-10-清空表单"><a href="#2-10-清空表单" class="headerlink" title="2.10 清空表单"></a>2.10 清空表单</h3><p>在关闭表单后，希望重置表单的内容，并且重置校验的结果。以免第二次打开，还是上一次的结果。</p>
 <img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108112208120.png" srcset="/img/loading.gif" lazyload alt="image-20210811220826024" style="zoom:50%;" />
 
 <p>element-ui的弹出框组件，有如下几种事件。可以通过监听关闭事件，来实现清空表单的功能。</p>
@@ -564,6 +564,149 @@
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">methods: &#123;<br>  <span class="hljs-comment">// 监听对话框关闭的事件</span><br>  <span class="hljs-function"><span class="hljs-title">onDialogClose</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-comment">//拿到Form表单的引用，调用resetFields</span><br>    <span class="hljs-built_in">this</span>.$refs.myaddForm.resetFields();<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;ok&quot;</span>);<br>  &#125;,<br>&#125;,<br></code></pre></td></tr></table></figure>
 
+<h3 id="2-11-处理确认按钮"><a href="#2-11-处理确认按钮" class="headerlink" title="2.11 处理确认按钮"></a>2.11 处理确认按钮</h3><p>当点击了确认按钮后，需要对表单的数据进行预校验，当表单验证通过后，再发送ajax请求。</p>
+<img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108120933989.png" srcset="/img/loading.gif" lazyload alt="image-20210812093321898" style="zoom:33%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt;<br>  &lt;el-button @click=&quot;dialogVisible = false&quot;&gt;取 消&lt;/el-button&gt;<br>  &lt;el-button type=&quot;primary&quot; @click=&quot;onAddNewUser&quot;<br>    &gt;确 定&lt;/el-button<br>  &gt;<br>&lt;/span&gt;<br></code></pre></td></tr></table></figure>
+
+<p>新声明一个<code>onAddNewUser</code>的的函数，处理点击确认按钮的事件。Element-ui的表单组件有一个validate方法，用于对整个表单进行校验。</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法名</th>
+<th align="left">说明</th>
+<th align="left">参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">validate</td>
+<td align="left">对整个表单进行校验的方法，参数为一个回调函数。该回调函数会在校验结束后被调用，并传入两个参数：是否校验成功和未通过校验的字段。若不传入回调函数，则会返回一个 promise</td>
+<td align="left">Function(callback: Function(boolean, object))</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">onAddNewUser</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.$refs.myaddForm.validate (valid) =&gt; &#123;<br>      <span class="hljs-comment">//验证不通过直接返回</span><br>    <span class="hljs-keyword">if</span> (!valid) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-comment">// 需要执行添加业务的处理 发送ajax请求</span><br>  &#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-项目用到的api"><a href="#3-项目用到的api" class="headerlink" title="3. 项目用到的api"></a>3. 项目用到的api</h2><h3 id="3-1-请求根路径"><a href="#3-1-请求根路径" class="headerlink" title="3.1 请求根路径"></a>3.1 请求根路径</h3><p><a target="_blank" rel="noopener" href="https://www.escook.cn/">https://www.escook.cn/</a></p>
+<h3 id="3-2-获取用户列表"><a href="#3-2-获取用户列表" class="headerlink" title="3.2 获取用户列表"></a>3.2 获取用户列表</h3><p>请求方式：</p>
+<ul>
+<li>GET  </li>
+</ul>
+<p>请求地址：</p>
+<ul>
+<li>/api/users</li>
+</ul>
+<p>请求参数：</p>
+<ul>
+<li>无  </li>
+</ul>
+<h3 id="3-3-添加用户"><a href="#3-3-添加用户" class="headerlink" title="3.3 添加用户"></a>3.3 添加用户</h3><p>请求方式：</p>
+<ul>
+<li>POST</li>
+</ul>
+<p>请求地址：</p>
+<ul>
+<li>/api/users</li>
+</ul>
+<p>请求参数：</p>
+<ul>
+<li><p>name 用户姓名（1 - 15 个字符之间）</p>
+</li>
+<li><p>age 用户年龄（1 - 100 之间）</p>
+</li>
+<li><p>position 职位（1 - 10 个字符之间）</p>
+</li>
+</ul>
+<p>请求结果：</p>
+<ul>
+<li>status 的值等于 0 表示成功  </li>
+</ul>
+<h3 id="3-4-删除用户"><a href="#3-4-删除用户" class="headerlink" title="3.4 删除用户"></a>3.4 删除用户</h3><p>请求方式：</p>
+<ul>
+<li>delete</li>
+</ul>
+<p>请求地址：</p>
+<ul>
+<li>/api/users/:id</li>
+</ul>
+<p>请求参数：</p>
+<ul>
+<li>id 要删除的用户的Id（URL参数）</li>
+</ul>
+<p>请求结果：</p>
+<ul>
+<li>status 的值等于 0 表示成功  </li>
+</ul>
+<h3 id="3-5-获取用户信息"><a href="#3-5-获取用户信息" class="headerlink" title="3.5 获取用户信息"></a>3.5 获取用户信息</h3><p>请求方式：</p>
+<ul>
+<li>GET</li>
+</ul>
+<p>请求地址：</p>
+<ul>
+<li>/api/users/:id</li>
+</ul>
+<p>请求参数：</p>
+<ul>
+<li>id 要查询的用户的Id（URL参数）</li>
+</ul>
+<p>请求结果：</p>
+<ul>
+<li>status 的值等于 0 表示成功  </li>
+</ul>
+<h2 id="4-发送ajax请求"><a href="#4-发送ajax请求" class="headerlink" title="4. 发送ajax请求"></a>4. 发送ajax请求</h2><h3 id="4-1-发送添加用户的请求"><a href="#4-1-发送添加用户的请求" class="headerlink" title="4.1 发送添加用户的请求"></a>4.1 发送添加用户的请求</h3><p>在UserList.vue中，当点击了确认添加用户后，需要发送ajax请求到服务器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">onAddNewUser</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.$refs.myaddForm.validate(<span class="hljs-keyword">async</span> (valid) =&gt; &#123;<br>    <span class="hljs-keyword">if</span> (!valid) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-comment">// 需要执行添加业务的处理 发送ajax请求</span><br>    <span class="hljs-comment">// 注意async的位置</span><br>    <span class="hljs-keyword">let</span> &#123; data &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.$http.post(<span class="hljs-string">&quot;/api/users&quot;</span>, &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-built_in">this</span>.form.name,<br>      <span class="hljs-attr">age</span>: <span class="hljs-built_in">this</span>.form.age,<br>      <span class="hljs-attr">position</span>: <span class="hljs-built_in">this</span>.form.position,<br>    &#125;);<br>    <span class="hljs-keyword">if</span> (data.status !== <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> alert(<span class="hljs-string">&quot;添加失败&quot;</span>);<br>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;添加成功&#x27;</span>);<br>    <span class="hljs-comment">// 添加成功后，关闭对话框</span><br>    <span class="hljs-built_in">this</span>.dialogVisible = <span class="hljs-literal">false</span>;<br>    <span class="hljs-comment">// 重新发起ajax请求，刷新列表</span><br>    <span class="hljs-built_in">this</span>.getUserList();<br>  &#125;);<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-优化信息提示"><a href="#4-2-优化信息提示" class="headerlink" title="4.2 优化信息提示"></a>4.2 优化信息提示</h3><p>当出错或成功后，不应该直接在控制台输出或者弹出alert对话框。应该将信息输出到页面来提示用户。</p>
+<blockquote>
+<p>如果是完整引入element，则Element 为 Vue.prototype 添加了全局方法 $message。因此在 vue instance 中可以采用本页面中的方式调用 <code>Message</code>。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">onAddNewUser</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.$refs.myaddForm.validate(<span class="hljs-keyword">async</span> (valid) =&gt; &#123;<br>    <span class="hljs-keyword">if</span> (!valid) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-comment">// 需要执行添加业务的处理 发送ajax请求</span><br>    <span class="hljs-comment">// 注意async的位置</span><br>    <span class="hljs-keyword">let</span> &#123; data &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.$http.post(<span class="hljs-string">&quot;/api/users&quot;</span>, &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-built_in">this</span>.form.name,<br>      <span class="hljs-attr">age</span>: <span class="hljs-built_in">this</span>.form.age,<br>      <span class="hljs-attr">position</span>: <span class="hljs-built_in">this</span>.form.position,<br>    &#125;);<br>    <span class="hljs-keyword">if</span> (data.status !== <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$message.error(<span class="hljs-string">&#x27;添加用户失败！&#x27;</span>);<br>    <span class="hljs-comment">// 提示添加成功</span><br>    <span class="hljs-built_in">this</span>.$message.success(<span class="hljs-string">&#x27;添加成功！&#x27;</span>);<br>    <br>    <span class="hljs-comment">// 添加成功后，关闭对话框</span><br>    <span class="hljs-built_in">this</span>.dialogVisible = <span class="hljs-literal">false</span>;<br>    <span class="hljs-comment">// 重新发起ajax请求，刷新列表</span><br>    <span class="hljs-built_in">this</span>.getUserList();<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-确认删除弹出框"><a href="#4-3-确认删除弹出框" class="headerlink" title="4.3 确认删除弹出框"></a>4.3 确认删除弹出框</h3><p>在UserList.vue中，当点击了删除后，应该弹出对话框提示用户是否删除。使用element ui的弹出框组件，<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/message-box#que-ren-xiao-xi%E3%80%82">https://element.eleme.cn/#/zh-CN/component/message-box#que-ren-xiao-xi。</a></p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108121038660.png" srcset="/img/loading.gif" lazyload alt="image-20210812103806599"></p>
+<blockquote>
+<p>调用<code>$confirm</code>方法即可打开消息提示，它模拟了系统的 <code>confirm</code>。Message Box 组件也拥有极高的定制性，我们可以传入<code>options</code>作为第三个参数，它是一个字面量对象。<code>type</code>字段表明消息类型，可以为<code>success</code>，<code>error</code>，<code>info</code>和<code>warning</code>，无效的设置将会被忽略。注意，第二个参数<code>title</code>必须定义为<code>String</code>类型，如果是<code>Object</code>，会被理解为<code>options</code>。在这里我们用了 Promise 来处理后续响应。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;el-table-column label=&quot;操作&quot; width=&quot;120&quot;&gt;<br>  &lt;template&gt;<br>    &lt;div&gt;<br>      &lt;a href=&quot;#&quot;&gt;详情&lt;/a&gt; &amp;nbsp;<br>      &lt;a href=&quot;#&quot; @click.prevent=&quot;onRemove&quot;&gt;删除&lt;/a&gt;<br>    &lt;/div&gt;<br>  &lt;/template&gt;<br>&lt;/el-table-column&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">onRemove</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.$confirm(<span class="hljs-string">&quot;此操作将永久删除该用户, 是否继续?&quot;</span>, <span class="hljs-string">&quot;提示&quot;</span>, &#123;<br>    <span class="hljs-attr">confirmButtonText</span>: <span class="hljs-string">&quot;确定&quot;</span>,<br>    <span class="hljs-attr">cancelButtonText</span>: <span class="hljs-string">&quot;取消&quot;</span>,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;warning&quot;</span>,<br>  &#125;)<br>    .then(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-built_in">this</span>.$message.success(<span class="hljs-string">&#x27;删除成功&#x27;</span>);<br>    &#125;)<br>    .catch(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-built_in">this</span>.$message.info(<span class="hljs-string">&#x27;已取消删除&#x27;</span>)<br>    &#125;);<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-实现删除功能"><a href="#4-4-实现删除功能" class="headerlink" title="4.4 实现删除功能"></a>4.4 实现删除功能</h3><p>为了拿到用户的id，应该将默认插槽改为作用域插槽。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;el-table-column label=&quot;操作&quot; width=&quot;120&quot;&gt;<br>  &lt;!-- v-slot=&#x27;&#123;row&#125;&#x27; --&gt;<br>  &lt;!-- #default=&#x27;&#123;row&#125;&#x27; --&gt;<br>  &lt;template v-slot:default=&quot;&#123; row &#125;&quot;&gt;<br>    &lt;div&gt;<br>      &lt;a href=&quot;#&quot;&gt;详情&lt;/a&gt; &amp;nbsp;<br>      &lt;a href=&quot;#&quot; @click.prevent=&quot;onRemove(row.id)&quot;&gt;删除&lt;/a&gt;<br>    &lt;/div&gt;<br>  &lt;/template&gt;<br>&lt;/el-table-column&gt;<br></code></pre></td></tr></table></figure>
+
+<p>接着当用户点击确认的时候，发起ajax请求，删除数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 点击了删除的链接</span><br><span class="hljs-function"><span class="hljs-title">onRemove</span>(<span class="hljs-params">id</span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.$confirm(<span class="hljs-string">&quot;此操作将永久删除该用户, 是否继续?&quot;</span>, <span class="hljs-string">&quot;提示&quot;</span>, &#123;<br>    <span class="hljs-attr">confirmButtonText</span>: <span class="hljs-string">&quot;确定&quot;</span>,<br>    <span class="hljs-attr">cancelButtonText</span>: <span class="hljs-string">&quot;取消&quot;</span>,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;warning&quot;</span>,<br>  &#125;)<br>    <span class="hljs-comment">// 点击确认按钮</span><br>    .then(<span class="hljs-keyword">async</span> () =&gt; &#123;<br>      <span class="hljs-keyword">let</span> &#123; data &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.$http.delete(<span class="hljs-string">&quot;/api/users/&quot;</span> + id);<br>      <span class="hljs-keyword">if</span> (data.status !== <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$message.error(<span class="hljs-string">&quot;删除用户失败！&quot;</span>);<br>      <span class="hljs-built_in">this</span>.$message.success(<span class="hljs-string">&quot;删除成功&quot;</span>);<br>      <span class="hljs-comment">// 重新发起ajax请求，刷新列表数据</span><br>      <span class="hljs-built_in">this</span>.getUserList();<br>    &#125;)<br>    <span class="hljs-comment">// 点击取消按钮</span><br>    .catch(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-built_in">this</span>.$message.info(<span class="hljs-string">&quot;已取消删除&quot;</span>);<br>    &#125;);<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-5-声明式导航跳转到用户详情页"><a href="#4-5-声明式导航跳转到用户详情页" class="headerlink" title="4.5 声明式导航跳转到用户详情页"></a>4.5 声明式导航跳转到用户详情页</h3><p>将详情的a链接改为<code>&lt;router-link&gt;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template v-slot:default=&quot;&#123; row &#125;&quot;&gt;<br>  &lt;div&gt;<br>    &lt;router-link :to=&quot;&#x27;/users/&#x27;+row.id&quot;&gt;详情&lt;/router-link&gt; &amp;nbsp;<br>    &lt;a href=&quot;#&quot; @click.prevent=&quot;onRemove(row.id)&quot;&gt;删除&lt;/a&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p>新建并初始化<code>UserDetails.vue</code> 组件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>      &lt;h3&gt;UserDetail 组件&lt;/h3&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>    name:&#x27;UserDetail&#x27;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>router/index.js</code> 中添加对应的路由规则：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 导入要被渲染的组件</span><br><span class="hljs-comment">// 在vue-cli中 @代表src目录</span><br><span class="hljs-keyword">import</span> UserList <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../components/UserList.vue&#x27;</span>;<br><span class="hljs-keyword">import</span> UserDetail <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/UserDetail.vue&#x27;</span>;<br><br><br><span class="hljs-comment">// 声明路由规则</span><br><span class="hljs-keyword">const</span> router=<span class="hljs-keyword">new</span> VueRouter(&#123;<br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/users&#x27;</span>&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/users&#x27;</span>,<span class="hljs-attr">component</span>:UserList&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/users/:id&#x27;</span>,<span class="hljs-attr">component</span>:UserDetail&#125;<br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-6-查询用户信息"><a href="#4-6-查询用户信息" class="headerlink" title="4.6 查询用户信息"></a>4.6 查询用户信息</h3><p>在<code>router/index.js</code>，开启props传参。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> router=<span class="hljs-keyword">new</span> VueRouter(&#123;<br>    <span class="hljs-attr">routes</span>:[<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-attr">redirect</span>:<span class="hljs-string">&#x27;/users&#x27;</span>&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/users&#x27;</span>,<span class="hljs-attr">component</span>:UserList&#125;,<br>        &#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&#x27;/users/:id&#x27;</span>,<span class="hljs-attr">component</span>:UserDetail,<span class="hljs-attr">props</span>:<span class="hljs-literal">true</span>&#125;<br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在<code>UserDetails.vue</code> 中接收路由传递的id，并在created生命周期函数中发起ajax请求，查询用户信息，最后将查询到的信息赋值给<code>userInfo</code> 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;UserDetail&quot;</span>,<br>  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">userInfo</span>: &#123;&#125;,<br>    &#125;;<br>  &#125;,<br>  <span class="hljs-comment">// 接收路由传递的id</span><br>  <span class="hljs-attr">props</span>: [<span class="hljs-string">&quot;id&quot;</span>],<br>  <span class="hljs-comment">// 发起ajax请求，查询用户信息</span><br>  <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.getUserInfo();<br>  &#125;,<br>  <span class="hljs-attr">methods</span>: &#123;<br>    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">getUserInfo</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-keyword">let</span> &#123; data &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.$http.get(<span class="hljs-string">&quot;api/users/&quot;</span> + <span class="hljs-built_in">this</span>.id);<br>      <span class="hljs-keyword">if</span> (data.status !== <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$message.error(<span class="hljs-string">&quot;获取用户信息失败&quot;</span>);<br>      <span class="hljs-built_in">this</span>.userInfo = data.data;<br>      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.userInfo);<br>    &#125;,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-7-展示查询的信息"><a href="#4-7-展示查询的信息" class="headerlink" title="4.7 展示查询的信息"></a>4.7 展示查询的信息</h3><p>使用element-ui的<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/card#ji-chu-yong-fa">卡片组件</a>，展示查询到的用户信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;el-card class=&quot;box-card&quot;&gt;<br>      &lt;div slot=&quot;header&quot; class=&quot;clearfix&quot;&gt;<br>        &lt;span&gt;用户详情&lt;/span&gt;<br>        &lt;el-button style=&quot;float: right; padding: 3px 0&quot; type=&quot;text&quot;<br>          &gt;返回&lt;/el-button<br>        &gt;<br>      &lt;/div&gt;<br>      &lt;div  class=&quot;text item&quot;&gt;<br>       &lt;p&gt;姓名：&#123;&#123;userInfo.name&#125;&#125;&lt;/p&gt;<br>       &lt;p&gt;年龄：&#123;&#123;userInfo.age&#125;&#125;&lt;/p&gt;<br>       &lt;p&gt;头衔：&#123;&#123;userInfo.position&#125;&#125;&lt;/p&gt;<br>      &lt;/div&gt;<br>    &lt;/el-card&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p>为返回按钮添加点击事件的监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;el-button style=&quot;float: right; padding: 3px 0&quot; type=&quot;text&quot; @click=&#x27;goBack&#x27;&gt;<br>    返回<br>&lt;/el-button&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过编程式导航，实现后退功能。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">goBack()&#123;<br>    this.$router.go(-1);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-实现loading效果"><a href="#5-实现loading效果" class="headerlink" title="5.实现loading效果"></a>5.实现loading效果</h2><p>使用element-ui的<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/loading#zheng-ye-jia-zai">loading组件</a>，实现加载效果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//1. 按需导入Loading效果组件</span><br><span class="hljs-keyword">import</span> &#123;Loading&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><br><span class="hljs-comment">//2. 声明变量，用来存储loading组件的实例对象</span><br><span class="hljs-keyword">let</span> loadingInstance = <span class="hljs-literal">null</span>;<br><br><span class="hljs-comment">// 配置请求的拦截器</span><br>axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-params">config</span>=&gt;</span>&#123;<br>    <span class="hljs-comment">// 3.调用loading组件的servie()方法，创建Loading组件的实例，并全屏展示loading效果</span><br>    		loadingInstance=Loading.service(&#123;<span class="hljs-attr">fullsreen</span>:<span class="hljs-literal">true</span>&#125;);<br> <span class="hljs-keyword">return</span> config;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 响应拦截器</span><br>axios.interceptors.response.use(<span class="hljs-function"><span class="hljs-params">response</span>=&gt;</span>&#123;<br>    <span class="hljs-comment">// 调用loading实例的close 方法即可关闭loading效果</span><br>    loadingInstance.close();<br>    <span class="hljs-keyword">return</span> response;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
 
             </div>
             <hr>
@@ -598,7 +741,7 @@
                     
                     
                       <a href="/2021/08/11/Vue-cli%E5%AD%A6%E4%B9%A0/">
-                        <span class="hidden-mobile">Vue-cli学习</span>
+                        <span class="hidden-mobile">Vue-cli学习_ElementUI_axios 拦截器_proxy代理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
