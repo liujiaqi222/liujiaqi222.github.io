@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>Vuex学习笔记 - jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vuex学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 17:55" pubdate>
+        2021年8月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      86
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vuex学习笔记</h1>
+            
+            <div class="markdown-body">
+              <p>笔记参考文档：<a target="_blank" rel="noopener" href="https://next.vuex.vuejs.org/zh/guide/">https://next.vuex.vuejs.org/zh/guide/</a></p>
+<h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><h2 id="1-什么是vuex"><a href="#1-什么是vuex" class="headerlink" title="1.什么是vuex"></a>1.什么是vuex</h2><p>概念：专门在 Vue 中实现集中式状态（数据）管理的一个 Vue 插件，对 vue 应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于任意组件间通信。  </p>
+<h2 id="2-什么时候使用-Vuex"><a href="#2-什么时候使用-Vuex" class="headerlink" title="2.什么时候使用 Vuex"></a>2.什么时候使用 Vuex</h2><ol>
+<li><p>多个组件依赖于同一状态</p>
+</li>
+<li><p>来自不同组件的行为需要变更同一状态  </p>
+</li>
+</ol>
+<h2 id="3-Vuex工作原理"><a href="#3-Vuex工作原理" class="headerlink" title="3.Vuex工作原理"></a>3.Vuex工作原理</h2><p><img src="https://next.vuex.vuejs.org/vuex.png" srcset="/img/loading.gif" lazyload alt="vuex"></p>
+<h2 id="4-vuex安装与导入"><a href="#4-vuex安装与导入" class="headerlink" title="4.vuex安装与导入"></a>4.vuex安装与导入</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yarn add vuex@next <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><br><span class="hljs-comment">// 创建一个新的 store 实例</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>  state () &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    increment (state) &#123;<br>      state.count++<br>    &#125;<br>  &#125;<br>&#125;)<br><br><span class="hljs-keyword">const</span> app = createApp(App)<br><br><span class="hljs-comment">// 将 store 实例作为插件安装</span><br>app.use(store).mount(<span class="hljs-string">&#x27;#app&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>单文件来写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// main.js</span><br><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store/index.js&#x27;</span><br><br>createApp(App).use(store).mount(<span class="hljs-string">&#x27;#app&#x27;</span>);<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 准备actions 用于响应组件中的动作</span><br><span class="hljs-keyword">const</span> actions = &#123;&#125;;<br><span class="hljs-comment">// 准备mutations 用于操作数据(state)</span><br><span class="hljs-keyword">const</span> mutations = &#123;&#125;;<br><span class="hljs-comment">// 准备state 用于存储数据</span><br><span class="hljs-keyword">const</span> state = &#123;&#125;;<br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    actions,<br>    mutations,<br>    <span class="hljs-function"><span class="hljs-title">state</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> state;<br>    &#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-vuex小案例"><a href="#5-vuex小案例" class="headerlink" title="5. vuex小案例"></a>5. vuex小案例</h2><ol>
+<li><p>安装，导入vuex，创建store实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">actions</span>: &#123;&#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;&#125;,<br>    <span class="hljs-attr">state</span>: &#123;&#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+<p>然后在 <code>main.js</code> 中引入导出的 <code>store</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store/index.js&#x27;</span><br><br>createApp(App).use(store).mount(<span class="hljs-string">&#x27;#app&#x27;</span>);<br></code></pre></td></tr></table></figure></li>
+<li><p>在组件中使用store，首先得从 <code>vuex</code> 中导入 <code>useStore</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; useStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vuex&quot;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">const</span> store = useStore();<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这里准备了一个<code>count.vue</code> 组件，目的是实现自定义加减。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;h1&gt;当前求和为 &lt;/h1&gt;<br>  &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>    &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>    &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>    &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>  &lt;/select&gt;<br>  &lt;button @click=&quot;add&quot;&gt;+&lt;/button&gt;<br>  &lt;button @click=&quot;subtract&quot;&gt;-&lt;/button&gt;<br>  &lt;button @click=&quot;addOdd&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>  &lt;button @click=&quot;addWait&quot;&gt;等等再加&lt;/button&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>开始实现功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vue">//count.vue<br>&lt;script&gt;<br>import &#123; ref,computed &#125; from &quot;vue&quot;;<br>import &#123; useStore &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  setup() &#123;<br>    const store = useStore();<br><br>    let n = ref(1);<br><br>    function add() &#123;<br>      // dispatch会触发action函数 第二个参数n.value可以传值<br>      store.dispatch(&#x27;add&#x27;,n.value); // ① dispatch<br>    &#125;<br><br>    // 注意这里sum是通过computed<br>    return &#123; n, add, sum:computed(()=&gt;&#123;<br>        return store.state.sum;<br>    &#125;)&#125;;<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">actions</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">add</span>(<span class="hljs-params">context,value</span>)</span>&#123; <span class="hljs-comment">// ②被触发的action</span><br>            context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>,value) <span class="hljs-comment">//③ commit</span><br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br><br>        <span class="hljs-function"><span class="hljs-title">ADD</span>(<span class="hljs-params">state,value</span>)</span>&#123; <span class="hljs-comment">// ④被触发的mutation</span><br>            state.sum+=value;<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">state</span>: &#123;<span class="hljs-attr">sum</span>:<span class="hljs-number">0</span>&#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure></li>
+<li><p>最终加上一个减法的功能，另外“等等再加”和“奇数再加”只需要触发即可，不需要再次额外定义函数了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs vue">//count.vue<br>&lt;template&gt;<br>  &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>  &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>    &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>    &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>    &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>  &lt;/select&gt;<br>  &lt;button @click=&quot;add&quot;&gt;+&lt;/button&gt;<br>  &lt;button @click=&quot;subtract&quot;&gt;-&lt;/button&gt;<br>  &lt;button @click=&quot;addOdd&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>  &lt;button @click=&quot;addWait&quot;&gt;等等再加&lt;/button&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; ref, computed &#125; from &quot;vue&quot;;<br>import &#123; useStore &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  setup() &#123;<br>    const store = useStore();<br><br>    let n = ref(1);<br><br>    function add() &#123;<br>      // dispatch会触发action函数 第二个参数n.value可以传值<br>      store.dispatch(&quot;add&quot;, n.value); // ① dispatch<br>    &#125;<br><br>    function subtract() &#123;<br>      store.dispatch(&quot;subtract&quot;, n.value);<br>    &#125;<br><br>    function addOdd() &#123;<br>      if (store.state.sum % 2) &#123;<br>        store.dispatch(&quot;add&quot;, n.value);<br>      &#125;<br>    &#125;<br><br>    function addWait() &#123;<br>      setTimeout(() =&gt; &#123;<br>        store.dispatch(&quot;add&quot;, n.value);<br>      &#125;, 500);<br>    &#125;<br>    // 注意这里sum是通过computed<br>    return &#123;<br>      n,<br>      add,<br>      subtract,<br>      addOdd,<br>      addWait,<br>      sum: computed(() =&gt; &#123;<br>        return store.state.sum;<br>      &#125;),<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">actions</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">add</span>(<span class="hljs-params">context,value</span>)</span>&#123; <span class="hljs-comment">// ②被触发的action</span><br>            context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>,value) <span class="hljs-comment">//③ commit</span><br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">subtract</span>(<span class="hljs-params">context,value</span>)</span>&#123;<br>            context.commit(<span class="hljs-string">&#x27;SUBTRACT&#x27;</span>,value);<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br><br>        <span class="hljs-function"><span class="hljs-title">ADD</span>(<span class="hljs-params">state,value</span>)</span>&#123; <span class="hljs-comment">// ④被触发的mutation</span><br>            state.sum+=value;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">SUBTRACT</span>(<span class="hljs-params">state,value</span>)</span>&#123;<br>            state.sum-= value;<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">state</span>: &#123;<span class="hljs-attr">sum</span>:<span class="hljs-number">0</span>&#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最终效果：</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108291505497.gif" srcset="/img/loading.gif" lazyload alt="最终效果"></p>
+<ol start="5">
+<li><p>一点优化：</p>
+<p>add和subtract的action没有任何逻辑，因此可以直接commit触发mutation。</p>
+<p>addOdd和addWait的业务逻辑写在actions中比较合适。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">// dispatch会触发action函数 第二个参数n.value可以传值</span><br>  store.commit(<span class="hljs-string">&quot;ADD&quot;</span>, n.value); <span class="hljs-comment">// ① dispatch</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span>(<span class="hljs-params"></span>) </span>&#123;<br>  store.commit(<span class="hljs-string">&quot;SUBTRACT&quot;</span>, n.value);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addOdd</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (store.state.sum % <span class="hljs-number">2</span>) &#123;<br>    store.dispatch(<span class="hljs-string">&quot;addOdd&quot;</span>, n.value);<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addWait</span>(<span class="hljs-params"></span>) </span>&#123;<br>  store.dispatch(<span class="hljs-string">&quot;addWait&quot;</span>, n.value);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最后add、addOdd、addWait都是调用<code>ADD</code>的mutation。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-attr">ctions</span>: &#123;<br>    <span class="hljs-comment">// add(context, value) &#123; // ②被触发的action</span><br>    <span class="hljs-comment">//     context.commit(&#x27;ADD&#x27;, value) //③ commit</span><br>    <span class="hljs-comment">// &#125;,</span><br>    <span class="hljs-comment">// subtract(context, value) &#123;</span><br>    <span class="hljs-comment">//     context.commit(&#x27;SUBTRACT&#x27;, value);</span><br>    <span class="hljs-comment">// &#125;,</span><br>    <span class="hljs-function"><span class="hljs-title">addOdd</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>        <span class="hljs-comment">// 注意这里是 context.state</span><br>        <span class="hljs-keyword">if</span> (context.state.sum % <span class="hljs-number">2</span>) &#123;<br>            context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value) <br>        &#125;<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">addWait</span>(<span class="hljs-params">context,value</span>)</span>&#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value) <br>        &#125;, <span class="hljs-number">500</span>);<br>    &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>NOTE: 如果setup中不提供sum这个state，页面中也可以直接获取到它。但是通过computed属性来返回，就不用写<code>$store.state</code> 这个前缀了。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>   &lt;h1&gt;当前求和为&#123;&#123; $store.state.sum &#125;&#125;&lt;/h1&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="6-多组件vuex小案例"><a href="#6-多组件vuex小案例" class="headerlink" title="6.多组件vuex小案例"></a>6.多组件vuex小案例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">actions</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">addOdd</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>            <span class="hljs-comment">// 注意这里是 context.state</span><br>            <span class="hljs-keyword">if</span> (context.state.sum % <span class="hljs-number">2</span>) &#123;<br>                context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value) <span class="hljs-comment">//③ commit</span><br>            &#125;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">addWait</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>            <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>                context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value)<br>            &#125;, <span class="hljs-number">500</span>);<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br><br>        <span class="hljs-function"><span class="hljs-title">ADD</span>(<span class="hljs-params">state, value</span>)</span> &#123; <span class="hljs-comment">// ④被触发的mutation</span><br>            state.sum += value;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">SUBTRACT</span>(<span class="hljs-params">state, value</span>)</span> &#123;<br>            state.sum -= value;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">ADD_PERSON</span>(<span class="hljs-params">state, value</span>)</span> &#123;<br>            state.peopleList.push(value);<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">state</span>: &#123;<br>        <span class="hljs-attr">sum</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">peopleList</span>: [<br>            &#123; <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;001&#x27;</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;alex&#x27;</span> &#125;<br>        ]<br>    &#125;,<br>    <span class="hljs-comment">// getters用于加工state中的数据</span><br>    <span class="hljs-attr">getters</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">sumTimesTen</span>(<span class="hljs-params">state</span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> state.sum * <span class="hljs-number">10</span>;<br>        &#125;<br>    &#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs vue">//people.vue<br>&lt;template&gt;<br>  &lt;h1&gt;人员列表&lt;/h1&gt;<br>  &lt;h3&gt;Count组件的总和 &#123;&#123;sum&#125;&#125;&lt;/h3&gt;<br>  &lt;input type=&quot;text&quot; placeholder=&quot;请输入名字&quot; v-model=&quot;name&quot;/&gt;<br>  &lt;button @click=&#x27;addPerson&#x27;&gt;添加&lt;/button&gt;<br>  &lt;ul&gt;<br>    &lt;li v-for=&#x27;p in peopleList&#x27; :key=&#x27;p.id&#x27;&gt;&#123;&#123;p.name&#125;&#125;&lt;/li&gt;<br>  &lt;/ul&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123;nanoid&#125; from &#x27;nanoid&#x27;;<br>export default &#123;<br>    data()&#123;<br>        return &#123;name:&#x27;&#x27;&#125;<br>    &#125;,<br>    computed:&#123;<br>        peopleList()&#123;<br>            return this.$store.state.peopleList;<br>        &#125;,<br>        sum()&#123;<br>            return this.$store.state.sum;<br>        &#125;<br>    &#125;,<br>    methods:&#123;<br>       addPerson()&#123;<br>            const person = &#123;id:nanoid(),name:this.name&#125;;<br>            this.$store.commit(&#x27;ADD_PERSON&#x27;,person);<br>       &#125;<br>    &#125;<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs vue">//count.vue<br>&lt;template&gt;<br>  &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>  &lt;h3&gt;当前求和放大10倍&#123;&#123; sumTimesTen &#125;&#125;&lt;/h3&gt;<br>  &lt;h3&gt;Person组件的总人数是&#123;&#123; peopleList.length &#125;&#125;&lt;/h3&gt;<br>  &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>    &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>    &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>    &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>  &lt;/select&gt;<br>  &lt;button @click=&quot;add(n)&quot;&gt;+&lt;/button&gt;<br>  &lt;button @click=&quot;subtract(n)&quot;&gt;-&lt;/button&gt;<br>  &lt;button @click=&quot;addOdd(n)&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>  &lt;button @click=&quot;addWait(n)&quot;&gt;等等再加&lt;/button&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; mapState, mapGetters, mapMutations, mapActions &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  data() &#123;<br>    return &#123; n: 1 &#125;;<br>  &#125;,<br>  computed: &#123;<br>    ...mapState([&quot;sum&quot;, &quot;peopleList&quot;]),<br>    ...mapGetters([&quot;sumTimesTen&quot;]),<br>  &#125;,<br>  methods: &#123;<br>    // 由于需要传参，此时的参数通过模板来传递<br>    ...mapMutations(&#123;<br>      add: &quot;ADD&quot;,<br>      subtract: &quot;SUBTRACT&quot;,<br>    &#125;),<br>    ...mapActions([&quot;addOdd&quot;, &quot;addWait&quot;]),<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>button &#123;<br>  margin: 5px;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108292157773.png" srcset="/img/loading.gif" lazyload alt="image-20210829215744695"></p>
+<h1 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h1><h2 id="mapXXX"><a href="#mapXXX" class="headerlink" title="mapXXX"></a>mapXXX</h2><h3 id="mapState"><a href="#mapState" class="headerlink" title="mapState"></a>mapState</h3><p>ps：实在无法用组合式api写下去了这个了。</p>
+<p>当一个组件需要获取多个状态的时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 <code>mapState</code> 辅助函数帮助我们生成计算属性。</p>
+<ol>
+<li>对象写法</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在单独构建的版本中辅助函数为 Vuex.mapState</span><br><span class="hljs-keyword">import</span> &#123; mapState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">computed</span>: mapState(&#123;<br>    <span class="hljs-comment">// 写法一：箭头函数可使代码更简练</span><br>    <span class="hljs-attr">count</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.count,<br><br>    <span class="hljs-comment">// 写法二：传字符串参数 &#x27;count&#x27; 等同于 `state =&gt; state.count`</span><br>    <span class="hljs-attr">countAlias</span>: <span class="hljs-string">&#x27;count&#x27;</span>,<br><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>数组写法</li>
+</ol>
+<p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 <code>mapState</code> 传一个字符串数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">computed: mapState([<br>  <span class="hljs-comment">// 映射 this.count 为 store.state.count</span><br>  <span class="hljs-string">&#x27;count&#x27;</span><br>])<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>mapState</code> 函数返回的是一个对象。</strong>我们如何将它与局部计算属性混合使用呢？使用从有了<a href="https://github.com/tc39/proposal-object-rest-spread">对象展开运算符</a>，我们可以极大地简化写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">computed: &#123;<br>  <span class="hljs-comment">// 使用对象展开运算符将此对象混入到外部对象中</span><br>  ...mapState(&#123;<br>    <span class="hljs-comment">// ...</span><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="mapGetter"><a href="#mapGetter" class="headerlink" title="mapGetter"></a>mapGetter</h3><p><code>mapGetters</code> 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; mapGetters &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">computed</span>: &#123;<br>  <span class="hljs-comment">// 使用对象展开运算符将 getter 混入 computed 对象中</span><br>    ...mapGetters([<br>      <span class="hljs-string">&#x27;doneTodosCount&#x27;</span>,<br>      <span class="hljs-string">&#x27;anotherGetter&#x27;</span>,<br>      <span class="hljs-comment">// ...</span><br>    ])<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果你想将一个 getter 属性另取一个名字，使用对象形式：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">...mapGetters(&#123;<br>  // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`<br><span class="hljs-title">  doneCount:</span> &#x27;doneTodosCount&#x27;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="mapMutations"><a href="#mapMutations" class="headerlink" title="mapMutations"></a>mapMutations</h3><p>你可以在组件中使用 <code>this.$store.commit(&#39;xxx&#39;)</code> 提交 mutation，或者使用 <code>mapMutations</code> 辅助函数将组件中的 methods 映射为 <code>store.commit</code> 调用（需要在根节点注入 <code>store</code>）。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk">import &#123; mapMutations &#125; from <span class="hljs-string">&#x27;vuex&#x27;</span><br><br>export default &#123;<br>  <span class="hljs-regexp">//</span> ...<br>  methods: &#123;<br>    ...mapMutations([<br>      <span class="hljs-string">&#x27;increment&#x27;</span>, <span class="hljs-regexp">//</span> 将 `this.increment()` 映射为 `this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&#x27;increment&#x27;</span>)`<br><br>      <span class="hljs-regexp">//</span> `mapMutations` 也支持载荷：<br>      <span class="hljs-string">&#x27;incrementBy&#x27;</span> <span class="hljs-regexp">//</span> 将 `this.incrementBy(amount)` 映射为 `this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&#x27;incrementBy&#x27;</span>, amount)`<br>    ]),<br>    ...mapMutations(&#123;<br>      add: <span class="hljs-string">&#x27;increment&#x27;</span> <span class="hljs-regexp">//</span> 将 `this.add()` 映射为 `this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&#x27;increment&#x27;</span>)`<br>    &#125;)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>前面的count小案例，经过改造如下：注意此时的传参是通过模板来传递的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>    &lt;h3&gt;当前求和放大10倍&#123;&#123; sumTimesTen &#125;&#125;&lt;/h3&gt;<br>    &lt;h3&gt;姓名：&#123;&#123; name &#125;&#125; 性别：&#123;&#123; gender &#125;&#125;&lt;/h3&gt;<br>    &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>      &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>      &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>      &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>    &lt;/select&gt;<br>    &lt;button @click=&quot;add(n)&quot;&gt;+&lt;/button&gt;<br>    &lt;button @click=&quot;subtract(n)&quot;&gt;-&lt;/button&gt;<br>    &lt;button @click=&quot;addOdd&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>    &lt;button @click=&quot;addWait&quot;&gt;等等再加&lt;/button&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; ref, computed &#125; from &quot;vue&quot;;<br>import &#123; useStore, mapState,mapGetters ,mapMutations&#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  setup() &#123;<br>    const store = useStore();<br><br>    let n = ref(1);<br><br>    function addOdd() &#123;<br>      if (store.state.sum % 2) &#123;<br>        store.dispatch(&quot;addOdd&quot;, n.value);<br>      &#125;<br>    &#125;<br><br>    function addWait() &#123;<br>      store.dispatch(&quot;addWait&quot;, n.value);<br>    &#125;<br><br>    // 注意这里sum是通过computed<br>    return &#123;<br>      n,<br>      addOdd,<br>      addWait,<br>    &#125;;<br>  &#125;,<br>  // 用组合式api实在写不下去了<br>  computed: &#123;<br>    <br>    ...mapState([&quot;sum&quot;, &quot;name&quot;, &quot;gender&quot;]),<br>    ...mapGetters([&#x27;sumTimesTen&#x27;])<br>  &#125;,<br>  methods:&#123;<br>    /* add()&#123;<br>      this.$store.commit(&quot;ADD&quot;, n.value);<br>    &#125;,<br>    subtract()&#123;<br>      this.$store.commit(&#x27;SUBTRACT&#x27;)<br>    &#125;, */<br>    ...mapMutations(&#123;<br>      // 由于需要传参，此时的参数通过模板来传递<br>      add:&#x27;ADD&#x27;,subtract:&#x27;SUBTRACT&#x27;,<br>    &#125;)<br>  &#125;<br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="mapActions"><a href="#mapActions" class="headerlink" title="mapActions"></a>mapActions</h3><p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的 methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; mapActions &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">methods</span>: &#123;<br>    ...mapActions([<br>      <span class="hljs-string">&#x27;increment&#x27;</span>, <span class="hljs-comment">// 将 `this.increment()` 映射为 `this.$store.dispatch(&#x27;increment&#x27;)`</span><br><br>      <span class="hljs-comment">// `mapActions` 也支持载荷：</span><br>      <span class="hljs-string">&#x27;incrementBy&#x27;</span> <span class="hljs-comment">// 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch(&#x27;incrementBy&#x27;, amount)`</span><br>    ]),<br>    ...mapActions(&#123;<br>      <span class="hljs-attr">add</span>: <span class="hljs-string">&#x27;increment&#x27;</span> <span class="hljs-comment">// 将 `this.add()` 映射为 `this.$store.dispatch(&#x27;increment&#x27;)`</span><br>    &#125;)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>前面的小案例最终改造结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>    &lt;h3&gt;当前求和放大10倍&#123;&#123; sumTimesTen &#125;&#125;&lt;/h3&gt;<br>    &lt;h3&gt;姓名：&#123;&#123; name &#125;&#125; 性别：&#123;&#123; gender &#125;&#125;&lt;/h3&gt;<br>    &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>      &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>      &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>      &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>    &lt;/select&gt;<br>    &lt;button @click=&quot;add(n)&quot;&gt;+&lt;/button&gt;<br>    &lt;button @click=&quot;subtract(n)&quot;&gt;-&lt;/button&gt;<br>    &lt;button @click=&quot;addOdd(n)&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>    &lt;button @click=&quot;addWait(n)&quot;&gt;等等再加&lt;/button&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123;mapState, mapGetters, mapMutations, mapActions &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  data() &#123;<br>    return &#123; n: 1 &#125;;<br>  &#125;,<br>  computed: &#123;<br>    ...mapState([&quot;sum&quot;, &quot;name&quot;, &quot;gender&quot;]),<br>    ...mapGetters([&quot;sumTimesTen&quot;]),<br>  &#125;,<br>  methods: &#123;<br>    // 由于需要传参，此时的参数通过模板来传递<br>    ...mapMutations(&#123;<br>      add: &quot;ADD&quot;,<br>      subtract: &quot;SUBTRACT&quot;,<br>    &#125;),<br>    ...mapActions([&quot;addOdd&quot;, &quot;addWait&quot;]),<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h2><p>有时候我们需要从 store 中的 state 中派生出一些状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vue">//count.vue<br>&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>    &lt;h3&gt;当前求和放大10倍&#123;&#123; sumTimesTen &#125;&#125;&lt;/h3&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; ref, computed &#125; from &quot;vue&quot;;<br>import &#123; useStore &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  setup() &#123;<br>    return &#123;<br>      sum: computed(() =&gt; &#123;<br>        return store.state.sum;<br>      &#125;),<br>      sumTimesTen: computed(() =&gt; &#123;<br>        return store.getters.sumTimesTen;<br>      &#125;),<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">state</span>: &#123; <span class="hljs-attr">sum</span>: <span class="hljs-number">0</span> &#125;,<br>    <span class="hljs-comment">// getters用于加工state中的数据</span><br>    <span class="hljs-attr">getters</span>:&#123;<br>        <span class="hljs-function"><span class="hljs-title">sumTimesTen</span>(<span class="hljs-params">state</span>)</span>&#123;<br>            <span class="hljs-keyword">return</span> state.sum*<span class="hljs-number">10</span>;<br>        &#125;<br>    &#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。</p>
+<p>为了解决以上问题，Vuex 允许我们将 store 分割成<strong>模块（module）</strong>。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> moduleA = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">actions</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">getters</span>: &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> moduleB = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123; ... &#125;,<br>  <span class="hljs-attr">actions</span>: &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>  <span class="hljs-attr">modules</span>: &#123;<br>    <span class="hljs-attr">a</span>: moduleA,<br>    <span class="hljs-attr">b</span>: moduleB<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="模块的局部状态"><a href="#模块的局部状态" class="headerlink" title="模块的局部状态"></a>模块的局部状态</h3><p>对于模块内部的 mutation 和 getter，接收的第一个参数是<strong>模块的局部状态对象</strong>。(state仅仅只指自己的state)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> moduleA = &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>  &#125;),<br>  <span class="hljs-attr">mutations</span>: &#123;<br>    increment (state) &#123;<br>      <span class="hljs-comment">// 这里的 `state` 对象是模块的局部状态</span><br>      state.count++<br>    &#125;<br>  &#125;,<br><br>  <span class="hljs-attr">getters</span>: &#123;<br>    doubleCount (state) &#123;<br>      <span class="hljs-keyword">return</span> state.count * <span class="hljs-number">2</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>默认情况下，模块内部的 action 和 mutation 仍然是注册在<strong>全局命名空间</strong>的——这样使得多个模块能够对同一个 action 或 mutation 作出响应。</p>
+<p>如果希望你的模块具有更高的封装度和复用性，你可以通过添加 <code>namespaced: true</code> 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> store = createStore(&#123;<br>  <span class="hljs-attr">modules</span>: &#123;<br>    <span class="hljs-attr">account</span>: &#123;<br>      <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br><br>      <span class="hljs-comment">// 模块内容（module assets）</span><br>      <span class="hljs-attr">state</span>: <span class="hljs-function">() =&gt;</span> (&#123; ... &#125;), <span class="hljs-comment">// 模块内的状态已经是嵌套的了，使用 `namespaced` 属性不会对其产生影响</span><br>      <span class="hljs-attr">getters</span>: &#123;<br>        isAdmin () &#123; ... &#125; <span class="hljs-comment">// -&gt; getters[&#x27;account/isAdmin&#x27;]</span><br>      &#125;,<br>      <span class="hljs-attr">actions</span>: &#123;<br>        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; dispatch(&#x27;account/login&#x27;)</span><br>      &#125;,<br>      <span class="hljs-attr">mutations</span>: &#123;<br>        login () &#123; ... &#125; <span class="hljs-comment">// -&gt; commit(&#x27;account/login&#x27;)</span><br>      &#125;,<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>启用了命名空间的 getter 和 action 会收到局部化的 <code>getter</code>，<code>dispatch</code> 和 <code>commit</code>。换言之，你在使用模块内容（module assets）时不需要在同一模块内额外添加空间名前缀。</p>
+<h4 id="在带命名空间的模块内访问全局内容"><a href="#在带命名空间的模块内访问全局内容" class="headerlink" title="在带命名空间的模块内访问全局内容"></a>在带命名空间的模块内访问全局内容</h4><p>如果你希望使用全局 state 和 getter，<code>rootState</code> 和 <code>rootGetters</code> 会作为第三和第四参数传入 getter，也会通过 <code>context</code> 对象的属性传入 action。</p>
+<p>若需要在全局命名空间内分发 action 或提交 mutation，将 <code>&#123; root: true &#125;</code> 作为第三参数传给 <code>dispatch</code> 或 <code>commit</code> 即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs js">modules: &#123;<br>  <span class="hljs-attr">foo</span>: &#123;<br>    <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br><br>    <span class="hljs-attr">getters</span>: &#123;<br>      <span class="hljs-comment">// 在这个模块的 getter 中，`getters` 被局部化了</span><br>      <span class="hljs-comment">// 你可以使用 getter 的第四个参数来调用 `rootGetters`</span><br>      someGetter (state, getters, rootState, rootGetters) &#123;<br>        getters.someOtherGetter <span class="hljs-comment">// -&gt; &#x27;foo/someOtherGetter&#x27;</span><br>        rootGetters.someOtherGetter <span class="hljs-comment">// -&gt; &#x27;someOtherGetter&#x27;</span><br>      &#125;,<br>      <span class="hljs-attr">someOtherGetter</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123; ... &#125;<br>    &#125;,<br><br>    <span class="hljs-attr">actions</span>: &#123;<br>      <span class="hljs-comment">// 在这个模块中， dispatch 和 commit 也被局部化了</span><br>      <span class="hljs-comment">// 他们可以接受 `root` 属性以访问根 dispatch 或 commit</span><br>      someAction (&#123; dispatch, commit, getters, rootGetters &#125;) &#123;<br>        getters.someGetter <span class="hljs-comment">// -&gt; &#x27;foo/someGetter&#x27;</span><br>        rootGetters.someGetter <span class="hljs-comment">// -&gt; &#x27;someGetter&#x27;</span><br><br>        dispatch(<span class="hljs-string">&#x27;someOtherAction&#x27;</span>) <span class="hljs-comment">// -&gt; &#x27;foo/someOtherAction&#x27;</span><br>        dispatch(<span class="hljs-string">&#x27;someOtherAction&#x27;</span>, <span class="hljs-literal">null</span>, &#123; <span class="hljs-attr">root</span>: <span class="hljs-literal">true</span> &#125;) <span class="hljs-comment">// -&gt; &#x27;someOtherAction&#x27;</span><br><br>        commit(<span class="hljs-string">&#x27;someMutation&#x27;</span>) <span class="hljs-comment">// -&gt; &#x27;foo/someMutation&#x27;</span><br>        commit(<span class="hljs-string">&#x27;someMutation&#x27;</span>, <span class="hljs-literal">null</span>, &#123; <span class="hljs-attr">root</span>: <span class="hljs-literal">true</span> &#125;) <span class="hljs-comment">// -&gt; &#x27;someMutation&#x27;</span><br>      &#125;,<br>      someOtherAction (ctx, payload) &#123; ... &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="带命名空间的绑定函数"><a href="#带命名空间的绑定函数" class="headerlink" title="带命名空间的绑定函数"></a>带命名空间的绑定函数</h3><p>当使用 <code>mapState</code>、<code>mapGetters</code>、<code>mapActions</code> 和 <code>mapMutations</code> 这些函数来绑定带命名空间的模块时，写起来可能比较繁琐：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">computed: &#123;<br>  ...mapState(&#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.some.nested.module.a,<br>    <span class="hljs-attr">b</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.some.nested.module.b<br>  &#125;)<br>&#125;,<br><span class="hljs-attr">methods</span>: &#123;<br>  ...mapActions([<br>    <span class="hljs-string">&#x27;some/nested/module/foo&#x27;</span>, <span class="hljs-comment">// -&gt; this[&#x27;some/nested/module/foo&#x27;]()</span><br>    <span class="hljs-string">&#x27;some/nested/module/bar&#x27;</span> <span class="hljs-comment">// -&gt; this[&#x27;some/nested/module/bar&#x27;]()</span><br>  ])<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于这种情况，你可以将模块的空间名称字符串作为第一个参数传递给上述函数，这样所有绑定都会自动将该模块作为上下文。于是上面的例子可以简化为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">computed: &#123;<br>  ...mapState(<span class="hljs-string">&#x27;some/nested/module&#x27;</span>, &#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.a,<br>    <span class="hljs-attr">b</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.b<br>  &#125;)<br>&#125;,<br><span class="hljs-attr">methods</span>: &#123;<br>  ...mapActions(<span class="hljs-string">&#x27;some/nested/module&#x27;</span>, [<br>    <span class="hljs-string">&#x27;foo&#x27;</span>, <span class="hljs-comment">// -&gt; this.foo()</span><br>    <span class="hljs-string">&#x27;bar&#x27;</span> <span class="hljs-comment">// -&gt; this.bar()</span><br>  ])<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>而且，你可以通过使用 <code>createNamespacedHelpers</code> 创建基于某个命名空间辅助函数。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createNamespacedHelpers &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><br><span class="hljs-keyword">const</span> &#123; mapState, mapActions &#125; = createNamespacedHelpers(<span class="hljs-string">&#x27;some/nested/module&#x27;</span>)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">computed</span>: &#123;<br>    <span class="hljs-comment">// 在 `some/nested/module` 中查找</span><br>    ...mapState(&#123;<br>      <span class="hljs-attr">a</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.a,<br>      <span class="hljs-attr">b</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.b<br>    &#125;)<br>  &#125;,<br>  <span class="hljs-attr">methods</span>: &#123;<br>    <span class="hljs-comment">// 在 `some/nested/module` 中查找</span><br>    ...mapActions([<br>      <span class="hljs-string">&#x27;foo&#x27;</span>,<br>      <span class="hljs-string">&#x27;bar&#x27;</span><br>    ])<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="module小案例"><a href="#module小案例" class="headerlink" title="module小案例"></a>module小案例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//store/index.js</span><br><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span>;<br><span class="hljs-keyword">import</span> countOptions <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./count&#x27;</span>;<br><span class="hljs-keyword">import</span> peopleOptions <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./people&#x27;</span>;<br><span class="hljs-comment">// 创建store</span><br><span class="hljs-keyword">const</span> store = createStore(&#123;<br>    <span class="hljs-attr">modules</span>:&#123;<br>        countOptions,<br>        peopleOptions<br>    &#125;<br>&#125;);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// store/people.js</span><br><span class="hljs-comment">// 人员管理相关的配置</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">actions</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">addWang</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>            <span class="hljs-comment">// 只能添加王姓名</span><br>            <span class="hljs-keyword">if</span> (value.name.indexOf(<span class="hljs-string">&#x27;王&#x27;</span>) === <span class="hljs-number">0</span>) &#123;<br>                context.commit(<span class="hljs-string">&#x27;ADD_PERSON&#x27;</span>, value);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                alert(<span class="hljs-string">&#x27;添加的人必须姓王&#x27;</span>)<br>            &#125;<br>        &#125;,<br><br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">ADD_PERSON</span>(<span class="hljs-params">state, value</span>)</span> &#123;<br>            state.peopleList.push(value);<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">state</span>: &#123;<br>        <span class="hljs-attr">peopleList</span>: [<br>            &#123; <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;001&#x27;</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;alex&#x27;</span> &#125;<br>        ]<br>    &#125;,<br>    <span class="hljs-attr">getters</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">firstPersonName</span>(<span class="hljs-params">state</span>)</span> &#123;<br>            <span class="hljs-comment">// 这里的state是 peopleOptions的state</span><br>            <span class="hljs-keyword">return</span> state.peopleList[<span class="hljs-number">0</span>].name;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// store/count.js</span><br><span class="hljs-comment">// 求和相关的配置</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>    <span class="hljs-attr">namespaced</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">actions</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">addOdd</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>            <span class="hljs-comment">// 注意这里是 context.state</span><br>            <span class="hljs-keyword">if</span> (context.state.sum % <span class="hljs-number">2</span>) &#123;<br>                context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value)<br>            &#125;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">addWait</span>(<span class="hljs-params">context, value</span>)</span> &#123;<br>            <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>                context.commit(<span class="hljs-string">&#x27;ADD&#x27;</span>, value)<br>            &#125;, <span class="hljs-number">500</span>);<br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">mutations</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">ADD</span>(<span class="hljs-params">state, value</span>)</span> &#123;<br>            state.sum += value;<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">SUBTRACT</span>(<span class="hljs-params">state, value</span>)</span> &#123;<br>            state.sum -= value;<br>        &#125;,<br>    &#125;,<br>    <span class="hljs-attr">state</span>: &#123; <span class="hljs-attr">sum</span>: <span class="hljs-number">0</span> &#125;,<br>    <span class="hljs-attr">getters</span>: &#123;<br>        <span class="hljs-function"><span class="hljs-title">sumTimesTen</span>(<span class="hljs-params">state</span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> state.sum * <span class="hljs-number">10</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs vue">//people.vue<br>&lt;template&gt;<br>  &lt;h1&gt;人员列表&lt;/h1&gt;<br>  &lt;h3&gt;Count组件的总和 &#123;&#123; sum &#125;&#125;&lt;/h3&gt;<br>  &lt;h3&gt;列表中第一个人的名字：&#123;&#123; firstPersonName &#125;&#125;&lt;/h3&gt;<br>  &lt;input type=&quot;text&quot; placeholder=&quot;请输入名字&quot; v-model=&quot;name&quot; /&gt;<br>  &lt;button @click=&quot;addPerson&quot;&gt;添加&lt;/button&gt;<br>  &lt;button @click=&quot;addWang&quot;&gt;添加一个姓王的人&lt;/button&gt;<br>  &lt;ul&gt;<br>    &lt;li v-for=&quot;p in peopleList&quot; :key=&quot;p.id&quot;&gt;&#123;&#123; p.name&#125;&#125;&lt;/li&gt;<br>  &lt;/ul&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; nanoid &#125; from &quot;nanoid&quot;;<br>export default &#123;<br>  data() &#123;<br>    return &#123; name: &quot;&quot; &#125;;<br>  &#125;,<br>  computed: &#123;<br>    peopleList() &#123;<br>      // 注意写法<br>      return this.$store.state.peopleOptions.peopleList;<br>    &#125;,<br>    sum() &#123;<br>      return this.$store.state.countOptions.sum;<br>    &#125;,<br>    firstPersonName() &#123;<br>      return this.$store.getters[&quot;peopleOptions/firstPersonName&quot;];<br>    &#125;,<br>  &#125;,<br>  methods: &#123;<br>    addPerson() &#123;<br>      const person = &#123; id: nanoid(), name: this.name &#125;;<br>      // 注意写法<br>      this.$store.commit(&quot;peopleOptions/ADD_PERSON&quot;, person);<br>      this.name = &quot;&quot;;<br>    &#125;,<br>    addWang() &#123;<br>      const person = &#123; id: nanoid(), name: this.name &#125;;<br>      console.log(person);<br>      this.$store.dispatch(&quot;peopleOptions/addWang&quot;, person);<br>      this.name = &quot;&quot;;<br>    &#125;<br>  &#125;<br><br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs vue">//count.vue<br>&lt;template&gt;<br>  &lt;h1&gt;当前求和为&#123;&#123; sum &#125;&#125;&lt;/h1&gt;<br>  &lt;h3&gt;当前求和放大10倍&#123;&#123; sumTimesTen &#125;&#125;&lt;/h3&gt;<br>  &lt;h3&gt;Person组件的总人数是&#123;&#123; peopleList.length &#125;&#125;&lt;/h3&gt;<br>  &lt;select name=&quot;&quot; id=&quot;&quot; v-model.number=&quot;n&quot;&gt;<br>    &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;<br>    &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;<br>    &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;<br>  &lt;/select&gt;<br>  &lt;button @click=&quot;add(n)&quot;&gt;+&lt;/button&gt;<br>  &lt;button @click=&quot;subtract(n)&quot;&gt;-&lt;/button&gt;<br>  &lt;button @click=&quot;addOdd(n)&quot;&gt;当前求和为奇数才加&lt;/button&gt;<br>  &lt;button @click=&quot;addWait(n)&quot;&gt;等等再加&lt;/button&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; mapState, mapGetters, mapMutations, mapActions &#125; from &quot;vuex&quot;;<br><br>export default &#123;<br>  data() &#123;<br>    return &#123; n: 1 &#125;;<br>  &#125;,<br>  computed: &#123;<br>    ...mapState(&quot;countOptions&quot;, [&quot;sum&quot;]),<br>    ...mapState(&#123;peopleList:state =&gt; state.peopleOptions.peopleList&#125;),<br>    ...mapGetters(&quot;countOptions&quot;, [&quot;sumTimesTen&quot;]),<br>  &#125;,<br>  methods: &#123;<br>    // 由于需要传参，此时的参数通过模板来传递<br>    ...mapMutations(&quot;countOptions&quot;, &#123;<br>      add: &quot;ADD&quot;,<br>      subtract: &quot;SUBTRACT&quot;,<br>    &#125;),<br>    ...mapActions(&quot;countOptions&quot;, [&quot;addOdd&quot;, &quot;addWait&quot;]),<br>  &#125;,<br>  <br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vuex/">Vuex</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/21/Vue3%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E4%BB%A5%E5%8F%8A%E7%BB%84%E5%90%88%E5%BC%8FComposition-API/">
+                        <span class="hidden-mobile">Vue3快速上手以及组合式Composition API</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
