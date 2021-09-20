@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      6.8k 字
     </span>
   
 
@@ -339,18 +339,11 @@
 <li><p>最关键的地方：在函数定义的位置找！</p>
 </li>
 <li><p><strong>所有的自由变量的查找，是在函数定义的地方，向上级作用域查找，不是在执行的地方。</strong></p>
-</li>
-<li><p>```js<br>// 函数作为返回值<br>function create() {</p>
-<pre><code>let a = 100;
-return function () &#123;
-    console.log(a);
-&#125;
-</code></pre>
-<p>}</p>
-<p>let fn = create();</p>
-<p>let a = 200;</p>
-<p>fn(); //100</p>
-<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs zephir"><br>- ```js<br>  <span class="hljs-comment">// 函数作为参数</span><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span><span class="hljs-params">(fn)</span></span>&#123;<br>      <span class="hljs-keyword">let</span> a = <span class="hljs-number">200</span>;<br>      <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span></span>;<br>  &#125;<br>  <br>  <span class="hljs-keyword">let</span> a =<span class="hljs-number">100</span>;<br>  <br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>&#123;<br>      console.log(a);<br>  &#125;<br>  print(<span class="hljs-function"><span class="hljs-keyword">fn</span>)</span>; <span class="hljs-comment">//100</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 函数作为返回值</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">100</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(a);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> fn = create();<br><br><span class="hljs-keyword">let</span> a = <span class="hljs-number">200</span>;<br><br>fn(); <span class="hljs-comment">//100</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 函数作为参数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">fn</span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">200</span>;<br>    fn();<br>&#125;<br><br><span class="hljs-keyword">let</span> a =<span class="hljs-number">100</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(a);<br>&#125;<br>print(fn); <span class="hljs-comment">//100</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>this</p>
@@ -862,7 +855,6 @@ return function () &#123;
 <p>last-modified：文件的修改时间，精确到秒。</p>
 <p>也就是说，每次请求返回来 <code>response header</code> 中的 <code>etag</code> 和 <code>last-modified</code>，在下次请求时在 <code>request header</code> 就把这两个带上，服务端把你带过来的标识进行对比，然后判断资源是否更改了，如果更改就直接返回新的资源，和更新对应的 <code>response header</code> 的标识 <code>etag</code>、<code>last-modified</code> 。如果资源没有变，那就不变 <code>etag</code>、<code>last-modified</code>，这时候对客户端来说，每次请求都是要进行协商缓存了，即：发请求–&gt;看资源是否过期–&gt;过期–&gt;请求服务器–&gt;服务器对比资源是否真的过期–&gt;没过期–&gt;返回304状态码–&gt;客户端用缓存的老资源。</p>
 <p>这就是一条完整的协商缓存的过程。</p>
-<p>作者：<em>小_七</em><br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c95db596df5">https://www.jianshu.com/p/9c95db596df5</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </li>
 </ul>
 </li>
@@ -879,7 +871,6 @@ return function () &#123;
 <li><p>什么是Restful Api？</p>
 </li>
 <li><p>描述http的缓存机制？（<strong>重要</strong>）</p>
-<p><a target="_blank" rel="noopener" href="https://jiaqicoder.com/fireblogs/">https://jiaqicoder.com/fireblogs/</a></p>
 </li>
 </ol>
 <h2 id="手写"><a href="#手写" class="headerlink" title="手写"></a>手写</h2><h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><ul>
