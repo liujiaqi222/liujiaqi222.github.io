@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-26 13:05" pubdate>
+        2021年12月26日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>在 JavaScript 中，对象有一个特殊的隐藏属性 <code>[[Prototype]]</code>，它要么为 <code>null</code>，要么就是对另一个对象的引用，该对象被称为“原型”。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<br> <span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span><br>&#125;;<br><span class="hljs-built_in">console</span>.log(animal);<br></code></pre></td></tr></table></figure>
+
+<p>打印 animal 对象，可以看到隐藏的 <code>[[Prototype]]</code>对象。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206171834.png" srcset="/img/loading.gif" lazyload></p>
+<p>打开<code>[[Prototype]]</code>可以看到 animal 对象继承了 <code>Object.prototype</code>的各种属性。</p>
+<p>(到现在，你可能不理解什么是<code>Object.prototype</code>，没关系，先继续往下面看)</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206171947.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><p><strong>当我们从对象中读取一个缺失的属性时，JavaScript 会自动从原型中获取该属性。</strong> 在编程中，这种行为被称为“原型继承”。</p>
+<p>animal 对象并没有<code>toString</code>方法。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206172544.png" srcset="/img/loading.gif" lazyload></p>
+<p>但它从其原型（即<code>Object.prototype</code>）中继承了该方法。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206172822.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="设置原型"><a href="#设置原型" class="headerlink" title="设置原型"></a>设置原型</h2><p>属性 <code>[[Prototype]]</code> 是<strong>内部的而且是隐藏</strong>的，但是这儿有很多设置它的方式。</p>
+<h3 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h3><p>使用特殊的名字 <code>__proto__</code>，在现代JavaScript中，<code>__proto__</code> 是可读可写的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123; <span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span> &#125;; <br><span class="hljs-keyword">let</span> rabbit = &#123; <span class="hljs-attr">jumps</span>: <span class="hljs-literal">true</span> &#125;; <br>rabbit.__proto__ = animal; <span class="hljs-comment">// 设置 rabbit.[[Prototype]] = animal</span><br></code></pre></td></tr></table></figure>
+
+<p>现在，如果我们从 <code>rabbit</code> 中读取一个它没有的属性，JavaScript 会自动从 <code>animal</code> 中获取。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(rabbit.eates); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://zh.javascript.info/article/prototype-inheritance/proto-animal-rabbit.svg" srcset="/img/loading.gif" lazyload></p>
+<p>原型可以很长，层层继承就形成了原型链。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<br> <span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>,<br> <span class="hljs-function"><span class="hljs-title">walk</span>(<span class="hljs-params"></span>)</span>&#123;<br> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Animal walk&#x27;</span>);<br> &#125;<br>&#125;;<br>  <br><span class="hljs-keyword">let</span> rabbit = &#123;<br> <span class="hljs-attr">__proto__</span>:animal,<br> <span class="hljs-attr">jumps</span>:<span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-keyword">let</span> longEar = &#123;<br> <span class="hljs-attr">earLength</span>:<span class="hljs-number">10</span>,<br> <span class="hljs-attr">__proto__</span>:rabbit<br>&#125;<br><br><span class="hljs-comment">// walk()和jumps都是继承而来的</span><br>longEar.walk(); <span class="hljs-comment">//Animal Walk</span><br><span class="hljs-built_in">console</span>.log(longEar.jumps); <span class="hljs-comment">//true</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://zh.javascript.info/article/prototype-inheritance/proto-animal-rabbit-chain.svg" srcset="/img/loading.gif" lazyload></p>
+<p>可能有人要脑洞大开了，让<code>animal</code>再继承<code>LongEar</code>形成闭环会发生什么？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<br> <span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>,<br> <span class="hljs-function"><span class="hljs-title">walk</span>(<span class="hljs-params"></span>)</span>&#123;<br> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Animal walk&#x27;</span>);<br> &#125;<br>&#125;;<br><br><span class="hljs-keyword">let</span> rabbit = &#123;<br> <span class="hljs-attr">__proto__</span>:animal,<br> <span class="hljs-attr">jumps</span>:<span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-keyword">let</span> longEar = &#123;<br> <span class="hljs-attr">earLength</span>:<span class="hljs-number">10</span>,<br> <span class="hljs-attr">__proto__</span>:rabbit<br>&#125;<br><br>animal.__proto__ = longEar;<br></code></pre></td></tr></table></figure>
+
+<p>会报 <code>TypeError</code>。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206174245.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后，有4个点要注意：</p>
+<ol>
+<li>原型链不能形成闭环。</li>
+<li><code>__proto__</code>的值只能是对象或者<code>null</code>，其他的类型都会被忽略。</li>
+<li>一个对象不能从其他两个对象获得继承。一个对象只能有一个 <code>[[Prototype]]</code>。</li>
+<li><code>_proto__</code> 与内部的 <code>[[Prototype]]</code> <strong>不一样</strong>。<code>__proto__</code> 是 <code>[[Prototype]]</code> 的 getter/setter。</li>
+</ol>
+<h3 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h3><p>尽管连node也支持<code>__proto__</code>这种写法，但是我们应该使用<code>Object.getPrototypeOf()</code>和<code>Object.setPrototypeOf()</code>来替代。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>&#125;;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.getPrototypeOf(animal) === <span class="hljs-built_in">Object</span>.prototype); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>&#125;;<br><span class="hljs-keyword">let</span> rabbit = &#123;<span class="hljs-attr">jumps</span>:<span class="hljs-literal">true</span>&#125;;<br><span class="hljs-built_in">Object</span>.setPrototypeOf(rabbit,animal); <span class="hljs-comment">//将animal设置为rabbit的原型</span><br><span class="hljs-built_in">console</span>.log(rabbit);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206175600.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="法三："><a href="#法三：" class="headerlink" title="法三："></a>法三：</h3><p>使用<code>Object.create(proto)</code>，用给定的 <code>proto</code> 作为原型创建一个空对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> animal = &#123;<span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>&#125;;<br><span class="hljs-keyword">let</span> rabbit = <span class="hljs-built_in">Object</span>.create(animal); <span class="hljs-comment">//让animal作为rabbit的原型</span><br></code></pre></td></tr></table></figure>
+
+<p>我们使用对象字面量或者Object构造函数创建的对象会默认继承自<code>Object.prototype</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj1 = &#123;&#125;; <span class="hljs-comment">//对象字面量</span><br><span class="hljs-keyword">let</span> obj2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>(); <span class="hljs-comment">//构造函数</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206180339.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果我们使用<code>Object.create()</code>创建对象时，且<code>Object.prototype</code>为原型，最终的结果会和上面一样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj3 = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Object</span>.prototype);<br><span class="hljs-built_in">console</span>.log(obj3);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206180637.png" srcset="/img/loading.gif" lazyload></p>
+<p>不过，如果让它以 <code>null</code> 为原型，就会创建一个真正空空如也的对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj4 = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);<br><span class="hljs-built_in">console</span>.log(obj4);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211206180826.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="函数-prototype"><a href="#函数-prototype" class="headerlink" title="函数.prototype"></a>函数.prototype</h2><p>前面一直在说<code>Object.prototype</code>，那么这个到底是个什么玩意儿？</p>
+<p>我们知道，可以通过<code>new 构造函数名()</code>来创建一个新的对象。在这里，将构造函数名简写为<code>F</code>，也即 <code>new F()</code>。</p>
+<p>其实不仅构造函数，任何函数都有 <code>prototype</code> 属性，即使我们没有提供它。</p>
+<p><strong>如果 <code>F.prototype</code> 是一个对象，那么 <code>new</code> 操作符会使用它为新对象设置 <code>[[Prototype]]</code>。</strong></p>
+<p>这里的 <code>F.prototype</code> 指的是 <code>F</code> 的一个名为 <code>&quot;prototype&quot;</code> 的常规属性。这听起来与“原型”这个术语很类似，但这里我们实际上指的是具有该名字的常规属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-keyword">let</span> animal = &#123;<span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rabbit</span>(<span class="hljs-params">name</span>)</span>&#123;<br> <span class="hljs-built_in">this</span>.name = name;<br>&#125;<br><br><span class="hljs-comment">// 将Rabbit函数的prototype属性值设置为animal对象</span><br>Rabbit.prototype = animal;<br><span class="hljs-keyword">let</span> rabbit = <span class="hljs-keyword">new</span> Rabbit(<span class="hljs-string">&quot;White Rabbit&quot;</span>);<br><span class="hljs-comment">// rabbit.__proto__ == animal</span><br><span class="hljs-built_in">console</span>.log(rabbit.eats); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>设置 <code>Rabbit.prototype = animal</code> 的字面意思是：“当创建了一个 <code>new Rabbit</code> 时，把它的 <code>[[Prototype]]</code> 赋值为 <code>animal</code>”。</p>
+<p><img src="https://zh.javascript.info/article/function-prototype/proto-constructor-animal-rabbit.svg" srcset="/img/loading.gif" lazyload></p>
+<p><code>F.prototype</code> 属性仅在 <code>new F</code> 被调用时使用，它为新对象的 <code>[[Prototype]]</code> 赋值。</p>
+<p>如果在创建之后，<code>F.prototype</code> 属性有了变化（<code>F.prototype = &lt;another object&gt;</code>），那么通过 <code>new F</code> 创建的新对象也将随之拥有新的对象作为 <code>[[Prototype]]</code>，但已经存在的对象将保持旧有的值。</p>
+<h2 id="函数默认的prototype"><a href="#函数默认的prototype" class="headerlink" title="函数默认的prototype"></a>函数默认的prototype</h2><p>每个函数都有<code>prototype</code>属性，默认的 <code>&quot;prototype&quot;</code> 是一个只有属性 <code>constructor</code> 的对象，属性 <code>constructor</code> 指向函数自身。</p>
+<p><img src="https://zh.javascript.info/article/function-prototype/function-prototype-constructor.svg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208145319.png" srcset="/img/loading.gif" lazyload><br><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208145336.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以检查一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">fuction <span class="hljs-function"><span class="hljs-title">Rabbit</span>(<span class="hljs-params"></span>)</span>&#123;&#125;<br><br><span class="hljs-built_in">console</span>.log(Rabbit.prototype.constuctor === Rabbit) <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>通常，如果我们什么都不做，<code>constructor</code> 属性可以通过 <code>[[Prototype]]</code> 给所有 rabbits 使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rabbit</span>(<span class="hljs-params"></span>) </span>&#123;&#125;<br><span class="hljs-comment">// by default:</span><br><span class="hljs-comment">// Rabbit.prototype = &#123; constructor: Rabbit &#125; </span><br><span class="hljs-keyword">let</span> rabbit = <span class="hljs-keyword">new</span> Rabbit(); <span class="hljs-comment">// 继承自&#123;constructor: Rabbit&#125; </span><br><span class="hljs-built_in">console</span>.log(rabbit.constructor == Rabbit); <span class="hljs-comment">// true (from prototype)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://zh.javascript.info/article/function-prototype/rabbit-prototype-constructor.svg" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以使用 <code>constructor</code> 属性来创建一个新对象，该对象使用与现有对象相同的构造器。因为新创建的对象继承的constuctor指向原来的构造函数！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rabbit</span>(<span class="hljs-params">name</span>) </span>&#123; <br>	<span class="hljs-built_in">this</span>.name = name; <br>	alert(name);<br>&#125; <br><span class="hljs-keyword">let</span> rabbit = <span class="hljs-keyword">new</span> Rabbit(<span class="hljs-string">&quot;White Rabbit&quot;</span>); <br><span class="hljs-keyword">let</span> rabbit2 = <span class="hljs-keyword">new</span> rabbit.constructor(<span class="hljs-string">&quot;Black Rabbit&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>但想得到好，<strong>……JavaScript 自身并不能确保正确的 <code>&quot;constructor&quot;</code> 函数值。</strong></p>
+<p>比如我们如果将函数的prototype属性直接替换掉，那就不会存在<code>constructor</code>属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rabbit</span>(<span class="hljs-params"></span>)</span>&#123;&#125;<br>Rabbit.prototype = &#123;<span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>&#125;;<br><span class="hljs-keyword">let</span> rabbit = <span class="hljs-keyword">new</span> Rabbit();<br><span class="hljs-built_in">console</span>.log(rabbit.constructor === Rabbit); <span class="hljs-comment">//false</span><br></code></pre></td></tr></table></figure>
+
+<p>其实JS 会好心的给原型添加一个constructor属性，而且 <code>constructor</code>会指向 <code>Object</code> 构造函数。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211211163258.png" srcset="/img/loading.gif" lazyload></p>
+<p>不过，我们就不能依靠 <code>constructor</code> 辨别创建的对象类型了。虽然，<code>instanceOf</code> 还是能可靠地返回对象的类型。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211211163555.png" srcset="/img/loading.gif" lazyload></p>
+<p>因此，为了确保正确的 <code>&quot;constructor&quot;</code>，我们可以选择添加/删除属性到默认 <code>&quot;prototype&quot;</code>，而不是将其整个覆盖：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">Rabbit.prototype.jumps = <span class="hljs-literal">true</span>;<br><span class="hljs-comment">// 默认的 Rabbit.prototype.constructor 被保留了下来</span><br></code></pre></td></tr></table></figure>
+
+<p>或者，也可以手动重新创建 <code>constructor</code> 属性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">Rabbit.prototype = &#123; <span class="hljs-attr">jumps</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">constructor</span>: Rabbit&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>不过这种手动添加 constructor 属性也有一点小问题，那就是原生的 <code>constructor</code> 属性是不可枚举的。而这种直接添加的方法，constructor 属性是可枚举的，也即Enumerable属性为true。</p>
+<p>所以，我们应该使用 <code>Object.defineProperty()</code> 方法来添加 constructor属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">Rabbit.prototype = &#123;<span class="hljs-attr">jumps</span>:<span class="hljs-literal">true</span>&#125;;<br><span class="hljs-comment">// 给Rabbit.prototype 添加 constructor属性，其值指向Rabbit函数且不可枚举</span><br><span class="hljs-built_in">Object</span>.defineProperty(Rabbit.prototype,<span class="hljs-string">&#x27;constructor&#x27;</span>,&#123;<br>	<span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,<br>	<span class="hljs-attr">value</span>: Rabbit<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Object-prototype"><a href="#Object-prototype" class="headerlink" title="Object.prototype"></a>Object.prototype</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();<br><span class="hljs-comment">//其实和 let obj = &#123;&#125;;是一样的</span><br></code></pre></td></tr></table></figure>
+
+<p>还记得上面的说的：<strong>如果 <code>F.prototype</code> 是一个对象，那么 <code>new</code> 操作符会使用它为新对象设置 <code>[[Prototype]]</code>。</strong></p>
+<p><code>Object</code> 就是一个内建的对象构造函数，其自身的 <code>prototype</code> 指向一个带有 <code>toString</code> 和其他方法的一个巨大的对象。上面的创建对象的操作就相当于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 创建新对象</span><br><span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();<br><span class="hljs-comment">//默认进行了</span><br>obj.__proto__ = <span class="hljs-built_in">Object</span>.prototype;<br><br><span class="hljs-built_in">console</span>.log(obj.__proto__ === <span class="hljs-built_in">Object</span>.prototype); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208150304.png" srcset="/img/loading.gif" lazyload><br><img src="https://zh.javascript.info/article/native-prototypes/object-prototype-1.svg" srcset="/img/loading.gif" lazyload></p>
+<p>另外 <code>Object.prototype</code> 上方的链中没有更多的 <code>[[Prototype]]</code>。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208150540.png" srcset="/img/loading.gif" lazyload></p>
+<p>另外，咱们也不能给 <code>Object.prototype</code>继续设置原型对象了。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208150740.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="其他内建对象继承自Object-prototype"><a href="#其他内建对象继承自Object-prototype" class="headerlink" title="其他内建对象继承自Object.prototype"></a>其他内建对象继承自Object.prototype</h2><p>其他内建对象，像 <code>Array</code>、<code>Date</code>、<code>Function</code> 及其他，都在 prototype 上挂载了方法。</p>
+<p>例如，当我们创建一个数组 <code>[1, 2, 3]</code>，在内部会默认使用 <code>new Array()</code> 构造器。因此 <code>Array.prototype</code> 变成了这个数组的 prototype，并为这个数组提供数组的操作方法。这样内存的存储效率是很高的。</p>
+<p>按照规范，所有的内建原型顶端都是 <code>Object.prototype</code>。这就是为什么有人说“一切都从对象继承而来”。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208151037.png" srcset="/img/loading.gif" lazyload></p>
+<p>让我们来验证一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>arr.__proto__ === <span class="hljs-built_in">Array</span>.prototype; <span class="hljs-comment">// true</span><br><span class="hljs-comment">//或者说</span><br><span class="hljs-built_in">Array</span>.prototype.isPrototypeOf(arr); <span class="hljs-comment">//true</span><br><span class="hljs-built_in">Object</span>.prototype.isPrototypeOf(arr); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前言万语，不如手绘一张图。</p>
+<p>构造函数与<code>prototype</code>与<code>[[Prototype]]</code>的关系：</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208160221.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果说，继续从 那个普通的构造函数出发，一直画原型链：</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208162454.png" srcset="/img/loading.gif" lazyload></p>
+<p>另外，我们也可以从 <code>F.prototype</code>出发，继续往上画。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211208163027.png" srcset="/img/loading.gif" lazyload><br>而这只是最简单的情况，就已经非常之复杂了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//验证代码</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>&#123;&#125;<br><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> F();<br><br><span class="hljs-comment">// 验证 obj的直接原型是否为F.prototype</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.getPrototypeOf(obj) === F.prototype); <span class="hljs-comment">//true</span><br><span class="hljs-comment">// 验证F.prototype的原型是否为 Object.prototype</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.getPrototypeOf(F.prototype) === <span class="hljs-built_in">Object</span>.prototype); <span class="hljs-comment">//true</span><br><br><span class="hljs-comment">// 验证普通构造函数F的直接原型是否为Function.prototype</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.getPrototypeOf(F) === <span class="hljs-built_in">Function</span>.prototype); <span class="hljs-comment">//true</span><br><span class="hljs-comment">// 验证Function.prototype 的原型是否为 Object.prototype</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-built_in">Function</span>.prototype) === <span class="hljs-built_in">Object</span>.prototype); <span class="hljs-comment">//true</span><br><br></code></pre></td></tr></table></figure>
+
+<p>就这样简单的<code>function F() &#123;&#125; const obj = new F();</code>就已经产生超级复杂的原型链了，而这只是最简单的情况。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/26/%E8%99%9A%E6%8B%9FDOM%E7%AE%80%E5%8D%95%E8%A7%A3%E6%9E%90/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

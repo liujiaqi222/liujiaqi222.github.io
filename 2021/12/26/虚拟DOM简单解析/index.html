@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-26 13:03" pubdate>
+        2021年12月26日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <p>虚拟 DOM 简单说就是 <strong>用JS对象来模拟 DOM 结构</strong></p>
+<h2 id="why"><a href="#why" class="headerlink" title="why"></a>why</h2><p>因为操作DOM是非常慢的，每个 DOM 元素都继承了非常多的属性。</p>
+<p>比如创建一个 div元素，它自己尽管是没有任何属性，但是它的原型链超级超级长！</p>
+<p>HTMLDivElement -&gt; HTMLElement -&gt; Element -&gt; Node -&gt; EventTarget-&gt;{一个对象}</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211217150719.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果把它继承的属性打印出来，会发现可以绕地球2圈。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211217151132.png" srcset="/img/loading.gif" lazyload></p>
+<p>不过，这都不是关键，最重要的是直接操作dom，浏览器的重绘和重排会很消耗性能。</p>
+<h2 id="虚拟DOM原理"><a href="#虚拟DOM原理" class="headerlink" title="虚拟DOM原理"></a>虚拟DOM原理</h2><p>因此，相对于 DOM 对象，原生的 JavaScript 对象处理起来更快。DOM 树上的结构、属性信息我们都可以很容易地用 JavaScript 对象表示出来：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> element = &#123;<br>  <span class="hljs-attr">tagName</span>: <span class="hljs-string">&#x27;ul&#x27;</span>, <span class="hljs-comment">// 节点标签名</span><br>  <span class="hljs-attr">props</span>: &#123; <span class="hljs-comment">// DOM的属性，用一个对象存储键值对</span><br>    <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;list&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">children</span>: [ <span class="hljs-comment">// 该节点的子节点</span><br>    &#123;<span class="hljs-attr">tagName</span>: <span class="hljs-string">&#x27;li&#x27;</span>, <span class="hljs-attr">props</span>: &#123;<span class="hljs-attr">class</span>: <span class="hljs-string">&#x27;item&#x27;</span>&#125;, <span class="hljs-attr">children</span>: [<span class="hljs-string">&quot;Item 1&quot;</span>]&#125;,<br>    &#123;<span class="hljs-attr">tagName</span>: <span class="hljs-string">&#x27;li&#x27;</span>, <span class="hljs-attr">props</span>: &#123;<span class="hljs-attr">class</span>: <span class="hljs-string">&#x27;item&#x27;</span>&#125;, <span class="hljs-attr">children</span>: [<span class="hljs-string">&quot;Item 2&quot;</span>]&#125;,<br>    &#123;<span class="hljs-attr">tagName</span>: <span class="hljs-string">&#x27;li&#x27;</span>, <span class="hljs-attr">props</span>: &#123;<span class="hljs-attr">class</span>: <span class="hljs-string">&#x27;item&#x27;</span>&#125;, <span class="hljs-attr">children</span>: [<span class="hljs-string">&quot;Item 3&quot;</span>]&#125;,<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>这个对象可以有三个属性：<code>tag</code>、<code>props</code>、<code>children</code>:</p>
+<ul>
+<li>  tag：必选。就是标签。也可以是组件，或者函数</li>
+<li>  props：非必选。就是这个标签上的属性和方法</li>
+<li>  children：非必选。就是这个标签的内容或者子节点。</li>
+</ul>
+<p>上面对应的HTML写法是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;list&#x27;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;item&#x27;</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;item&#x27;</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;item&#x27;</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>用 JavaScript 对象表示 DOM 信息和结构，当状态变更的时候，重新渲染这个 JavaScript 的对象结构。用新渲染的对象树去和旧的树进行对比，记录这两棵树差异。记录下来的不同就是我们需要对页面真正的 DOM 操作，然后把它们应用在真正的 DOM 树上，页面就变更了。</p>
+<p>这样就可以做到：视图的结构确实是整个全新渲染了，但是最后操作DOM的时候确实只变更有不同的地方。</p>
+<p>这就是所谓的 Virtual DOM 算法。包括几个步骤：</p>
+<ol>
+<li> 用 JavaScript 对象结构表示 DOM 树的结构；然后用这个树构建一个真正的 DOM 树，插到文档当中</li>
+<li> 当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较，记录两棵树差异</li>
+<li> 把2所记录的差异应用到步骤1所构建的真正的DOM树上，视图就更新了</li>
+</ol>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="步骤一：用JS对象模拟DOM树"><a href="#步骤一：用JS对象模拟DOM树" class="headerlink" title="步骤一：用JS对象模拟DOM树"></a>步骤一：用JS对象模拟DOM树</h3><p>首先写一个构造函数，然后创建实现上面的 dom对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Element</span>(<span class="hljs-params">tagName,props,children</span>)</span>&#123;<br> <span class="hljs-built_in">this</span>.tagName = tagName;<br> <span class="hljs-built_in">this</span>.props = props;<br> <span class="hljs-built_in">this</span>.children = children;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>接着，用对象来表示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> ul = <span class="hljs-keyword">new</span> Element(<span class="hljs-string">&#x27;ul&#x27;</span>,&#123;<span class="hljs-attr">id</span>:<span class="hljs-string">&#x27;list&#x27;</span>&#125;,[<br> <span class="hljs-keyword">new</span> Element(<span class="hljs-string">&#x27;li&#x27;</span>,&#123;<span class="hljs-attr">class</span>:<span class="hljs-string">&#x27;item&#x27;</span>&#125;,[<span class="hljs-string">&#x27;Item 1&#x27;</span>]),<br> <span class="hljs-keyword">new</span> Element(<span class="hljs-string">&#x27;li&#x27;</span>,&#123;<span class="hljs-attr">class</span>:<span class="hljs-string">&#x27;item&#x27;</span>&#125;,[<span class="hljs-string">&#x27;Item 2&#x27;</span>]),<br> <span class="hljs-keyword">new</span> Element(<span class="hljs-string">&#x27;li&#x27;</span>,&#123;<span class="hljs-attr">class</span>:<span class="hljs-string">&#x27;item&#x27;</span>&#125;,[<span class="hljs-string">&#x27;Item 2&#x27;</span>]),<br>]);<br></code></pre></td></tr></table></figure>
+
+<p>现在<code>ul</code>只是一个 JavaScript 对象表示的 DOM 结构，页面上并没有这个结构。我们可以根据这个<code>ul</code>构建真正的<code>&lt;ul&gt;</code> 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js">Element.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br> <span class="hljs-comment">// 根据tag创建元素</span><br> <span class="hljs-keyword">const</span> el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-built_in">this</span>.tagName);<br><br> <span class="hljs-comment">// 设置DOM属性</span><br> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> propName <span class="hljs-keyword">in</span> <span class="hljs-built_in">this</span>.props)&#123;<br> el.setAttribute(propName,<span class="hljs-built_in">this</span>.props[propName]);<br> &#125;<br> <span class="hljs-comment">// 递归el的children属性</span><br> <span class="hljs-keyword">const</span> children = <span class="hljs-built_in">this</span>.children || [];<br> children.forEach(<span class="hljs-function"><span class="hljs-params">child</span> =&gt;</span> &#123;<br> <span class="hljs-keyword">const</span> childEl = (child <span class="hljs-keyword">instanceof</span> Element)?<br> child.render() <span class="hljs-comment">//如果子节点也是虚拟DOM，递归构建DOM节点</span><br> : <span class="hljs-built_in">document</span>.createTextNode(child) <span class="hljs-comment">// 如果字符串，只构建文本节点</span><br> el.appendChild(childEl);<br> &#125;)<br> <span class="hljs-keyword">return</span> el;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>render</code>方法会根据<code>tagName</code>构建一个真正的DOM节点，然后设置这个节点的属性，最后递归地把自己的子节点也构建起来。所以只需要：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">  <br><span class="hljs-keyword">const</span> ulDom = ul.render();<br><span class="hljs-built_in">document</span>.body.appendChild(ulDom);<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="步骤二：比较两棵虚拟DOM树的差异"><a href="#步骤二：比较两棵虚拟DOM树的差异" class="headerlink" title="步骤二：比较两棵虚拟DOM树的差异"></a>步骤二：比较两棵虚拟DOM树的差异</h3><p>正如你所预料的，比较两棵DOM树的差异是 Virtual DOM 算法最核心的部分，这也是所谓的 Virtual DOM 的 diff 算法。两个树的完全的 diff 算法是一个时间复杂度为 O(n^3) 的问题。但是在前端当中，你很少会跨越层级地移动DOM元素。</p>
+<ol>
+<li> 只比较同一层级，不跨级比较<br><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211217160056.png" srcset="/img/loading.gif" lazyload><br>上面的<code>div</code>只会和同一层级的<code>div</code>对比，第二层级的只会跟第二层级对比。这样算法复杂度就可以达到 O(n)。</li>
+</ol>
+<h4 id="1-深度优先遍历，记录差异"><a href="#1-深度优先遍历，记录差异" class="headerlink" title="1.深度优先遍历，记录差异"></a>1.深度优先遍历，记录差异</h4><p>在实际的代码中，会对新旧两棵树进行一个深度优先的遍历，这样每个节点都会有一个唯一的标记：<br><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20211217160224.png" srcset="/img/loading.gif" lazyload></p>
+<p>在深度优先遍历的时候，每遍历到一个节点就把该节点和新的的树进行对比。如果有差异的话就记录到一个对象里面。</p>
+<h4 id="2-比较差异类型"><a href="#2-比较差异类型" class="headerlink" title="2.比较差异类型"></a>2.比较差异类型</h4><p>上面说的节点的差异指的是什么呢？对 DOM 操作可能会：</p>
+<ol>
+<li> 替换掉原来的节点，例如把上面的<code>div</code>换成了<code>section</code></li>
+<li> 移动、删除、新增子节点，例如上面<code>div</code>的子节点，把<code>p</code>和<code>ul</code>顺序互换</li>
+<li> 修改了节点的属性</li>
+<li> 对于文本节点，文本内容可能会改变。例如修改上面的文本节点2内容为<code>Virtual DOM 2</code>。</li>
+</ol>
+<h3 id="步骤三：把差异应用到真正的DOM树上"><a href="#步骤三：把差异应用到真正的DOM树上" class="headerlink" title="步骤三：把差异应用到真正的DOM树上"></a>步骤三：把差异应用到真正的DOM树上</h3><p>因为步骤一所构建的 JavaScript 对象树和<code>render</code>出来真正的DOM树的信息、结构是一样的。所以我们可以对那棵DOM树也进行深度优先的遍历，遍历的时候从步骤二生成的<code>patches</code>对象中找出当前遍历的节点差异，然后进行 DOM 操作。</p>
+<p>所以，最重要的就是 比较差异类型，也就是[[DIFF算法]]。</p>
+<p>参考：</p>
+<ol>
+<li><a href="https://github.com/livoras/blog/issues/13">https://github.com/livoras/blog/issues/13</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7010594233253888013">https://juejin.cn/post/7010594233253888013</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/26/%E5%9B%BE%E8%A7%A3%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/09/Echarts%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Echarts学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

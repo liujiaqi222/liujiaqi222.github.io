@@ -1,0 +1,1045 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="刘嘉琪">
+  <meta name="keywords" content="">
+  
+  <title>Echarts学习笔记 - jiaqi&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>前端学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Echarts学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-09 23:39" pubdate>
+        2021年10月9日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      110
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Echarts学习笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Echarts-快速上手"><a href="#Echarts-快速上手" class="headerlink" title="Echarts 快速上手"></a>Echarts 快速上手</h1><ol>
+<li>引入 echarts.js 文件</li>
+<li>准备一个呈现图表的盒子</li>
+<li>初始化echarts实例对象</li>
+<li>准备配置项</li>
+<li>将配置项设置给echarts实例对象</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#x27;width: 600px; height: 400px;&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./lib/echarts.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">  <span class="hljs-comment">// 基于准备好的dom，初始化echarts实例</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));</span><br><span class="javascript">  <span class="hljs-comment">// 指定图表的配置项和数据</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> option = &#123;</span><br><span class="javascript">    <span class="hljs-attr">title</span>:&#123;</span><br><span class="javascript">      <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;ECharts 入门实例&#x27;</span>,</span><br><span class="javascript">      <span class="hljs-attr">link</span>:<span class="hljs-string">&#x27;https://jiaqicoder.com&#x27;</span>,</span><br><span class="javascript">      <span class="hljs-attr">textStyle</span>:&#123;</span><br><span class="javascript">        <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;pink&#x27;</span>,</span><br><span class="javascript">        <span class="hljs-attr">fontStyle</span>:<span class="hljs-string">&#x27;normal&#x27;</span></span><br><span class="javascript">      &#125;</span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-attr">xAxis</span>:&#123;</span><br><span class="javascript">      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;category&#x27;</span>, <span class="hljs-comment">// 类目轴</span></span><br><span class="javascript">      <span class="hljs-attr">data</span>:[<span class="hljs-string">&#x27;衬衫&#x27;</span>,<span class="hljs-string">&#x27;羊毛衫&#x27;</span>,<span class="hljs-string">&#x27;雪纺衫&#x27;</span>,<span class="hljs-string">&#x27;裤子&#x27;</span>] </span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-attr">yAxis</span>:&#123;</span><br><span class="javascript">      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;value&#x27;</span>, <span class="hljs-comment">// 数值轴</span></span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-attr">series</span>:[&#123;</span><br><span class="javascript">      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;销量&#x27;</span>,</span><br><span class="javascript">      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-comment">//line pie</span></span><br><span class="javascript">      <span class="hljs-attr">data</span>:[<span class="hljs-number">5</span>,<span class="hljs-number">10</span>,<span class="hljs-number">15</span>,<span class="hljs-number">20</span>]</span><br><span class="javascript">    &#125;]</span><br><span class="javascript">  &#125;</span><br><span class="javascript">    <span class="hljs-comment">// 使用刚指定的配置项和数据显示图表。</span></span><br><span class="javascript">    myChart.setOption(option);</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>相关配置：</p>
+<ul>
+<li>xAxis：直接坐标系中的x轴</li>
+<li>yAxis：直角坐标系中的y轴</li>
+<li>series：系列列表。每个系列通过type决定自己的图表类型</li>
+<li>[title](<a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#title">Documentation - Apache ECharts</a>)：标题组件，包含主标题和副标题。</li>
+</ul>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241614890.png" srcset="/img/loading.gif" lazyload alt="image-20210924105806030"></p>
+<h1 id="通用配置"><a href="#通用配置" class="headerlink" title="通用配置"></a>通用配置</h1><p>通用配置指的就是任何图表都能使用的配置。</p>
+<h2 id="标题-title"><a href="#标题-title" class="headerlink" title="标题 title"></a>标题 title</h2><ul>
+<li><p>文字样式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">title:&#123;<br>  <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;成绩展示&#x27;</span>,<br>  <span class="hljs-attr">textStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;red&#x27;</span>,<br>    <span class="hljs-attr">fontSize</span>:<span class="hljs-string">&#x27;28px&#x27;</span>,<br>    <span class="hljs-attr">fontWeight</span>:<span class="hljs-number">800</span>,<br>  &#125;,<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+<li><p>标题边框</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">borderWidth:<span class="hljs-number">5</span>,<br><span class="hljs-attr">borderColor</span>:<span class="hljs-string">&#x27;blue&#x27;</span>,<br><span class="hljs-attr">borderRadius</span>:<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure></li>
+<li><p>标题位置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">title:&#123;<br>  <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;成绩展示&#x27;</span>,<br>  <span class="hljs-attr">textStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;red&#x27;</span>,<br>    <span class="hljs-attr">fontSize</span>:<span class="hljs-string">&#x27;28px&#x27;</span><br>  &#125;,<br><span class="hljs-attr">borderWidth</span>:<span class="hljs-number">5</span>,<br><span class="hljs-attr">borderColor</span>:<span class="hljs-string">&#x27;blue&#x27;</span>,<br><span class="hljs-attr">borderRadius</span>:<span class="hljs-number">5</span>,<br><span class="hljs-attr">left</span>:<span class="hljs-number">100</span>,<br><span class="hljs-attr">top</span>:<span class="hljs-number">20</span>,<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><code>top</code> 的值可以是像 <code>20</code> 这样的具体像素值，可以是像 <code>&#39;20%&#39;</code> 这样相对于容器高宽的百分比，也可以是 <code>&#39;top&#39;</code>, <code>&#39;middle&#39;</code>, <code>&#39;bottom&#39;</code>。</p>
+<p>如果 <code>top</code> 的值为<code>&#39;top&#39;</code>, <code>&#39;middle&#39;</code>, <code>&#39;bottom&#39;</code>，组件会根据相应的位置自动对齐。</p>
+</li>
+</ul>
+<h2 id="提示-tooltip"><a href="#提示-tooltip" class="headerlink" title="提示 tooltip"></a>提示 tooltip</h2><p>tooltip：提示框组件，用于配置鼠标滑过或者点击图表时的显示框。</p>
+<ul>
+<li><p>触发类型：trigger （可选）</p>
+<ul>
+<li><p><code>&#39;item&#39;</code></p>
+<p>数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。</p>
+</li>
+<li><p><code>&#39;axis&#39;</code></p>
+<p>坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。</p>
+</li>
+<li><p><code>&#39;none&#39;</code></p>
+<p>什么都不触发。</p>
+</li>
+</ul>
+</li>
+<li><p>触发时机：triggerOn （可选）</p>
+<ul>
+<li><p><code>&#39;mousemove&#39;</code></p>
+<p>鼠标移动时触发。</p>
+</li>
+<li><p><code>&#39;click&#39;</code></p>
+<p>鼠标点击时触发。</p>
+</li>
+<li><p><code>&#39;mousemove|click&#39;</code></p>
+<p>同时鼠标移动和点击时触发。</p>
+</li>
+</ul>
+</li>
+<li><p>格式化：formatter</p>
+<p>提示框浮层内容格式器，支持字符串模板和回调函数两种形式。</p>
+<p>字符串模板：</p>
+<p>模板变量有 <code>&#123;a&#125;</code>, <code>&#123;b&#125;</code>，<code>&#123;c&#125;</code>，<code>&#123;d&#125;</code>，<code>&#123;e&#125;</code>，分别表示系列名，数据名，数据值等。 在 <a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#tooltip.trigger">trigger</a> 为 <code>&#39;axis&#39;</code> 的时候，会有多个系列的数据，此时可以通过 <code>&#123;a0&#125;</code>, <code>&#123;a1&#125;</code>, <code>&#123;a2&#125;</code> 这种后面加索引的方式表示系列的索引。 不同图表类型下的 <code>&#123;a&#125;</code>，<code>&#123;b&#125;</code>，<code>&#123;c&#125;</code>，<code>&#123;d&#125;</code> 含义不一样。 其中变量<code>&#123;a&#125;</code>, <code>&#123;b&#125;</code>, <code>&#123;c&#125;</code>, <code>&#123;d&#125;</code>在不同图表类型下代表数据含义为：</p>
+<ul>
+<li>折线（区域）图、柱状（条形）图、K线图 : <code>&#123;a&#125;</code>（系列名称），<code>&#123;b&#125;</code>（类目值），<code>&#123;c&#125;</code>（数值）, <code>&#123;d&#125;</code>（无）</li>
+<li>散点图（气泡）图 : <code>&#123;a&#125;</code>（系列名称），<code>&#123;b&#125;</code>（数据名称），<code>&#123;c&#125;</code>（数值数组）, <code>&#123;d&#125;</code>（无）</li>
+<li>地图 : <code>&#123;a&#125;</code>（系列名称），<code>&#123;b&#125;</code>（区域名称），<code>&#123;c&#125;</code>（合并数值）, <code>&#123;d&#125;</code>（无）</li>
+<li>饼图、仪表盘、漏斗图: <code>&#123;a&#125;</code>（系列名称），<code>&#123;b&#125;</code>（数据项名称），<code>&#123;c&#125;</code>（数值）, <code>&#123;d&#125;</code>（百分比）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">tooltip:&#123;<br>  <span class="hljs-attr">trigger</span>:<span class="hljs-string">&#x27;axis&#x27;</span>,<span class="hljs-comment">// &#x27;item&#x27;</span><br>  <span class="hljs-attr">triggerOn</span>:<span class="hljs-string">&#x27;click&#x27;</span>,<br>  <span class="hljs-attr">formatter</span>:<span class="hljs-string">&#x27;&#123;b&#125; 的成绩是 &#123;c&#125;&#x27;</span>, <span class="hljs-comment">//&#123;b&#125;（类目值），&#123;c&#125;（数值）</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>回调函数格式：</p>
+<p>支持返回 HTML 字符串或者创建的 DOM 实例。</p>
+<p>第一个参数 <code>arg</code> 是 formatter 需要的数据集</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">tooltip:&#123;<br>  <span class="hljs-attr">trigger</span>:<span class="hljs-string">&#x27;axis&#x27;</span>,<span class="hljs-comment">// &#x27;item&#x27;</span><br>  <span class="hljs-attr">triggerOn</span>:<span class="hljs-string">&#x27;click&#x27;</span>,<br>  <span class="hljs-attr">formatter</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(arg); <span class="hljs-comment">// 可以打印看看 有什么值</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;arg[<span class="hljs-number">0</span>].name&#125;</span>的分数是 <span class="hljs-subst">$&#123;arg[<span class="hljs-number">0</span>].data&#125;</span>`</span>; <span class="hljs-comment">// 返回值将会呈现在页面中</span><br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="工具按钮-toolbox"><a href="#工具按钮-toolbox" class="headerlink" title="工具按钮 toolbox"></a>工具按钮 toolbox</h2><p>内置有导出图片，数据视图，动态类型切换,数据区域缩放，重置五个工具。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">toolbox:&#123;<br>  <span class="hljs-attr">feature</span>:&#123;<br>    <span class="hljs-attr">saveAsImage</span>:&#123;&#125;, <span class="hljs-comment">// 保存为图片</span><br>    <span class="hljs-attr">dataView</span>:&#123;&#125;, <span class="hljs-comment">//数据视图</span><br>    <span class="hljs-attr">restore</span>:&#123;&#125;, <span class="hljs-comment">// 重置功能</span><br>    <span class="hljs-attr">dataZoom</span>:&#123;&#125;, <span class="hljs-comment">// 区域缩放</span><br>    <span class="hljs-attr">magicType</span>:&#123;<br>      <span class="hljs-attr">type</span>:[<span class="hljs-string">&#x27;line&#x27;</span>,<span class="hljs-string">&#x27;bar&#x27;</span>]    <span class="hljs-comment">// 切换图表类型</span><br>    &#125;<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615720.png" srcset="/img/loading.gif" lazyload alt="image-20210924143614282"></p>
+<h2 id="图例-legend"><a href="#图例-legend" class="headerlink" title="图例 legend"></a>图例 legend</h2><p>legend：图例，用于筛选系列，需要和series配合使用。</p>
+<ul>
+<li>legend中的 data是一个数组</li>
+<li>legend中的data的值需要和series数组中某组数据的name值一致</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [<br>  &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;语文成绩&#x27;</span>,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>    <span class="hljs-attr">data</span>: [<span class="hljs-number">98</span>, <span class="hljs-number">88</span>, <span class="hljs-number">78</span>, <span class="hljs-number">80</span>]<br>  &#125;,&#123;<br>    <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;数学成绩&#x27;</span>,<br>    <span class="hljs-attr">data</span>:[<span class="hljs-number">42</span>,<span class="hljs-number">55</span>,<span class="hljs-number">99</span>,<span class="hljs-number">88</span>],<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;bar&#x27;</span><br>  &#125;<br>],<br><span class="hljs-attr">legend</span>:&#123;<br>  <span class="hljs-attr">data</span>:[<span class="hljs-string">&#x27;语文成绩&#x27;</span>,<span class="hljs-string">&#x27;数学成绩&#x27;</span>], <span class="hljs-comment">// 如果series中的name有值时，legend中的data可以不写</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615448.png" srcset="/img/loading.gif" lazyload alt="image-20210924151308211"></p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615889.png" srcset="/img/loading.gif" lazyload alt="image-20210924151320748"></p>
+<h1 id="ECharts的常用图表"><a href="#ECharts的常用图表" class="headerlink" title="ECharts的常用图表"></a>ECharts的常用图表</h1><ul>
+<li>柱状图 bar</li>
+<li>折线图</li>
+<li>散点图</li>
+<li>饼图</li>
+<li>地图</li>
+<li>雷达图</li>
+<li>仪表盘图</li>
+</ul>
+<h2 id="柱状图"><a href="#柱状图" class="headerlink" title="柱状图"></a>柱状图</h2><h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p>引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>x轴数据：</p>
+<p>数据1：[‘张三’,’李四’,’王五’,’赵六’]</p>
+</li>
+<li><p>y轴数据：</p>
+<p>数据2：[88,92,79,79]</p>
+</li>
+<li><p>图表类型：</p>
+<p>在series下设置 type:bar</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 600px;height: 400px;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./lib/echarts.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript"></span><br><span class="javascript">    <span class="hljs-keyword">let</span> myCharts = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));</span><br><span class="javascript">    myCharts.setOption(&#123;</span><br><span class="javascript">      <span class="hljs-attr">title</span>: &#123;</span><br><span class="javascript">        <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;成绩&#x27;</span></span><br><span class="javascript">      &#125;,</span><br><span class="javascript">      <span class="hljs-attr">xAxis</span>: &#123;</span><br><span class="javascript">        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;category&#x27;</span>,</span><br><span class="javascript">        <span class="hljs-attr">data</span>: [<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-string">&#x27;李四&#x27;</span>,<span class="hljs-string">&#x27;王五&#x27;</span>,<span class="hljs-string">&#x27;赵六&#x27;</span>]</span><br><span class="javascript">      &#125;,</span><br><span class="javascript">      <span class="hljs-attr">yAxis</span>: &#123;</span><br><span class="javascript">        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span></span><br><span class="javascript">      &#125;,</span><br><span class="javascript">      <span class="hljs-attr">series</span>: [&#123;</span><br><span class="javascript">        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;成绩&#x27;</span>,</span><br><span class="javascript">        <span class="hljs-attr">data</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>],</span><br><span class="javascript">        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span></span><br><span class="javascript">      &#125;],</span><br><span class="javascript">    &#125;);</span><br><span class="javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="常见效果"><a href="#常见效果" class="headerlink" title="常见效果"></a>常见效果</h3><ul>
+<li><p> 标记：</p>
+</li>
+<li><p>最大值 最小值（用markPoint来标记点）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;成绩&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最大值&#x27;</span><br>    &#125;,&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最小值&#x27;</span><br>    &#125;]<br>  &#125;<br>&#125;]<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615217.png" srcset="/img/loading.gif" lazyload alt="image-20210924114001186"></p>
+</li>
+<li><p> 平均值(markLine)</p>
+</li>
+</ul>
+<pre><code><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;成绩&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最大值&#x27;</span><br>    &#125;,&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最小值&#x27;</span><br>    &#125;]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<br>        <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>,<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;平均值&#x27;</span><br>      &#125;<br>    ]<br>  &#125;<br>&#125;],<br></code></pre></td></tr></table></figure>
+
+![image-20210924114211478](https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615232.png)
+</code></pre>
+<ul>
+<li><p>显示：</p>
+<ul>
+<li><p>数值显示(label)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;成绩&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最大值&#x27;</span><br>    &#125;,&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最小值&#x27;</span><br>    &#125;]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<br>        <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>,<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;平均值&#x27;</span><br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">label</span>:&#123;<br>    <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>,<br>  &#125;<br>&#125;],<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615544.png" srcset="/img/loading.gif" lazyload alt="image-20210924114641529"></p>
+</li>
+<li><p>柱宽度(barWidth)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;成绩&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最大值&#x27;</span><br>    &#125;,&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最小值&#x27;</span><br>    &#125;]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<br>        <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>,<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;平均值&#x27;</span><br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">label</span>:&#123;<br>    <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">position</span>:<span class="hljs-string">&#x27;inside&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">barWidth</span>:<span class="hljs-string">&#x27;50%&#x27;</span> <span class="hljs-comment">// 调整为默认宽度的50%</span><br>&#125;],<br></code></pre></td></tr></table></figure></li>
+<li><p>横向柱状图</p>
+<p>将柱状图变为横向的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">xAxis: &#123;<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span><br>&#125;,<br><span class="hljs-attr">yAxis</span>: &#123;<br>  <span class="hljs-attr">data</span>: [<span class="hljs-string">&#x27;张三&#x27;</span>, <span class="hljs-string">&#x27;李四&#x27;</span>, <span class="hljs-string">&#x27;王五&#x27;</span>, <span class="hljs-string">&#x27;赵六&#x27;</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;category&#x27;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615320.png" srcset="/img/loading.gif" lazyload alt="image-20210924115428763"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="折线图"><a href="#折线图" class="headerlink" title="折线图"></a>折线图</h2><h3 id="实现步骤-1"><a href="#实现步骤-1" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p>引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>x轴数据：</p>
+<p>数据1：[‘1月’,’2月’,’3月’,’4月’,’5月’,’6月’]</p>
+</li>
+<li><p>y轴数据：</p>
+<p>数据2：[88,92,79,79,39,99]</p>
+</li>
+<li><p>图表类型：</p>
+<p>在series下设置 type: line</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.setOption(&#123;<br>  <span class="hljs-attr">title</span>:&#123;<br>    <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;康师傅方便面销量&#x27;</span>,<br>    <span class="hljs-attr">textStyle</span>:&#123;<br>      <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;blue&#x27;</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">xAxis</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<span class="hljs-string">&#x27;1月&#x27;</span>,<span class="hljs-string">&#x27;2月&#x27;</span>,<span class="hljs-string">&#x27;3月&#x27;</span>,<span class="hljs-string">&#x27;4月&#x27;</span>,<span class="hljs-string">&#x27;5月&#x27;</span>,<span class="hljs-string">&#x27;6月&#x27;</span>],<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;category&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">yAxis</span>:&#123;<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;value&#x27;</span>,<br>  &#125;,<br>  <span class="hljs-attr">series</span>:&#123;<br>    <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>    <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  &#125;,<br>  <span class="hljs-attr">tooltip</span>:&#123;<br>    <span class="hljs-attr">trigger</span>:<span class="hljs-string">&#x27;item&#x27;</span>,<br>    <span class="hljs-attr">formatter</span>:<span class="hljs-string">&#x27;&#123;b&#125;的销量为&#123;c&#125;&#x27;</span><br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="常见的效果"><a href="#常见的效果" class="headerlink" title="常见的效果"></a>常见的效果</h3><ul>
+<li><p>标记</p>
+<ul>
+<li><p>最大值 最小值 markPoint</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>&#125;,<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>&#125;<br>    ]<br>  &#125;,<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+<li><p>平均值 markLine</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>&#125;,<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>&#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>&#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\singhand\AppData\Roaming\Typora\typora-user-images\image-20210924153332983.png" srcset="/img/loading.gif" lazyload alt="image-20210924153332983"></p>
+</li>
+<li><p>标注区间 markArea</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">markPoint</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;max&#x27;</span>&#125;,<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>&#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      &#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>&#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">markArea</span>:&#123;<br>    <span class="hljs-attr">data</span>:[<br>      [<br>        &#123;<span class="hljs-attr">xAxis</span>:<span class="hljs-string">&#x27;1月&#x27;</span>&#125;, <span class="hljs-comment">// 开始月份</span><br>        &#123;<span class="hljs-attr">xAxis</span>:<span class="hljs-string">&#x27;2月&#x27;</span>&#125;, <span class="hljs-comment">// 结束月份</span><br>      ],<br>      [<br>        &#123;<span class="hljs-attr">xAxis</span>:<span class="hljs-string">&#x27;3月&#x27;</span>&#125;, <span class="hljs-comment">// 开始月份</span><br>        &#123;<span class="hljs-attr">xAxis</span>:<span class="hljs-string">&#x27;5月&#x27;</span>&#125;, <span class="hljs-comment">// 结束月份</span><br>      ],<br>    ]<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241615129.png" srcset="/img/loading.gif" lazyload alt="image-20210924160114696"></p>
+</li>
+</ul>
+</li>
+<li><p>线条控制：</p>
+<ul>
+<li><p>平滑 smooth</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">smooth</span>:<span class="hljs-literal">true</span><br>&#125;,<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241617419.png" srcset="/img/loading.gif" lazyload alt="image-20210924161756384"></p>
+</li>
+<li><p>线条样式 lineStyle</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">smooth</span>:<span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">lineStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;green&#x27;</span>,<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;dotted&#x27;</span>, <span class="hljs-comment">//solid dashed</span><br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+<li><p>填充风格 areaStyle</p>
+<p>注意和markArea的区别。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">series:&#123;<br>  <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[<span class="hljs-number">35</span>,<span class="hljs-number">29</span>,<span class="hljs-number">38</span>,<span class="hljs-number">88</span>,<span class="hljs-number">69</span>,<span class="hljs-number">89</span>],<br>  <span class="hljs-attr">smooth</span>:<span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">lineStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;green&#x27;</span>,<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;dotted&#x27;</span>, <span class="hljs-comment">//solid dashed</span><br>  &#125;,<br>  <span class="hljs-attr">areaStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;pink&#x27;</span><br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241628999.png" srcset="/img/loading.gif" lazyload alt="image-20210924162815962"></p>
+<p>全部代码：<a target="_blank" rel="noopener" href="https://codepen.io/liujiaqi222/pen/gORdQeo">A Pen by liujiaqi222 (codepen.io)</a></p>
+</li>
+<li><p>紧挨边缘 boundaryGap</p>
+<p>默认和边缘是存在距离的，注意此时bundaryGap的是放在 xAxis中的。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241640031.png" srcset="/img/loading.gif" lazyload alt="image-20210924164058998"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">xAxis: &#123;<br>  <span class="hljs-attr">data</span>: [<span class="hljs-string">&#x27;1月&#x27;</span>, <span class="hljs-string">&#x27;2月&#x27;</span>, <span class="hljs-string">&#x27;3月&#x27;</span>, <span class="hljs-string">&#x27;4月&#x27;</span>, <span class="hljs-string">&#x27;5月&#x27;</span>, <span class="hljs-string">&#x27;6月&#x27;</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;category&#x27;</span>,<br>  <span class="hljs-attr">boundaryGap</span>:<span class="hljs-literal">false</span>, <span class="hljs-comment">// 设置为无间隙</span><br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241644145.png" srcset="/img/loading.gif" lazyload alt="image-20210924164443113"></p>
+</li>
+<li><p>脱离0值比例缩放 scale</p>
+<p>如果数值相差无几，且数值较大，此时发现y轴的坐标依旧从0开始。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241649496.png" srcset="/img/loading.gif" lazyload alt="image-20210924164917454"></p>
+<p>此时，就可以将scale属性的值设置为true，允许坐标轴缩放。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">yAxis: &#123;<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span>,<br>  <span class="hljs-attr">scale</span>:<span class="hljs-literal">true</span><br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241652365.png" srcset="/img/loading.gif" lazyload alt="image-20210924165202333"></p>
+</li>
+<li><p>堆叠图 （stack的属性值要设置为相同的）</p>
+<p>如果两条不同的线，他们的数值波动较大就会出现如下的重叠情况，此时容易让人眼花缭乱。</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241708239.png" srcset="/img/loading.gif" lazyload alt="image-20210924170852203"></p>
+<p>因此可以将两条线的stack属性值设置为同一个值（任意设置），此时第一条仍然为第一条线，第二条线则为原来两条线的总和（叠加）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;康师傅的销量&#x27;</span>,<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">3091</span>, <span class="hljs-number">900</span>, <span class="hljs-number">300</span>, <span class="hljs-number">2006</span>, <span class="hljs-number">1510</span>, <span class="hljs-number">1813</span>],<br>  <span class="hljs-attr">stack</span>: <span class="hljs-string">&#x27;all&#x27;</span>,<br>  <span class="hljs-comment">// stack属性值相同的serie，后面的serie的值将会叠加在前一个serie的值</span><br>  <span class="hljs-comment">// 第二条线</span><br>&#125;, &#123;<br><br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;line&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">2000</span>, <span class="hljs-number">2328</span>, <span class="hljs-number">3282</span>, <span class="hljs-number">230</span>, <span class="hljs-number">1889</span>, <span class="hljs-number">1123</span>],<br>  <span class="hljs-attr">stack</span>: <span class="hljs-string">&#x27;all&#x27;</span>,<br>&#125;],<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109241711386.png" srcset="/img/loading.gif" lazyload alt="image-20210924171151354"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h2><p>散点图可以帮助我们推断变量间的相关性。</p>
+<h3 id="实现步骤-2"><a href="#实现步骤-2" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>引入js文件，创建DOM容器，初始化对象，设置option</p>
+</li>
+<li><p>x轴数据和y轴的数据：二维数组</p>
+<p>数组1：[[身高1,体重1],[身高2,体重2],[身高3,体重3]]</p>
+</li>
+<li><p>图表类型：</p>
+<p>在series下设置type:scatter</p>
+<p><strong>xAxis和yAxis的type都要设置为value</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.setOption(&#123;<br>  <span class="hljs-attr">xAxis</span>: &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span>,<br>    <span class="hljs-attr">scale</span>:<span class="hljs-literal">true</span><br>  &#125;,<br>  <span class="hljs-attr">yAxis</span>: &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span>,<br>    <span class="hljs-attr">scale</span>:<span class="hljs-literal">true</span><br>  &#125;,<br>  <span class="hljs-attr">series</span>: [&#123;<br>    <span class="hljs-attr">data</span>: axisdata,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;scatter&#x27;</span><br>  &#125;]<br>&#125;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常见的效果-1"><a href="#常见的效果-1" class="headerlink" title="常见的效果"></a>常见的效果</h3><ul>
+<li><p>气泡图效果不同</p>
+<ul>
+<li><p>散点的大小不同</p>
+</li>
+<li><p>散点的颜色不同</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">data</span>: axisdata,<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;scatter&#x27;</span>,<br>  <span class="hljs-comment">// symbolSize:10 ,// 改变散点的大小</span><br>  <span class="hljs-comment">// 不同的元素，散点的大小不同</span><br>  <span class="hljs-attr">symbolSize</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> height = arg[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">const</span> weight = arg[<span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">if</span> ((weight / <span class="hljs-built_in">Math</span>.pow(height / <span class="hljs-number">100</span>, <span class="hljs-number">2</span>) &gt; <span class="hljs-number">25</span>)) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">15</span>;<br>    &#125; <br>      <span class="hljs-keyword">return</span> <span class="hljs-number">5</span>;<br>    <br>  &#125;,<br>  <span class="hljs-comment">// 控制样式</span><br>  <span class="hljs-attr">itemStyle</span>: &#123;<br>    <span class="hljs-comment">// color:&#x27;green&#x27;</span><br>    <span class="hljs-attr">color</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>&#123;<br>      <span class="hljs-keyword">const</span> height = arg.data[<span class="hljs-number">0</span>];<br>      <span class="hljs-keyword">const</span> weight = arg.data[<span class="hljs-number">1</span>];<br>      <span class="hljs-keyword">if</span> ((weight / <span class="hljs-built_in">Math</span>.pow(height / <span class="hljs-number">100</span>, <span class="hljs-number">2</span>) &gt; <span class="hljs-number">25</span>)) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;pink&#x27;</span>;<br>    &#125; <br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;blue&#x27;</span>;<br>    <br>    &#125;<br>  &#125;<br>&#125;]<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281213005.png" srcset="/img/loading.gif" lazyload alt="image-20210928121227440"></p>
+</li>
+</ul>
+</li>
+<li><p>涟漪动画效果</p>
+<p>type: effectScatter</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">data</span>: axisdata,<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;effectScatter&#x27;</span>,<br>  <span class="hljs-attr">showEffectOn</span>:<span class="hljs-string">&#x27;emphasis&#x27;</span>, <span class="hljs-comment">// render（页面加载完成后显示） emphasis(鼠标滑过的时候显示)</span><br>  <span class="hljs-attr">rippleEffect</span>:&#123;<br>    <span class="hljs-attr">scale</span>:<span class="hljs-number">5</span><br>  &#125;,<br>&#125;]<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="直角坐标系的常用配置"><a href="#直角坐标系的常用配置" class="headerlink" title="直角坐标系的常用配置"></a>直角坐标系的常用配置</h2><p>直角坐标系图表：柱状图 折线图 散点图</p>
+<h3 id="配置1：网格grid"><a href="#配置1：网格grid" class="headerlink" title="配置1：网格grid"></a>配置1：网格grid</h3><p>grid 是用来控制直接坐标系的布局和大小。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">grid:&#123;<br>  <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">// 显示grid</span><br>  <span class="hljs-attr">borderWidth</span>:<span class="hljs-number">10</span>, <span class="hljs-comment">// 边框</span><br>  <span class="hljs-attr">borderColor</span>:<span class="hljs-string">&#x27;pink&#x27;</span>, <span class="hljs-comment">//边框颜色</span><br>  <span class="hljs-comment">// grid的位置和大小</span><br>  <span class="hljs-attr">top</span>:<span class="hljs-number">120</span>,  <br>  <span class="hljs-attr">left</span>:<span class="hljs-number">120</span>,<br>  <span class="hljs-attr">width</span>:<span class="hljs-number">600</span>,<br>  <span class="hljs-attr">height</span>:<span class="hljs-number">140</span>,<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281430660.png" srcset="/img/loading.gif" lazyload alt="image-20210928143034621"></p>
+<h3 id="配置2：坐标轴axis"><a href="#配置2：坐标轴axis" class="headerlink" title="配置2：坐标轴axis"></a>配置2：坐标轴axis</h3><p>坐标轴分为x轴和y轴，一个grid中最多有两种位置的x轴和y轴。</p>
+<ul>
+<li><p>坐标轴类型type</p>
+<p>value：数值轴，自动从目标数据中读取数据</p>
+<p>category：类目轴，该类型需要通过data设置类目数据</p>
+</li>
+<li><p>显示位置 position</p>
+<p>xAxis：可取值为top或者bottom</p>
+<p>yAxis：可以取值left或者right</p>
+</li>
+</ul>
+<h3 id="配置3：区域缩放-dataZoom"><a href="#配置3：区域缩放-dataZoom" class="headerlink" title="配置3：区域缩放 dataZoom"></a>配置3：区域缩放 dataZoom</h3><p>dataZoom 用于数据缩放，对数据范围过滤，x轴和y轴都可以拥有。</p>
+<p>dataZoom 是一个数组，意味着可以配置多个区域缩放器。</p>
+<ul>
+<li><p>type</p>
+<p>slider：滑块</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281456457.png" srcset="/img/loading.gif" lazyload alt="image-20210928145615405"></p>
+<p>inside：内置，依靠鼠标滚轮或者双指缩放</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281456524.png" srcset="/img/loading.gif" lazyload alt="image-20210928145636483"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">dataZoom:[&#123;<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;inside&#x27;</span> <span class="hljs-comment">// slider 滑块 inside：内置，依靠鼠标滚轮或者双指缩放</span><br>&#125;],<br></code></pre></td></tr></table></figure></li>
+<li><p>指明 dataZoom 作用的坐标轴</p>
+<p>xAxisIndex:设置缩放组件控制的是哪个x轴，一般写0即可</p>
+<p>yAxisIndex:设置缩放组件控制的是哪个y轴，一般写0即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">dataZoom: [<br>  &#123;<br>    <span class="hljs-comment">// slider 滑块 inside：内置，依靠鼠标滚轮或者双指缩放</span><br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slider&#x27;</span>, <br>    <span class="hljs-attr">xAxisIndex</span>:<span class="hljs-number">0</span><br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slider&#x27;</span>, <br>    <span class="hljs-attr">yAxisIndex</span>:<span class="hljs-number">0</span><br>  &#125;<br>],<br></code></pre></td></tr></table></figure></li>
+<li><p>指明初始状态的缩放情况</p>
+<p>start：数据窗口范围的起始百分比</p>
+<p>end：数据窗口范围结束的百分比</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">dataZoom: [<br>  &#123;<br>    <span class="hljs-comment">// slider 滑块 inside：内置，依靠鼠标滚轮或者双指缩放</span><br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slider&#x27;</span>, <br>    <span class="hljs-attr">xAxisIndex</span>:<span class="hljs-number">0</span><br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slider&#x27;</span>, <br>    <span class="hljs-attr">yAxisIndex</span>:<span class="hljs-number">0</span>,<br>    <span class="hljs-attr">start</span>:<span class="hljs-number">0</span>,<br>    <span class="hljs-attr">end</span>:<span class="hljs-number">50</span> <span class="hljs-comment">//指的是最高点的50%</span><br>  &#125;<br>],<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h2><p>饼图可以很好地帮助用户快速了解不同分类的数据占比情况。</p>
+<h3 id="实现步骤-3"><a href="#实现步骤-3" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p>引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>数据准备：</p>
+<p><code>[&#123;name:&#39;淘宝&#39;,value:11232&#125;,&#123;name:&#39;闲鱼&#39;,value:5632&#125;,&#123;name:&#39;京东&#39;,value:7885&#125;,&#123;name:&#39;拼多多&#39;,value:4632&#125;]</code></p>
+</li>
+<li><p>图表类型：</p>
+<p>在series下设置type:pie</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.setOption(&#123;<br>  <span class="hljs-attr">series</span>:[&#123;<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;pie&#x27;</span>,<br>    <span class="hljs-attr">data</span>:[&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;淘宝&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">11232</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;闲鱼&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">5632</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;京东&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">7885</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;拼多多&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">4632</span>&#125;]<br>  &#125;]<br>&#125;);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常见效果-1"><a href="#常见效果-1" class="headerlink" title="常见效果"></a>常见效果</h3><ul>
+<li><p>显示数值</p>
+<p>label.formatter</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">series:[&#123;<br>  <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;pie&#x27;</span>,<br>  <span class="hljs-attr">data</span>:[&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;淘宝&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">11232</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;闲鱼&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">5632</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;京东&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">7885</span>&#125;,&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;拼多多&#x27;</span>,<span class="hljs-attr">value</span>:<span class="hljs-number">4632</span>&#125;],<br>  <span class="hljs-attr">label</span>:&#123;<br>    <span class="hljs-comment">// 是否显示标签 </span><br>    <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">//默认为true</span><br>    <span class="hljs-comment">//决定文字显示的内容</span><br>    <span class="hljs-comment">// formatter:&#x27;&#123;b&#125;-&#123;c&#125;-&#123;d&#125;%&#x27;, // 淘宝-11232-28.23%</span><br>    <span class="hljs-attr">formatter</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>)</span>&#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;arg.name&#125;</span>-<span class="hljs-subst">$&#123;arg.value&#125;</span>`</span>;<br>    &#125;<br>  &#125;<br>&#125;]<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281532648.png" srcset="/img/loading.gif" lazyload alt="image-20210928153224578"></p>
+</li>
+<li><p>圆环 </p>
+<p>设置两个半径 <code>radius:[&#39;40%&#39;,&#39;80%&#39;]</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [&#123;<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;pie&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;淘宝&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">11232</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;闲鱼&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">5632</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;京东&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">7885</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;拼多多&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">4632</span> &#125;],<br>  <span class="hljs-comment">// 20代表20px；20%代表相对于其容器的高度或者宽度较小的值的一半</span><br>  <span class="hljs-attr">radius</span>: [<span class="hljs-string">&#x27;40%&#x27;</span>, <span class="hljs-string">&#x27;80%&#x27;</span>],   <span class="hljs-comment">// 较小的圆半径为40%，较大的为80%</span><br><br>&#125;]<br></code></pre></td></tr></table></figure>
+
+
+
+<img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281537737.png" srcset="/img/loading.gif" lazyload alt="image-20210928153703675"  /></li>
+<li><p>南丁格尔图：</p>
+<p><code>roseType:&#39;radius&#39;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.setOption(&#123;<br>  <span class="hljs-attr">series</span>: [&#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;pie&#x27;</span>,<br>    <span class="hljs-attr">data</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;淘宝&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">11232</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;闲鱼&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">5632</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;京东&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">7885</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;拼多多&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">4632</span> &#125;],<br>    <span class="hljs-attr">roseType</span>: <span class="hljs-string">&#x27;radius&#x27;</span> <span class="hljs-comment">//南丁格尔图 饼图的每块半径都不一样</span><br>  &#125;]<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281543847.png" srcset="/img/loading.gif" lazyload alt="image-20210928154303804"></p>
+</li>
+<li><p>选中效果</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 设置为single 选中的一部分会偏离圆点一小段 选中其他的之前的选中块又会回来</span><br><span class="hljs-comment">// selectedMode:&#x27;single&#x27; </span><br><span class="hljs-attr">selectedMode</span>:<span class="hljs-string">&#x27;multiple&#x27;</span>, <span class="hljs-comment">// 选中其他块，偏离不会回来</span><br><span class="hljs-comment">// 设置偏离的距离</span><br><span class="hljs-attr">selectedOffset</span>:<span class="hljs-number">30</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281547552.png" srcset="/img/loading.gif" lazyload alt="image-20210928154757511"></p>
+</li>
+</ul>
+<h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><p>地图可以帮助我们从宏观的角度快速地分析出不同地理位置上的数据差异。<a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#geo">官网文档</a></p>
+<p>地图图表的使用方式：</p>
+<ul>
+<li><p>百度地图Api</p>
+<p>需要申请百度地图的 access key</p>
+</li>
+<li><p>矢量地图</p>
+<p>需要准备矢量地图的数据</p>
+</li>
+</ul>
+<h3 id="实现步骤-4"><a href="#实现步骤-4" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p>引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>准备中国的矢量地图json文件，放到json/map/的目录下</p>
+</li>
+<li><p>使用ajax获取china.json</p>
+</li>
+<li><p>在回调函数中向echarts全局对象注册地图json数据</p>
+<p><code>echarts.registerMap(&#39;chinaMap&#39;,chinaJson)</code></p>
+</li>
+<li><p>在geo节点下设置 <code>type:&#39;map&#39; map:&#39;chinaMap&#39;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>fetch(<span class="hljs-string">&#x27;./JSON/map/china.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span>res.json()).then(<span class="hljs-function">(<span class="hljs-params">data</span>)=&gt;</span>&#123;<br>  echarts.registerMap(<span class="hljs-string">&#x27;chinaMap&#x27;</span>,data); <span class="hljs-comment">//echarts全局对象注册地图json数据</span><br>  myChart.setOption(&#123;<br>    <span class="hljs-attr">geo</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;map&#x27;</span>, <br>      <span class="hljs-attr">map</span>:<span class="hljs-string">&#x27;chinaMap&#x27;</span><br>    &#125;<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281626661.png" srcset="/img/loading.gif" lazyload alt="image-20210928162654623"></p>
+</li>
+</ul>
+<h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><ul>
+<li><p>缩放拖动</p>
+<p>roam</p>
+</li>
+<li><p>名称显示</p>
+<p>label</p>
+</li>
+<li><p>初始缩放比例</p>
+<p>zoom</p>
+</li>
+<li><p>地图中心点</p>
+<p>center</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>fetch(<span class="hljs-string">&#x27;./JSON/map/china.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span>res.json()).then(<span class="hljs-function">(<span class="hljs-params">data</span>)=&gt;</span>&#123;<br>  echarts.registerMap(<span class="hljs-string">&#x27;chinaMap&#x27;</span>,data);<br>  myChart.setOption(&#123;<br>    <span class="hljs-attr">geo</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;map&#x27;</span>,<br>      <span class="hljs-attr">map</span>:<span class="hljs-string">&#x27;chinaMap&#x27;</span>,<br>      <span class="hljs-attr">roam</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">// 设置允许缩放以及允许拖动地图</span><br>      <span class="hljs-comment">// 只缩放 scale 只拖动 move</span><br>      <span class="hljs-attr">label</span>:&#123;<br>        <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">//展示所有标签</span><br>      &#125;,<br>      <span class="hljs-attr">zoom</span>:<span class="hljs-number">1</span>,<span class="hljs-comment">//设置初始化缩放比例</span><br>      <span class="hljs-attr">center</span>:[<span class="hljs-number">99</span>,<span class="hljs-number">40</span>] <span class="hljs-comment">//根据经度纬度设置 某个地区为中心</span><br>    &#125;<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="常见效果-2"><a href="#常见效果-2" class="headerlink" title="常见效果"></a>常见效果</h3><h4 id="不同的城市显示不同的颜色"><a href="#不同的城市显示不同的颜色" class="headerlink" title="不同的城市显示不同的颜色"></a>不同的城市显示不同的颜色</h4><ol>
+<li><p>显示基本的中国地图</p>
+</li>
+<li><p>series中设置城市的空气质量</p>
+</li>
+<li><p>将series下的数据和geo关联在一起</p>
+<p><code>geoIndex:0</code> ,<code>type:&#39;map&#39;</code></p>
+</li>
+<li><p>结合visualMap配合使用</p>
+<p>min max inRange</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br><span class="hljs-keyword">const</span> airData = [<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;北京&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39.92</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;天津&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39.13</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;上海&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">31.22</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;重庆&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">66</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;河北&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">147</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;河南&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">113</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;云南&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">25.04</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;辽宁&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">50</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;黑龙江&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">114</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;湖南&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">175</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;安徽&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">117</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;山东&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">92</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;新疆&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">84</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;江苏&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">67</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;浙江&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">84</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;江西&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">96</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;湖北&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">273</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;广西&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">59</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;甘肃&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">99</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;山西&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;内蒙古&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">58</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;陕西&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">61</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;吉林&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">51</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;福建&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">29</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;贵州&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">71</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;广东&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">38</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;青海&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">57</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;西藏&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">24</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;四川&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">58</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;宁夏&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">52</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;海南&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">54</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;台湾&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">88</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;香港&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">66</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;澳门&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">77</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;南海诸岛&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">55</span> &#125;<br>]<br>fetch(<span class="hljs-string">&#x27;./JSON/map/china.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json()).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// console.log(data);</span><br>  echarts.registerMap(<span class="hljs-string">&#x27;chinaMap&#x27;</span>,data);<br>  myChart.setOption(&#123;<br>    <span class="hljs-attr">geo</span>:&#123;<br>      <span class="hljs-attr">map</span>:<span class="hljs-string">&#x27;chinaMap&#x27;</span>,<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;map&#x27;</span><br>    &#125;,<br>    <span class="hljs-attr">series</span>:[&#123;<br>      <span class="hljs-attr">data</span>:airData,<br>      <span class="hljs-comment">// 将series下的数据和geo关联起来</span><br>      <span class="hljs-attr">geoIndex</span>:<span class="hljs-number">0</span>, <span class="hljs-comment">//将空气质量的数据和第0个geo配置关联在一起</span><br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;map&#x27;</span>,<br>    &#125;],<br>    <span class="hljs-attr">visualMap</span>:&#123;<br>      <span class="hljs-attr">min</span>:<span class="hljs-number">0</span>,<br>      <span class="hljs-attr">max</span>:<span class="hljs-number">300</span>,<br>      <span class="hljs-attr">inRange</span>:&#123;<br>        <span class="hljs-attr">color</span>:[<span class="hljs-string">&#x27;white&#x27;</span>,<span class="hljs-string">&#x27;red&#x27;</span>] <span class="hljs-comment">//修改颜色</span><br>      &#125;<br>    &#125;<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281756290.png" srcset="/img/loading.gif" lazyload alt="image-20210928175640244"></p>
+<p>另外，还有一个属性为 <code>calcuable</code>, 将其设置为 true，通过拖动手柄可以对其筛选。下图筛选的是0~118的数据</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109281758460.png" srcset="/img/loading.gif" lazyload alt="image-20210928175816418"></p>
+</li>
+</ol>
+<h4 id="地图和散点图结合使用"><a href="#地图和散点图结合使用" class="headerlink" title="地图和散点图结合使用"></a>地图和散点图结合使用</h4><ol>
+<li><p>给series下增加新的对象</p>
+</li>
+<li><p>准备好散点数据，设置给新对象的data</p>
+</li>
+<li><p>配置新对象的type</p>
+<p>type:effectScatter</p>
+</li>
+<li><p>让散点图使用地图坐标系统</p>
+<p>coordinateSystem:’geo’</p>
+</li>
+<li><p>让涟漪效果更加明显</p>
+<p>rippleEffect:{scale:10}</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">series: [<br>  &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;effectScatter&#x27;</span>,<br>    <span class="hljs-attr">data</span>: scatterData,<br>    <span class="hljs-attr">coordinateSystem</span>: <span class="hljs-string">&#x27;geo&#x27;</span>, <span class="hljs-comment">// 指明散点使用的坐标系，geo的坐标系</span><br>    <span class="hljs-attr">rippleEffect</span>: &#123;<br>      <span class="hljs-attr">scale</span>: <span class="hljs-number">10</span>, <span class="hljs-comment">//设置涟漪动画的效果的大小</span><br>    &#125;<br>  &#125;<br>],<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109291708625.png" srcset="/img/loading.gif" lazyload alt="image-20210929170828567"></p>
+</li>
+</ol>
+<h2 id="雷达图"><a href="#雷达图" class="headerlink" title="雷达图"></a>雷达图</h2><p>雷达图可以用来分析多个维度的数据与标准数据的对比情况。</p>
+<h3 id="实现步骤-5"><a href="#实现步骤-5" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p> 引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>在radar节点下定义各个维度的<strong>最大值</strong></p>
+<p> indicator:[{name:’易用性’,max:100},{name:’功能’,max:100},{name:’拍照’,max:100},{name:’跑分’,max:100},{name:’续航’,max:100}]</p>
+</li>
+<li><p>准备具体产品的数据</p>
+<p> data: [{ name: ‘华为手机1’, value: [48, 88, 99, 66, 77] }, { name: ‘小米手机’, value:[88, 90, 89, 95, 87] }]</p>
+</li>
+<li><p>图表类型</p>
+<p> 在series下设置type:radar</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.setOption(&#123;<br>  <span class="hljs-attr">radar</span>: &#123;<br>    <span class="hljs-attr">indicator</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;易用性&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;功能&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;拍照&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;跑分&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;续航&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;],<br><br>  &#125;,<br>  <span class="hljs-attr">series</span>: [&#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;radar&#x27;</span>,<br>    <span class="hljs-attr">data</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;华为手机1&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-number">48</span>, <span class="hljs-number">88</span>, <span class="hljs-number">99</span>, <span class="hljs-number">66</span>, <span class="hljs-number">77</span>] &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;小米手机&#x27;</span>, <span class="hljs-attr">value</span>:[<span class="hljs-number">88</span>, <span class="hljs-number">90</span>, <span class="hljs-number">89</span>, <span class="hljs-number">95</span>, <span class="hljs-number">87</span>] &#125;]<br>  &#125;]<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p> <img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109291724913.png" srcset="/img/loading.gif" lazyload alt="image-20210929172444874"></p>
+</li>
+</ul>
+<h3 id="常用配置-1"><a href="#常用配置-1" class="headerlink" title="常用配置"></a>常用配置</h3><ul>
+<li><p>显示数值</p>
+<p>label:true</p>
+</li>
+<li><p>区域面积（配置在series节点下）</p>
+<p>areaStyle:{}</p>
+</li>
+<li><p>配置雷达图最外层的展示类型（配置在radar节点下）</p>
+<p>shape:’circle’ // 默认为polygen</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.setOption(&#123;<br>  <span class="hljs-attr">radar</span>: &#123;<br>    <span class="hljs-attr">indicator</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;易用性&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;功能&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;拍照&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;跑分&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;续航&#x27;</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">100</span> &#125;],<br>    <span class="hljs-attr">shape</span>:<span class="hljs-string">&#x27;circle&#x27;</span> <span class="hljs-comment">// 默认值为polygon</span><br>  &#125;,<br>  <span class="hljs-attr">series</span>: [&#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;radar&#x27;</span>,<br>    <span class="hljs-attr">data</span>: [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;华为手机1&#x27;</span>, <span class="hljs-attr">value</span>: [<span class="hljs-number">48</span>, <span class="hljs-number">88</span>, <span class="hljs-number">99</span>, <span class="hljs-number">66</span>, <span class="hljs-number">77</span>] &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;小米手机&#x27;</span>, <span class="hljs-attr">value</span>:[<span class="hljs-number">88</span>, <span class="hljs-number">90</span>, <span class="hljs-number">89</span>, <span class="hljs-number">95</span>, <span class="hljs-number">87</span>] &#125;],<br>    <span class="hljs-attr">areaStyle</span>:&#123;&#125;<br>  &#125;],<br>  <span class="hljs-attr">label</span>:&#123;<br>    <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span><br>  &#125;,<br>   <span class="hljs-attr">legend</span>:&#123;&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109291736631.png" srcset="/img/loading.gif" lazyload alt="image-20210929173611589"></p>
+</li>
+</ul>
+<h2 id="仪表盘"><a href="#仪表盘" class="headerlink" title="仪表盘"></a>仪表盘</h2><p>仪表盘主要用在进度把控以及数据范围的监控。</p>
+<h3 id="实现步骤-6"><a href="#实现步骤-6" class="headerlink" title="实现步骤"></a>实现步骤</h3><ul>
+<li><p>ECharts 最基本的代码结构：</p>
+<p>引入js文件，设置DOM容器，初始化对象，设置options</p>
+</li>
+<li><p>准备数据，设置给series下的data</p>
+<p>data：[{value:97}]</p>
+</li>
+<li><p>图表类型：</p>
+<p>在series下设置type:gauge</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.setOption(&#123;<br>  <span class="hljs-attr">series</span>: [<br>    &#123;<br>      <span class="hljs-attr">data</span>: [<br>        &#123; <span class="hljs-attr">value</span>: <span class="hljs-number">97</span> &#125;,<span class="hljs-comment">// 每一个对象就代表一个指针</span><br>        <span class="hljs-comment">// 每一个对象就代表一个指针</span><br>      ],<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;gauge&#x27;</span><br>    &#125;<br>  ]<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109291751403.png" srcset="/img/loading.gif" lazyload alt="image-20210929175100354"></p>
+</li>
+</ul>
+<h3 id="常见效果-3"><a href="#常见效果-3" class="headerlink" title="常见效果"></a>常见效果</h3><ul>
+<li><p>数值范围：</p>
+<p>min、max来控制</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.setOption(&#123;<br>  <span class="hljs-attr">series</span>: [<br>    &#123;<br>      <span class="hljs-attr">data</span>: [<br>        &#123; <span class="hljs-attr">value</span>: <span class="hljs-number">97</span> &#125;,<span class="hljs-comment">// 每一个对象就代表一个指针</span><br>        <span class="hljs-comment">// 每一个对象就代表一个指针</span><br>      ],<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;gauge&#x27;</span>,<br>      <span class="hljs-attr">min</span>:<span class="hljs-number">50</span> <span class="hljs-comment">//控制仪表盘的范围</span><br>    &#125;<br>  ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109291753316.png" srcset="/img/loading.gif" lazyload alt="image-20210929175328268"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="特点总结"><a href="#特点总结" class="headerlink" title="特点总结"></a>特点总结</h3><ul>
+<li>柱状图：柱状图描述的是分类数据，呈现的是每一个分类中有多少？,图表所表达出来的含义在于不同类别 数据的排名对比情况</li>
+<li>折线图：折线图更多的使用来呈现数据随时间的『变化趋势』</li>
+<li>散点图：散点图可以帮助我们推断出不同维度数据之间的相关性。比如在之前的例子中,看得出身高和体重是正相关, 身高越高, 体重越重；散点图也经常用在地图的标注上。</li>
+<li>饼图：饼图可以很好地帮助用户快速了解不同分类的数据的占比情况</li>
+<li>地图：地图主要可以帮助我们从宏观的角度快速看出不同地理位置上数据的差异</li>
+<li>雷达图：雷达图可以用来分析多个维度的数据与标准数据的对比情况</li>
+<li>仪表盘：仪表盘可以更直观的表现出某个指标的进度或实际情况</li>
+</ul>
+<h3 id="配置项总结"><a href="#配置项总结" class="headerlink" title="配置项总结"></a>配置项总结</h3><p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109300930460.png" srcset="/img/loading.gif" lazyload alt="image-20210930093001344"></p>
+<h1 id="Echarts-进阶"><a href="#Echarts-进阶" class="headerlink" title="Echarts 进阶"></a>Echarts 进阶</h1><h2 id="显示相关"><a href="#显示相关" class="headerlink" title="显示相关"></a>显示相关</h2><h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><h4 id="内置主题"><a href="#内置主题" class="headerlink" title="内置主题"></a>内置主题</h4><p>Echarts 内置了两套主题：light dark。</p>
+<ul>
+<li><p>在初始化对象方法init中可以声明</p>
+<p><code>const chart = echarts.init(dom,&#39;light&#39;);</code></p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301022634.png" srcset="/img/loading.gif" lazyload alt="dark主题"></p>
+</li>
+</ul>
+<h4 id="自定义主题"><a href="#自定义主题" class="headerlink" title="自定义主题"></a>自定义主题</h4><ol>
+<li><p>在<a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/theme-builder.html">主题编辑器</a>中编辑主题</p>
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301026746.png" srcset="/img/loading.gif" lazyload alt="image-20210930102607631"></p>
+</li>
+<li><p>下载主题，是一个js文件</p>
+</li>
+<li><p>引入主题js文件</p>
+</li>
+<li><p>在init方法中使用主题</p>
+</li>
+</ol>
+<h3 id="调色板"><a href="#调色板" class="headerlink" title="调色板"></a>调色板</h3><h4 id="调色盘"><a href="#调色盘" class="headerlink" title="调色盘"></a>调色盘</h4><p>它是一组颜色，图形和系列会自动从中选取颜色。</p>
+<ul>
+<li><p>主题调色盘</p>
+<p>操作上面定义主题一样</p>
+</li>
+<li><p>全局调色盘</p>
+<p>如果配置了，将会覆盖主题的调色盘：<code>myCharts.setOption(&#123;color:[&#39;red&#39;,&#39;green&#39;,&#39;blue&#39;]&#125;)</code></p>
+</li>
+<li><p>局部调色盘</p>
+<p><code>series:[&#123;type:&#39;bar&#39;,color:[&#39;red&#39;,&#39;green&#39;,&#39;blue&#39;]&#125;]</code></p>
+</li>
+</ul>
+<h4 id="颜色渐变"><a href="#颜色渐变" class="headerlink" title="颜色渐变"></a>颜色渐变</h4><ul>
+<li><p>线性渐变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs js">series: &#123;<br>  <span class="hljs-attr">data</span>: [<span class="hljs-number">83</span>, <span class="hljs-number">98</span>, <span class="hljs-number">90</span>, <span class="hljs-number">89</span>, <span class="hljs-number">92</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>  <span class="hljs-attr">markPoint</span>: &#123;<br>    <span class="hljs-attr">data</span>: [<br>      &#123;<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;max&#x27;</span>,<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;最大值&#x27;</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;min&#x27;</span>,<br>        <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;最小值&#x27;</span><br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">markLine</span>:&#123;<br>    <span class="hljs-attr">data</span>:[&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;average&#x27;</span>,<br>      <span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;平均值&#x27;</span><br>    &#125;]<br>  &#125;,<br>  <span class="hljs-attr">label</span>:&#123;<br>    <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">position</span>:<span class="hljs-string">&#x27;inside&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">barWidth</span>:<span class="hljs-string">&#x27;40%&#x27;</span>,<br>  <span class="hljs-attr">itemStyle</span>:&#123;<br>    <span class="hljs-attr">color</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;linear&#x27;</span>, <span class="hljs-comment">// 线性渐变</span><br>      <span class="hljs-attr">x</span>:<span class="hljs-number">0</span>, <span class="hljs-comment">// 定义颜色渐变的方向</span><br>      <span class="hljs-attr">y</span>:<span class="hljs-number">0</span>,<br>      <span class="hljs-attr">x2</span>:<span class="hljs-number">0</span>,<br>      <span class="hljs-attr">y2</span>:<span class="hljs-number">1</span>,<br>      <span class="hljs-attr">colorStops</span>:[<br>        &#123;<span class="hljs-attr">offset</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;red&#x27;</span>&#125;, <span class="hljs-comment">// 百分之0处的颜色为红色</span><br>        &#123;<span class="hljs-attr">offset</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;pink&#x27;</span>&#125; <span class="hljs-comment">// 百分之100处的颜色为蓝色 </span><br>      ]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301058837.png" srcset="/img/loading.gif" lazyload alt="image-20210930105849775"></p>
+</li>
+<li><p>径向渐变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js">itemStyle:&#123;<br>  <span class="hljs-comment">// color:&#123;</span><br>  <span class="hljs-comment">//   type:&#x27;linear&#x27;, // 线性渐变</span><br>  <span class="hljs-comment">//   x:0, // 定义颜色渐变的方向</span><br>  <span class="hljs-comment">//   y:0,</span><br>  <span class="hljs-comment">//   x2:0,</span><br>  <span class="hljs-comment">//   y2:1,</span><br>  <span class="hljs-comment">//   colorStops:[</span><br>  <span class="hljs-comment">//     &#123;offset:0,color:&#x27;red&#x27;&#125;, // 百分之0处的颜色为红色</span><br>  <span class="hljs-comment">//     &#123;offset:1,color:&#x27;pink&#x27;&#125; // 百分之100处的颜色为蓝色 </span><br>  <span class="hljs-comment">//   ]</span><br>  <span class="hljs-comment">// &#125;</span><br>  <span class="hljs-attr">color</span>:&#123;<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;radial&#x27;</span>,<br>    <span class="hljs-attr">x</span>:<span class="hljs-number">0.5</span>, <span class="hljs-comment">// 圆心的x坐标</span><br>    <span class="hljs-attr">y</span>:<span class="hljs-number">0.5</span>, <span class="hljs-comment">// 圆心的y坐标</span><br>    <span class="hljs-attr">r</span>:<span class="hljs-number">1</span>, <span class="hljs-comment">// 半径</span><br>    <span class="hljs-attr">colorStops</span>:[<br>      &#123;<span class="hljs-attr">offset</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;red&#x27;</span>&#125;,<br>      &#123;<span class="hljs-attr">offset</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;blue&#x27;</span>&#125;<br>    ]<br><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301105076.png" srcset="/img/loading.gif" lazyload alt="image-20210930110554025"></p>
+</li>
+</ul>
+<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><p>直接样式和高亮样式，优先级较高，会覆盖主题和调色盘的效果</p>
+<h4 id="直接样式"><a href="#直接样式" class="headerlink" title="直接样式"></a>直接样式</h4><p>itemStyle, textStyle, lineStyle, areaStyle, label</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.setOption(&#123;<br>  <span class="hljs-attr">title</span>:&#123;<br>    <span class="hljs-attr">text</span>:<span class="hljs-string">&#x27;饼图的测试&#x27;</span>,<br>    <span class="hljs-comment">// 2.textStyle</span><br>    <span class="hljs-attr">textStyle</span>:&#123;<br>      <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;red&#x27;</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">series</span>: &#123;<br>    <span class="hljs-attr">color</span>: [<span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;purple&#x27;</span>, <span class="hljs-string">&#x27;pink&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>],<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;pie&#x27;</span>,<br>    <span class="hljs-attr">data</span>: [&#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">33</span>,<br>      <span class="hljs-comment">// 1.itemStyle控制张三这一区域的样式</span><br>      <span class="hljs-attr">itemStyle</span>: &#123;<br>        <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;yellow&#x27;</span><br>      &#125;,<br>      <span class="hljs-comment">// 3.label</span><br>      <span class="hljs-attr">label</span>:&#123;<br>        <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;green&#x27;</span><br>      &#125;<br>    &#125;,<br>    &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;王五&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">44</span> &#125;,<br>    &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;赵六&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">54</span> &#125;,<br>    &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;李四&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39</span> &#125;,<br>    &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;老张&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">63</span> &#125;<br>    ],<br>    <span class="hljs-attr">label</span>: &#123;<br>      <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">formatter</span>: <span class="hljs-string">&#x27;&#123;b&#125;-&#123;c&#125;&#x27;</span>,<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301128919.png" srcset="/img/loading.gif" lazyload alt="image-20210930112829865"></p>
+<h4 id="高亮样式"><a href="#高亮样式" class="headerlink" title="高亮样式"></a>高亮样式</h4><p>在 emphasis 中包裹 itemStyle, textStyle, lineStyle, areaStyle, label</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs js">series: &#123;<br>  <span class="hljs-attr">color</span>: [<span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;purple&#x27;</span>, <span class="hljs-string">&#x27;pink&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>],<br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;pie&#x27;</span>,<br>  <span class="hljs-attr">data</span>: [&#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">33</span>,<br>    <span class="hljs-comment">// 1.itemStyle控制张三这一区域的样式</span><br>    <span class="hljs-attr">itemStyle</span>: &#123;<br>      <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;yellow&#x27;</span><br>    &#125;,<br>    <span class="hljs-comment">// 3.label</span><br>    <span class="hljs-attr">label</span>:&#123;<br>      <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;green&#x27;</span><br>    &#125;,<br>    <span class="hljs-comment">// 高亮样式</span><br>    <span class="hljs-attr">emphasis</span>:&#123;<br>      <span class="hljs-attr">itemStyle</span>:&#123;<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;pink&#x27;</span>&#125;,<br>      <span class="hljs-attr">label</span>:&#123;<span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;black&#x27;</span>&#125;<br>    &#125;<br>  &#125;,<br>  &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;王五&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">44</span> &#125;,<br>  &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;赵六&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">54</span> &#125;,<br>  &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;李四&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39</span> &#125;,<br>  &#123; <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;老张&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">63</span> &#125;<br>  ],<br>  <span class="hljs-attr">label</span>: &#123;<br>    <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">formatter</span>: <span class="hljs-string">&#x27;&#123;b&#125;-&#123;c&#125;&#x27;</span>,<br>  &#125;<br>&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="自适应"><a href="#自适应" class="headerlink" title="自适应"></a>自适应</h3><p>当浏览器的大小发生变化的时候，图表也能随之适配变化。</p>
+<ol>
+<li><p>监听窗口大小变化的事件（resize）</p>
+</li>
+<li><p>在事件处理函数中调用Echarts实例对象中的resize即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;resize&#x27;</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>    myChart.resize();<br>&#125;)<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="动画的使用"><a href="#动画的使用" class="headerlink" title="动画的使用"></a>动画的使用</h2><h3 id="加载动画"><a href="#加载动画" class="headerlink" title="加载动画"></a>加载动画</h3><p>ECharts已经内置好了加载数据的动画，我们只需要在合适的时机显示或者隐藏即可</p>
+<ul>
+<li><p>显示加载动画</p>
+<p><code>myChart.showLoading()</code></p>
+</li>
+<li><p>隐藏加载动画</p>
+<p><code>myChart.hideLoading()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;div&#x27;</span>));<br>myChart.showLoading();<br>fetch(<span class="hljs-string">&#x27;./Json/data.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json()).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span>&#123;<br>  myChart.hideLoading();<br>  <span class="hljs-keyword">const</span> dataArr = data.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>[item.height,item.weight]);<br>  myChart.setOption(&#123;<br>    <span class="hljs-attr">xAxis</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;value&#x27;</span>,<br>      <span class="hljs-attr">scale</span>:<span class="hljs-literal">true</span><br>    &#125;,<br>    <span class="hljs-attr">yAxis</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;value&#x27;</span>,<br>      <span class="hljs-attr">scale</span>:<span class="hljs-literal">true</span>,<br>    &#125;,<br>    <span class="hljs-attr">series</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;scatter&#x27;</span>,<br>      <span class="hljs-attr">data</span>:dataArr<br>    &#125;<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202109301207486.png" srcset="/img/loading.gif" lazyload alt="image-20210930120726408"></p>
+</li>
+</ul>
+<h3 id="增量动画"><a href="#增量动画" class="headerlink" title="增量动画"></a>增量动画</h3><p>所有数据的更新都是通过setOption来实现，不需要考虑数据到底发生了那些变化。</p>
+<p>新旧option并不是相互覆盖的关系，是相互整合的关系。设置新的option时，只需要考虑变化的部分就可以了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> btnmodify = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#modify&#x27;</span>);<br><span class="hljs-keyword">const</span> btnadd = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#add&#x27;</span>);<br>btnmodify.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> newData = [<span class="hljs-number">25</span>, <span class="hljs-number">33</span>, <span class="hljs-number">55</span>, <span class="hljs-number">66</span>];<br>  <span class="hljs-comment">// 新旧option并不是相互覆盖的关系，是相互整合的关系</span><br>  <span class="hljs-comment">// 设置新的option时，只需要考虑变化的部分就可以了。</span><br>  myCharts.setOption(&#123;<br>    <span class="hljs-attr">series</span>: [&#123;<br>      <span class="hljs-attr">data</span>: newData,<br><br>    &#125;],<br>  &#125;);<br>&#125;)<br>btnadd.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> newData = [<span class="hljs-number">66</span>, <span class="hljs-number">72</span>, <span class="hljs-number">65</span>, <span class="hljs-number">88</span>, <span class="hljs-number">43</span>];<br>  <span class="hljs-keyword">const</span> newName = [<span class="hljs-string">&#x27;张三&#x27;</span>, <span class="hljs-string">&#x27;李四&#x27;</span>, <span class="hljs-string">&#x27;王五&#x27;</span>, <span class="hljs-string">&#x27;赵六&#x27;</span>, <span class="hljs-string">&#x27;小吴&#x27;</span>];<br>  myCharts.setOption(&#123;<br>    <span class="hljs-attr">xAxis</span>: &#123;<br>      <span class="hljs-attr">data</span>: newName<br>    &#125;,<br>    <span class="hljs-attr">series</span>: [&#123;<br>      <span class="hljs-attr">data</span>: newData,<br><br>    &#125;],<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>全部代码：<a target="_blank" rel="noopener" href="https://codepen.io/liujiaqi222/pen/ZEyPGNp">https://codepen.io/liujiaqi222/pen/ZEyPGNp</a></p>
+<h3 id="动画配置"><a href="#动画配置" class="headerlink" title="动画配置"></a>动画配置</h3><ul>
+<li><p>开启动画</p>
+<p>animation:true</p>
+</li>
+<li><p>动画时长</p>
+<p>animationDuration:1000 (以毫秒为单位)</p>
+</li>
+<li><p>缓动动画</p>
+<p>animationEasing:’bounceOut’</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">myCharts.setOption(&#123;<br>  <span class="hljs-attr">animation</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">animationDuration</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(arg); <span class="hljs-comment">// 会打印动画元素的索引值</span><br>    <span class="hljs-keyword">return</span> arg * <span class="hljs-number">2000</span>;<br>  &#125;,<br>  <span class="hljs-attr">animationEasing</span>: <span class="hljs-string">&#x27;bounceOut&#x27;</span>, <span class="hljs-comment">// linear 等等</span><br>&#125;);<br></code></pre></td></tr></table></figure></li>
+<li><p>动画阈值</p>
+<p>animationThreshold:10 // 同一类的动画，最多只展示10个</p>
+</li>
+</ul>
+<h2 id="交互API"><a href="#交互API" class="headerlink" title="交互API"></a>交互API</h2><h3 id="全局的echarts对象"><a href="#全局的echarts对象" class="headerlink" title="全局的echarts对象"></a>全局的echarts对象</h3><p>全局<a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/api.html#echarts">echarts对象</a>是引入echarts.js文件之后就可以直接使用的对象</p>
+<ul>
+<li><p>init 初始化echarts实例对象，使用主题</p>
+</li>
+<li><p>registerTheme 注册主题，只有注册过的主题，才能在init方法中使用该主题</p>
+</li>
+<li><p>registerMap 注册地图数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js">fetch(<span class="hljs-string">&#x27;./JSON/map/china.json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span>res.json()).then(<span class="hljs-function">(<span class="hljs-params">data</span>)=&gt;</span>&#123;<br>  <span class="hljs-comment">// 注册地图</span><br>  echarts.registerMap(<span class="hljs-string">&#x27;chinaMap&#x27;</span>,data);<br>  myChart.setOption(&#123;<br>    <span class="hljs-attr">geo</span>:&#123;<br>      <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;map&#x27;</span>,<br>      <span class="hljs-attr">map</span>:<span class="hljs-string">&#x27;chinaMap&#x27;</span>,<br>      <span class="hljs-attr">roam</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">// 设置允许缩放以及允许拖动地图</span><br>      <span class="hljs-comment">// 只缩放 scale 只拖动 move</span><br>      <span class="hljs-attr">label</span>:&#123;<br>        <span class="hljs-attr">show</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">//展示所有标签</span><br>      &#125;,<br>      <span class="hljs-attr">zoom</span>:<span class="hljs-number">1</span>,<span class="hljs-comment">//设置初始化缩放比例</span><br>      <span class="hljs-attr">center</span>:[<span class="hljs-number">99</span>,<span class="hljs-number">40</span>] <span class="hljs-comment">//根据经度纬度设置 某个地区为中心</span><br>    &#125;<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure></li>
+<li><p>connect</p>
+<p>一个页面中可以有多个独立的图表，每一个图表都对应着一个ECharts实例对象。</p>
+<p>connect可以实现多图关联，传入联动目标为ECharts实例对象，支持数组。保存图片的时候会自动拼接，刷新按钮，重置按钮，提示框联动，图例选择，数据范围修改等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">echarts.connect([mychart1,mychart2])<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="echartsInstance对象"><a href="#echartsInstance对象" class="headerlink" title="echartsInstance对象"></a>echartsInstance对象</h3><p><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/api.html#echartsInstance">eChartsInstance对象</a>是通过echarts.init方法调用后的返回值</p>
+<ul>
+<li><p>setOption</p>
+<p>设置或修改图表实例的配置项以及数据，可多次调用setOption方法（会合并新的配置和旧的配置）。</p>
+</li>
+<li><p>resize</p>
+<p>重新计算和绘制图表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myChart = echarts.init(dom);<br><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;resize&#x27;</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>    myChart.resize();<br>&#125;)<br></code></pre></td></tr></table></figure></li>
+<li><p><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/api.html#events">on\off</a></p>
+<p>绑定或者解绑事件处理函数</p>
+<ul>
+<li><p>鼠标事件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 对事件监听</span><br>myChart.on(<span class="hljs-string">&#x27;click&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>)</span>&#123;<br>  <span class="hljs-built_in">console</span>.log(arg);<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;click...&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure></li>
+<li><p>ECharts事件</p>
+<p>常见事件：legendSelectChanged, ‘dataZoom’,’pieSelectChanged’,’mapSelectChanged’等</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.on(<span class="hljs-string">&#x27;legendSelectChanged&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>)</span>&#123;<br>  <span class="hljs-built_in">console</span>.log(arg); <span class="hljs-comment">//打印选中状态</span><br>&#125;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/api.html#action">dispatchAction</a></p>
+<p>触发某些行为（使用代码模拟用户的行为）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">mCharts.dispatchAction(&#123;<br>    <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;hightlight&#x27;</span>, <span class="hljs-comment">//事件类型</span><br>    <span class="hljs-attr">seriesIndex</span>:<span class="hljs-number">0</span>, <span class="hljs-comment">//图表索引</span><br>    <span class="hljs-attr">dataIndex</span>:<span class="hljs-number">1</span> <span class="hljs-comment">//图表中哪一项高亮</span><br>&#125;)<br></code></pre></td></tr></table></figure></li>
+<li><p>clear</p>
+<p>清空当前实例，会移除实例中所有的组件和图表；</p>
+<p>清空之后，可以再次setOption</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.clear(); <span class="hljs-comment">// 整个图表将不会显示</span><br>myChart.setOption(option); <span class="hljs-comment">// 图表将会重新展示</span><br></code></pre></td></tr></table></figure></li>
+<li><p>dispose</p>
+<p>销毁实例，实例销毁后无法再被使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">myChart.clear(); <br>myChart.setOption(option);   <span class="hljs-comment">// 会报错</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/echarts/">echarts</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/26/%E8%99%9A%E6%8B%9FDOM%E7%AE%80%E5%8D%95%E8%A7%A3%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/24/Scss%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Scss学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
