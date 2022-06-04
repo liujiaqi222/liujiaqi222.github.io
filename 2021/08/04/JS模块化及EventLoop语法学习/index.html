@@ -296,7 +296,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFile</span>(<span class="hljs-params">fpath</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve,reject</span>)</span>&#123;<br>        fs.readFile(fpath,<span class="hljs-string">&#x27;utf-8&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">err,data</span>)=&gt;</span>&#123;<br>            <span class="hljs-keyword">if</span>(err) <span class="hljs-keyword">return</span> reject(err);<br>            resolve(data);<br>        &#125;)<br>    &#125;)<br>&#125;<br><br>getFile(<span class="hljs-string">&#x27;./files/1.txt&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">r1</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(r1);<br>&#125;,<span class="hljs-function">(<span class="hljs-params">err</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(err.message);<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <h1 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h1><h2 id="1-JavaScript-是单线程的语言"><a href="#1-JavaScript-是单线程的语言" class="headerlink" title="1. JavaScript 是单线程的语言"></a>1. JavaScript 是单线程的语言</h2><p>JavaScript 是一门单线程执行的编程语言。也就是说，同一时间只能做一件事情。</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041755351.png" srcset="/img/loading.gif" lazyload alt="image-20210804175533250"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108041755351.png" srcset="/img/loading.gif" lazyload alt="image-20210804175533250"></p>
 <p>单线程执行任务队列的问题：<br>如果前一个任务非常耗时，则后续的任务就不得不一直等待，从而导致程序假死的问题。</p>
 <h2 id="2-同步任务和异步任务"><a href="#2-同步任务和异步任务" class="headerlink" title="2. 同步任务和异步任务"></a>2. 同步任务和异步任务</h2><p>为了防止某个耗时任务导致程序假死的问题，JavaScript 把待执行的任务分为了两类：<br>① 同步任务（synchronous）</p>
 <ul>
@@ -308,11 +308,11 @@
 <li>又叫做耗时任务，<em>异步任务由 JavaScript 委托给<strong>宿主环境</strong>进行执行</em></li>
 <li>当异步任务执行完成后，会通知 JavaScript 主线程执行异步任务的回调函数 。</li>
 </ul>
-<h2 id="3-同步任务和异步任务的执行过程"><a href="#3-同步任务和异步任务的执行过程" class="headerlink" title="3.同步任务和异步任务的执行过程"></a>3.同步任务和异步任务的执行过程</h2><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041813594.png" srcset="/img/loading.gif" lazyload alt="image-20210804181315494" style="zoom:67%;" />
+<h2 id="3-同步任务和异步任务的执行过程"><a href="#3-同步任务和异步任务的执行过程" class="headerlink" title="3.同步任务和异步任务的执行过程"></a>3.同步任务和异步任务的执行过程</h2><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108041813594.png" srcset="/img/loading.gif" lazyload alt="image-20210804181315494" style="zoom:67%;" />
 
 <p>① 同步任务由 JavaScript 主线程次序执行。<br>② 异步任务<strong>委托给</strong>宿主环境执行。<br>③ 已完成的异步任务<strong>对应的回调函数</strong>，会被加入到任务队列中等待执行。<br>④ JavaScript 主线程的<em><strong>执行栈</strong></em>被清空后，会读取任务队列中的回调函数，次序执行。<br>⑤ JavaScript 主线程不断重复上面的第 4 步 。</p>
 <h2 id="4-EventLoop的基本概念"><a href="#4-EventLoop的基本概念" class="headerlink" title="4.EventLoop的基本概念"></a>4.EventLoop的基本概念</h2><p>JavaScript 主线程从“任务队列”中读取异步任务的回调函数，放到执行栈中依次执行。这个过程是循环不断的，所以整个的这种运行机制又称为 EventLoop（事件循环）。  </p>
-<img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041815433.png" srcset="/img/loading.gif" lazyload alt="image-20210804181557376" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108041815433.png" srcset="/img/loading.gif" lazyload alt="image-20210804181557376" style="zoom:67%;" />
 
 <p>输出顺序：ADCB</p>
 <ul>
@@ -320,7 +320,7 @@
 <li>C 和 B 属于异步任务。它们的回调函数会被加入到任务队列中，等待主线程空闲时再执行 。</li>
 </ul>
 <h1 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h1><h2 id="1-什么是宏任务和微任务"><a href="#1-什么是宏任务和微任务" class="headerlink" title="1. 什么是宏任务和微任务"></a>1. 什么是宏任务和微任务</h2><p>JavaScript 把异步任务又做了进一步的划分，异步任务又分为两类，分别是：</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041820682.png" srcset="/img/loading.gif" lazyload alt="image-20210804182047617"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108041820682.png" srcset="/img/loading.gif" lazyload alt="image-20210804182047617"></p>
 <p>① 宏任务（macrotask）</p>
 <ul>
 <li>异步 Ajax 请求、</li>
@@ -334,7 +334,7 @@
 <li>process.nextTick</li>
 <li>其它微任务  </li>
 </ul>
-<h2 id="2-宏任务和微任务的执行顺序"><a href="#2-宏任务和微任务的执行顺序" class="headerlink" title="2.宏任务和微任务的执行顺序"></a>2.宏任务和微任务的执行顺序</h2><p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108041822151.png" srcset="/img/loading.gif" lazyload alt="image-20210804182243122"></p>
+<h2 id="2-宏任务和微任务的执行顺序"><a href="#2-宏任务和微任务的执行顺序" class="headerlink" title="2.宏任务和微任务的执行顺序"></a>2.宏任务和微任务的执行顺序</h2><p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108041822151.png" srcset="/img/loading.gif" lazyload alt="image-20210804182243122"></p>
 <p>每一个宏任务执行完之后，都会检查<strong>是否存在待执行的微任务</strong>。</p>
 <p>如果有，则执行完所有微任务之后，再继续执行下一个宏任务。  </p>
 <p><strong>宏任务和微任务同时存在的情况下，会先执行微任务。</strong></p>

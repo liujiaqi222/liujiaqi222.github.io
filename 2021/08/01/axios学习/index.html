@@ -278,7 +278,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">axios.get(<span class="hljs-string">&#x27;http://localhost/axios&#x27;</span>,&#123;<br>    <span class="hljs-attr">params</span>:&#123;<span class="hljs-attr">id</span>:<span class="hljs-number">67</span>&#125;<br>&#125;).then(<span class="hljs-function"><span class="hljs-params">response</span>=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(response.data);<br>&#125;)<br></code></pre></td></tr></table></figure>
 <p>此时会调用第一个接口。</p>
 <p>最后的结果为：</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20210801150100.png" srcset="/img/loading.gif" lazyload alt="image-20210801150053066"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/20210801150100.png" srcset="/img/loading.gif" lazyload alt="image-20210801150053066"></p>
 </li>
 </ul>
 <h3 id="DELETE传递参数"><a href="#DELETE传递参数" class="headerlink" title="DELETE传递参数"></a>DELETE传递参数</h3><p>参数传递与GET方式类似，支持通过url或者axios的params传递参数。</p>
@@ -308,7 +308,7 @@
 <p>使用的接口与前面的一样，故不赘述。</p>
 </li>
 <li><p>除了URLSearchParams，还可以通过其他方式编码，具体详见<a target="_blank" rel="noopener" href="https://axios-http.com/zh/docs/urlencoded%E3%80%82">https://axios-http.com/zh/docs/urlencoded。</a></p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20210801153639.png" srcset="/img/loading.gif" lazyload alt="image-20210801153632594"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/20210801153639.png" srcset="/img/loading.gif" lazyload alt="image-20210801153632594"></p>
 </li>
 </ul>
 <h3 id="PUT请求"><a href="#PUT请求" class="headerlink" title="PUT请求"></a>PUT请求</h3><p>参数传递与POST请求相似。</p>
@@ -338,14 +338,14 @@
 
 <h2 id="axios拦截器"><a href="#axios拦截器" class="headerlink" title="axios拦截器"></a>axios拦截器</h2><p>在请求或响应被 then 或 catch 处理前拦截它们。一定要记得把config或者response返回出去。</p>
 <h3 id="请求拦截器"><a href="#请求拦截器" class="headerlink" title="请求拦截器"></a>请求拦截器</h3><p>在请求发出前的设置的一些信息。</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20210801163129.png" srcset="/img/loading.gif" lazyload alt="image-20210801163129933"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/20210801163129.png" srcset="/img/loading.gif" lazyload alt="image-20210801163129933"></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 添加请求拦截器</span><br>axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>&#123;<br>    <span class="hljs-comment">// 在发送请求之前做些什么</span><br>    <span class="hljs-keyword">return</span> config;<br>  &#125;, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>&#123;<br>    <span class="hljs-comment">// 对请求错误做些什么</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);<br>  &#125;);<br></code></pre></td></tr></table></figure>
 
 <p>使用举例：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>)</span>&#123;<br>    <span class="hljs-comment">// 比如可以根据不同的url，进行不同的配置</span><br>    <span class="hljs-built_in">console</span>.log(config.url);<br>    <span class="hljs-comment">// 在请求发出前做些什么</span><br>    config.headers.mytoken=<span class="hljs-string">&#x27;hello&#x27;</span>;<br>    <span class="hljs-keyword">return</span> config;<br>&#125;,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(err);<br>&#125;);<br><br>axios.get(<span class="hljs-string">&#x27;http://localhost/axios-json&#x27;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(response.data);<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <h3 id="响应拦截器"><a href="#响应拦截器" class="headerlink" title="响应拦截器"></a>响应拦截器</h3><p>在获取数据之前，对数据进行加工处理。</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/20210801163941.png" srcset="/img/loading.gif" lazyload alt="image-20210801163941747"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/20210801163941.png" srcset="/img/loading.gif" lazyload alt="image-20210801163941747"></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 添加响应拦截器</span><br>axios.interceptors.response.use(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>&#123;<br>    <span class="hljs-comment">// 2xx 范围内的状态码都会触发该函数。</span><br>    <span class="hljs-comment">// 对响应数据做点什么</span><br>    <span class="hljs-keyword">return</span> response;<br>  &#125;, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>&#123;<br>    <span class="hljs-comment">// 超出 2xx 范围的状态码都会触发该函数。</span><br>    <span class="hljs-comment">// 对响应错误做点什么</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);<br>  &#125;);<br></code></pre></td></tr></table></figure>
 
 <p>使用举例：</p>

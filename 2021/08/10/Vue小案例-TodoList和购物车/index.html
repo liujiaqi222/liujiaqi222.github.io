@@ -237,7 +237,7 @@
             
             <div class="markdown-body">
               <h1 id="todo-list小案例"><a href="#todo-list小案例" class="headerlink" title="todo-list小案例"></a>todo-list小案例</h1><p>案例效果</p>
-<p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108061721870.png" srcset="/img/loading.gif" lazyload alt="image-20210806172116797"></p>
+<p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108061721870.png" srcset="/img/loading.gif" lazyload alt="image-20210806172116797"></p>
 <p>用到的知识点</p>
 <p>① vite 创建项目</p>
 <p>② 组件的封装与注册</p>
@@ -246,7 +246,7 @@
 <p>⑤ 计算属性</p>
 <p>⑥ 自定义事件</p>
 <p>⑦ 组件上的 v-model  </p>
-<img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108061950527.png" srcset="/img/loading.gif" lazyload alt="image-20210806195021439" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108061950527.png" srcset="/img/loading.gif" lazyload alt="image-20210806195021439" style="zoom:50%;" />
 
 <h2 id="1-使用-vite-初始化项目"><a href="#1-使用-vite-初始化项目" class="headerlink" title="1.使用 vite 初始化项目"></a>1.使用 vite 初始化项目</h2><p>在终端运行以下的命令，初始化 vite 项目：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bahs">npm init vite-app todos<br></code></pre></td></tr></table></figure>
@@ -316,7 +316,7 @@
 <li><p>在 TodoInput 组件中渲染如下的 DOM 结构：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br><br>    &lt;form class=&quot;form-inline&quot;&gt;<br>        &lt;div class=&quot;input-group mb-2 mr-sm-2&quot;&gt;<br>            &lt;div class=&quot;input-group-prepend&quot;&gt;<br>                &lt;div class=&quot;input-group-text&quot;&gt;任务&lt;/div&gt;<br>            &lt;/div&gt;<br>            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;请输入任务...&quot; style=&quot;width:320px&quot;&gt;<br>        &lt;/div&gt;<br>        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary mb-2&quot;&gt;添加&lt;/button&gt;<br>    &lt;/form&gt;<br><br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>    name:&#x27;TodoInput&#x27;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&#x27;less&#x27; scoped&gt;<br>    form&#123;<br>        margin: 20px auto 0;<br>        width: 550px;<br>        display: flex;<br>        justify-content: center;<br>    &#125;<br>    <br>&lt;/style&gt;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="4-3-通过自定义事件向外传递数据"><a href="#4-3-通过自定义事件向外传递数据" class="headerlink" title="4.3 通过自定义事件向外传递数据"></a>4.3 通过自定义事件向外传递数据</h3><p><img src="https://gitee.com/zyxbj/image-warehouse/raw/master/pics/202108062009652.png" srcset="/img/loading.gif" lazyload alt="image-20210806200940579"></p>
+<h3 id="4-3-通过自定义事件向外传递数据"><a href="#4-3-通过自定义事件向外传递数据" class="headerlink" title="4.3 通过自定义事件向外传递数据"></a>4.3 通过自定义事件向外传递数据</h3><p><img src="https://raw.githubusercontent.com/liujiaqi222/images/master/pics/202108062009652.png" srcset="/img/loading.gif" lazyload alt="image-20210806200940579"></p>
 <ol>
 <li><p>在 TodoList 组件的 data 中声明如下的数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">data()&#123;<br>    return&#123;<br>        // 新任务名称<br>        taskname:&#x27;&#x27;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
